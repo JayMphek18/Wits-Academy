@@ -26,4 +26,6 @@ public class MainActivity extends AppCompatActivity {
     public void Main_page(View view) {
         setContentView(R.layout.main_menu_students);
     }
+    public void forgot_password_toolbox(View view) {
+    }
 }
