@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/background_animation"
+    android:id="@+id/login_page">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="172dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="102dp"
+        android:layout_marginEnd="108dp"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="271dp"
+        android:text="User ID" />
+
+    <EditText
+        android:id="@+id/User_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_id"
+        android:layout_alignStart="@+id/user_id"
+        android:layout_alignEnd="@+id/user_id"
+        android:hint="Enter User ID"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="-148dp"
+        android:drawableLeft="@drawable/user_icon"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/password"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/User_number"
+        android:layout_alignStart="@+id/User_number"
+        android:layout_alignEnd="@+id/User_number"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="117dp"
+        android:text="Password" />
+
+    <EditText
+        android:id="@+id/user_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_alignEnd="@+id/password"
+        android:layout_marginStart="0dp"
+        android:hint="Enter Password"
+        android:layout_marginTop="12dp"
+        android:drawableLeft="@drawable/password_icon"
+        android:layout_marginEnd="-117dp"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_password"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="82dp"
+        android:onClick="Main_page"
+        android:background="#1276A3"
+        android:backgroundTint="#A12121"
+        android:text="Login" />
+
+</RelativeLayout>
