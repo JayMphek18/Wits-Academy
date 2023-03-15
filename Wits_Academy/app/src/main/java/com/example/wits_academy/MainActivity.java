@@ -24,8 +24,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Main_page(View view) {
-        setContentView(R.layout.main_menu_students);
+        Intent intent = new Intent(this, main_menu_student.class);
+        startActivity(intent);
     }
+
     public void forgot_password_toolbox(View view) {
+    }
+
+    public void registration_page(View view) {
+        Intent intent = new Intent(this, register_page.class);
+        startActivity(intent);
     }
 }

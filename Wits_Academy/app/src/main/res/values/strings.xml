@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Wits_Academy</string>
+
+    <string-array name="role">
+        <item>Choose Role</item>
+        <item>Student</item>
+        <item>Teacher</item>
+    </string-array>
 </resources>

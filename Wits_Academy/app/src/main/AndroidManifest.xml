@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wits_Academy">
         <activity
+            android:name=".main_menu_student"
+            android:exported="false" />
+        <activity
+            android:name=".register_page"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
