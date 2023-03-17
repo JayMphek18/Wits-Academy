@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wits_Academy">
         <activity
+            android:name=".forgot_password"
+            android:exported="false" />
+        <activity
+            android:name=".main_menu_teacher"
+            android:exported="false" />
+        <activity
             android:name=".main_menu_student"
             android:exported="false" />
         <activity

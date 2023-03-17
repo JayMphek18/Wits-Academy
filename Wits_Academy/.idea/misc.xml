@@ -7,8 +7,15 @@
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/drawable/background_2.xml" value="0.1955" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/drawable/background_3.xml" value="0.1955" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/drawable/background_animation.xml" value="0.1955" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/drawable/button_background.xml" value="0.1955" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/drawable/input_shape.xml" value="0.1955" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/layout/forgot_password.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/layout/login_page.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/layout/main_menu_student.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/layout/main_menu_students.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/layout/main_menu_teacher.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy/app/src/main/res/layout/register_page.xml" value="0.264" />
       </map>
     </option>
   </component>
