@@ -14,7 +14,7 @@
 
    if($data) {
 	$username = $data['username'];
-      echo $UserId ;
+      echo $username ;
    }
 else{
 	echo 'ERROR';
