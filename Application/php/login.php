@@ -6,15 +6,15 @@
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
    }
 
-   $username = $_POST['username'];
+   $Username = $_POST['username'];
    $Password = $_POST['password'];
 
-   $result = mysqli_query($con,"SELECT username FROM registration where username='$username'  and Password = '$Password'");
+   $result = mysqli_query($con,"SELECT username FROM registration where username='$Username'  and password = '$Password'");
    $data = mysqli_fetch_array($result);
 
    if($data) {
-	$username = $data['username'];
-      echo $username ;
+	$Username = $data['username'];
+      echo $Username ;
    }
 else{
 	echo 'ERROR';
