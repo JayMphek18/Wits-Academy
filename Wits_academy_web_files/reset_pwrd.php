@@ -150,7 +150,7 @@
             }
 
             require("database.php");
-            $sql1= "SELECT * FROM registration WHERE user_id='$user_id' AND email='$email'";
+            $sql1= "SELECT * FROM registration WHERE user_id='$user_id' AND email_address='$email'";
             $result1 = mysqli_query($conn, $sql1);
             $rowCount= mysqli_num_rows($result1);
             if($rowCount == 0){
