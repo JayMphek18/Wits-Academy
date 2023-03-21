@@ -196,8 +196,8 @@
                 }
 
                 $sql2= "SELECT * FROM registration WHERE user_id='$user_id'";
-                $result = mysqli_query($conn, $sql2);
-                $rowCount2= mysqli_num_rows($result);
+                $result2 = mysqli_query($conn, $sql2);
+                $rowCount2= mysqli_num_rows($result2);
                 if($rowCount2>0){
                     array_push($errors, "User ID already exists!");
                 }
