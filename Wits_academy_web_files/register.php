@@ -188,7 +188,7 @@
 
                 require("database.php");
 
-                $sql1= "SELECT * FROM registration WHERE email='$email'";
+                $sql1= "SELECT * FROM registration WHERE email_address='$email'";
                 $result1 = mysqli_query($conn, $sql1);
                 $rowCount1= mysqli_num_rows($result1);
                 if($rowCount1>0){
@@ -217,7 +217,7 @@
                         echo"<div class='alert alert-danger'>$error</div>";
                     }
                 }else{
-                    $sql = "INSERT INTO registration (user_id, first_name, last_name, email, role, password) VALUES (?,?,?,?,?,?)";
+                    $sql = "INSERT INTO registration (user_id, first_name, last_name, email_address, role, password) VALUES (?,?,?,?,?,?)";
                     $statement = mysqli_stmt_init($conn);
                     $prepare = mysqli_stmt_prepare($statement, $sql);
                     if($prepare){
