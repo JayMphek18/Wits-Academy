@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,10 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
 
-        //changing background and title on toolbar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-        getSupportActionBar().setTitle("Log into your account");
-
         user_id = (EditText) findViewById(R.id.user_number);
         user_password = (EditText) findViewById(R.id.user_password);
 
@@ -35,26 +30,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
         }
         else{
-            DataBase user_info = new DataBase(user_id.getText().toString());
-            user_info.exists(this,  user_password.getText().toString());
-            if (user_info.user_exists){
-
-                if (user_info.role.equals("Teacher")){
-                    Intent intent = new Intent(this, main_menu_teacher.class);
-                    intent.putExtra("information", user_info.user_number);
-                    startActivity(intent);
-                }
-                else if (user_info.role.equals("Student")){
-                    Intent intent = new Intent(this, main_menu_student.class);
-                    intent.putExtra("information", user_info.user_number);
-                    startActivity(intent);
-                }
-
-
-            }
-            else {
-                Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show();
-            }
+            Intent intent = new Intent(this, main_menu_student.class);
+            startActivity(intent);
         }
     }
 

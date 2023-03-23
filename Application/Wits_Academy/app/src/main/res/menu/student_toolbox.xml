@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/search"
+        android:title="Search"
+        android:onClick="search_course"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/profile"
+        android:title="View or Edit Profile"
+        android:onClick="student_profile"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/settings"
+        android:title="Settings"
+        android:onClick="app_s_settings"
+        app:showAsAction="never"
+        />
+
+</menu>
