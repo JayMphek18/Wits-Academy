@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/search"
+        android:title="Manage Courses"
+        android:onClick="all_course"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/profile"
+        android:title="View or Edit Profile"
+        android:onClick="teacher_profile"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/settings"
+        android:title="Settings"
+        android:onClick="app_t_settings"
+        app:showAsAction="never"
+        />
+</menu>
