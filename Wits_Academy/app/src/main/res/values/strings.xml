@@ -2,7 +2,7 @@
     <string name="app_name">Wits_Academy</string>
 
     <string-array name="role">
-        <item>Student</item>
-        <item>Teacher</item>
+        <item><font fgcolor='#FFFFFFFF'>Student</font></item>
+        <item><font fgcolor='#FFFFFFFF'>Teacher</font></item>
     </string-array>
 </resources>

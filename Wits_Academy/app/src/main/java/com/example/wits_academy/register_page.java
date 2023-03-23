@@ -2,8 +2,10 @@ package com.example.wits_academy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,9 +16,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class register_page extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    EditText user_id;
+    EditText user_number;
     EditText user_name;
     EditText user_last_name;
     EditText user_email;
@@ -30,15 +35,20 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_page) ;
 
-        user_id = (EditText) findViewById(R.id.user_r_number);
+        //changing background and title on toolbar
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+        getSupportActionBar().setTitle("Register your account");
+
+        user_number = (EditText) findViewById(R.id.user_r_number);
         user_name = (EditText) findViewById(R.id.first_name);
         user_last_name = (EditText) findViewById(R.id.last_name);
         user_email = (EditText) findViewById(R.id.user_email);
         create_password = (EditText) findViewById(R.id.create_password);
         confirm_password = (EditText) findViewById(R.id.confirm_password);
-        role =(TextView) findViewById(R.id.user_r_id);
+        role = (TextView) findViewById(R.id.user_r_id);
 
         // spinner is for the dropdown menu
+
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.role, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -53,19 +63,17 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void main_menu(View view) {
-        if (!filled_in()){
-            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
+        if (!filled_in()) {
+            return;
         }
-
-        else if (string.equals("Student")){
-            Intent intent = new Intent(this, main_menu_student.class);
-            startActivity(intent);
-        }
-        else if (string.equals("Teachers")){
-            Intent intent = new Intent(this, main_menu_teacher.class);
+        else {
+            adding_to_databasa();
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
     }
+
+    //part of the spinner to get info from the spinner
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -73,35 +81,44 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         string = parent.getItemAtPosition(position).toString();
         if(string.equals("Teacher")){
             role.setText("Employee number");
-            user_id.setHint("Enter employee number");
+            user_number.setHint("Enter employee number");
         }
         else if(string.equals("Student")){
             role.setText("Student number");
-            user_id.setHint("Enter student number");
+            user_number.setHint("Enter student number");
         }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        return;
     }
+
+    // checks if all attributes have been correctly filled in
+
     public boolean filled_in(){
-        if (user_id.getText().toString().isEmpty()){
+        if (user_number.getText().toString().isEmpty()){
+            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (user_name.getText().toString().isEmpty()){
+            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (user_last_name.getText().toString().isEmpty()){
+            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (user_email.getText().toString().isEmpty()){
+        else if (!isEmailValid()){
+            Toast.makeText(this, "Email Address is invalide", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (create_password.getText().toString().isEmpty()){
+        else if (create_password.getText().toString().length() < 6){
+            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (confirm_password.getText().toString().isEmpty()){
+        else if (confirm_password.getText().toString().length() < 6){
+            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!create_password.getText().toString().equals(confirm_password.getText().toString())){
@@ -111,4 +128,25 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         }
         return true;
     }
+
+    //it creates a map which consists of all the user info and call a save function in the DataBase class to save on the database
+
+    public void adding_to_databasa(){
+        Map<String, String> map = new HashMap<>();
+        map.put("name", user_name.getText().toString());
+        map.put("surname", user_last_name.getText().toString());
+        map.put("email", user_email.getText().toString());
+        map.put("user_number", user_number.getText().toString());
+        map.put("password", create_password.getText().toString());
+        map.put("role", string);
+
+        DataBase.save(this, map);
+    }
+
+    //checks if the email is an email
+
+    boolean isEmailValid() {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(user_email.getText().toString()).matches();
+    }
+
 }
