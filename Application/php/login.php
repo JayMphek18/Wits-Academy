@@ -1,25 +1,40 @@
 <?php
- // Requires hostIP, Username Password and database to connect to a running mysql Server
-   $con=mysqli_connect("127.0.0.1","root"," ","wits_academy");
+   if(isset($_POST["login"])){
+      $user_id=$_POST["User_number"];
+      $password=$_POST["Password"];
+      $passwordHash= password_hash($password, PASSWORD_DEFAULT);
 
-   if (mysqli_connect_errno($con)) {
-      echo "Failed to connect to MySQL: " . mysqli_connect_error();
+      $errors = array();
+
+      require("database.php");
+
+      $sql= "SELECT username, role, password FROM registration WHERE user_id='$user_id' AND password='$password'";
+      $result = mysqli_query($conn, $sql);
+      $rowCount= mysqli_num_rows($result);
+      $row = $result->fetch_assoc();
+      $role=$row["role"];
+      //$cpassword=$row["password"];
+
+      if($rowCount == 0){
+            array_push($errors, "Incorrect user ID or password! Please enter correct details");
+      }
+      
+      if(count($errors)>0){
+            foreach($errors as $error){
+               echo $error;
+            }
+      }else{
+            //if(strcasecmp($cpassword,$role)==0 && !empty($user_id) && !empty($password)){
+            //echo "<div class='alert alert-success'>You are logged in successfully!</div>";
+            $_SESSION["user_id"]=$user_id;
+            if($role=='teacher'){
+            header('location:teacher/index.php');
+            }
+            else{
+            header('location:student/index.php');
+            }    
+         // }      
+      }
    }
-
-   $Username = $_POST['username'];
-   $Password = $_POST['password'];
-
-   $result = mysqli_query($con,"SELECT username FROM registration where username='$Username'  and password = '$Password'");
-   $data = mysqli_fetch_array($result);
-
-   if($data) {
-	$Username = $data['username'];
-      echo $Username ;
-   }
-else{
-	echo 'ERROR';
-}
-
-
-   mysqli_close($con);
 ?>
+
