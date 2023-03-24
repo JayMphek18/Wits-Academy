@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("information", user_info.user_number);
                     startActivity(intent);
                 }
-
-
             }
             else {
                 Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show();
@@ -59,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void forgot_password_toolbox(View view) {
-        Intent intent = new Intent(this, forgot_password.class);
+        //for testing
+        Intent intent = new Intent(this, main_menu_student.class);
         startActivity(intent);
     }
 

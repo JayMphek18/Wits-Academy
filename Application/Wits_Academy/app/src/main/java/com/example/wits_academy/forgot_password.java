@@ -3,11 +3,7 @@ package com.example.wits_academy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-<<<<<<< HEAD
-import android.graphics.Color;
-=======
 import android.graphics.drawable.ColorDrawable;
->>>>>>> 954dd75b9ec66a4037c3bcaa87e6b2953eb6b763
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
