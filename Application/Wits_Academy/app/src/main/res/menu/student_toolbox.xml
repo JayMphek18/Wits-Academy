@@ -4,20 +4,14 @@
 
     <item android:id="@+id/search"
         android:title="Search"
-        android:onClick="search_course"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never"/>
 
     <item android:id="@+id/profile"
         android:title="View or Edit Profile"
-        android:onClick="student_profile"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never"/>
 
-    <item android:id="@+id/settings"
-        android:title="Settings"
-        android:onClick="app_s_settings"
-        app:showAsAction="never"
-        />
+    <item android:id="@+id/logout"
+        android:title="Log out"
+        app:showAsAction="never"/>
 
 </menu>

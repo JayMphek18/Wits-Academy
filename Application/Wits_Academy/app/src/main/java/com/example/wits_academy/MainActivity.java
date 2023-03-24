@@ -57,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void forgot_password_toolbox(View view) {
-        //for testing
-        Intent intent = new Intent(this, main_menu_student.class);
+        Intent intent = new Intent(this, forgot_password.class);
         startActivity(intent);
     }
 
