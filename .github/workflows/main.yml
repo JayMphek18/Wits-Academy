@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-java@v3.9.0
         with:
           java-version: 1.8
+        env:
+          working-directory: ./Application/Wits_Academy
       - name: Build with Gradle
         run: ./Application/Wits_Academy/gradlew build
       - name: Upload Apk
