@@ -19,7 +19,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./Application/Wits_Academy/gradlew build
       - name: Upload Apk
         uses: actions/upload-artifact@v3.1.2
         with:
