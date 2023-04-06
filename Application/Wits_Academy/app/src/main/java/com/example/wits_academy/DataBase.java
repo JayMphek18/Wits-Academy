@@ -62,7 +62,7 @@ public class DataBase {
 
     public void exists(Context context, String user_password){
         String url = "http://10.0.2.2/php_app/login.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response.equals("Teacher")){
