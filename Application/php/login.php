@@ -1,18 +1,16 @@
 <?php
-   if(isset($_POST["login"])){
-      $user_id=$_POST["User_number"];
-      $password=$_POST["Password"];
-      $passwordHash= password_hash($password, PASSWORD_DEFAULT);
+      $emp_stud_num=$_POST["user_number"];
+      $user_password=$_POST["password"];
+      $passwordHash= password_hash($user_password, PASSWORD_DEFAULT);
 
       $errors = array();
+      require_once("database.php");
 
-      require("database.php");
-
-      $sql= "SELECT username, role, password FROM registration WHERE user_id='$user_id' AND password='$password'";
+      $sql= "SELECT first_name, last_name, email_address,user_password,user_role FROM registration WHERE emp_stud_num='$emp_stud_num' AND user_password='$user_password'";
       $result = mysqli_query($conn, $sql);
       $rowCount= mysqli_num_rows($result);
       $row = $result->fetch_assoc();
-      $role=$row["role"];
+      $user_role=$row["user_role"];
       //$cpassword=$row["password"];
 
       if($rowCount == 0){
@@ -26,15 +24,16 @@
       }else{
             //if(strcasecmp($cpassword,$role)==0 && !empty($user_id) && !empty($password)){
             //echo "<div class='alert alert-success'>You are logged in successfully!</div>";
-            $_SESSION["user_id"]=$user_id;
-            if($role=='teacher'){
-            header('location:teacher/index.php');
-            }
-            else{
-            header('location:student/index.php');
+            // if($role=='teacher'){
+            // header('location:teacher/index.php');
+            // }
+            // else{
+            // header('location:student/index.php');
+            echo "$user_role";
+
             }    
          // }      
-      }
-   }
+      
+   
 ?>
 

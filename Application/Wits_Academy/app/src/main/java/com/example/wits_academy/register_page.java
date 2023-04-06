@@ -140,6 +140,7 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         map.put("user_number", user_number.getText().toString());
         map.put("password", create_password.getText().toString());
         map.put("role", string);
+        map.put("confirm_password", confirm_password.getText().toString());
 
         DataBase.save(this, map);
     }

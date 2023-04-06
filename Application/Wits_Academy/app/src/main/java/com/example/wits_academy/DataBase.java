@@ -61,7 +61,7 @@ public class DataBase {
     //check if the user does exist in the current data base
 
     public void exists(Context context, String user_password){
-        String url = "";
+        String url = "http://10.0.2.2/php_app/login.php";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -97,11 +97,12 @@ public class DataBase {
     // Allow data to be saved on the database
 
     public static void save (Context context, Map < String, String > data_to_send){
-        String url = "";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String url = "http://10.0.2.2/php_app/register.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, response.trim(), Toast.LENGTH_LONG).show();
+                String re = response.toString();
             }}, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -122,11 +123,13 @@ public class DataBase {
     //changes the password of the user
 
     public static void change_password(Context context, Map < String, String > data_to_send){
-        String url = "";
+        String url = "http://10.0.2.2/php_app/forgot_password.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
+                String res = response.toString();
+                res.toString();
             }}, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -140,7 +143,6 @@ public class DataBase {
                 return data;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(stringRequest);
+
     }
 }
