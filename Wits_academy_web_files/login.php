@@ -138,33 +138,37 @@
         <img src="./Wits_Logo.png" loading="lazy" width="259" height="150" alt="Wits university emblem" />
         <h1>Welcome back!</h1>
     <?php
+        //reading the input entered by the user
         if(isset($_POST["login"])){
             $user_id=$_POST["user_id"];
             $password=$_POST["password"];
             $passwordHash= password_hash($password, PASSWORD_DEFAULT);
-
+            //create array to store error messages
             $errors = array();
-
+            //create connection to database
             require("database.php");
-
+            //select a row from the registration table where the user id and email exist ON THE SAME ROW
             $sql= "SELECT user_id, role, password FROM registration WHERE user_id='$user_id' AND password='$password'";
             $result = mysqli_query($conn, $sql);
             $rowCount= mysqli_num_rows($result);
+            //create a list of the entries on this row; each element is iterated according to the attribute name on the table
             $row = $result->fetch_assoc();
+            //fetch the role of the user
             $role=$row["role"];
             //$cpassword=$row["password"];
-
+            //if the user id does not exist or is incorrect, append the error "Incorrect user ID or password! Please enter correct details"
             if($rowCount == 0){
                 array_push($errors, "Incorrect user ID or password! Please enter correct details");
             }
-            
+            //if the length of the error's array is greater than 0, display all the errors onto the screen
             if(count($errors)>0){
                 foreach($errors as $error){
                     echo"<div class='alert alert-danger'>$error</div>";
                 }
-            }else{
-                //if(strcasecmp($cpassword,$role)==0 && !empty($user_id) && !empty($password)){
-                //echo "<div class='alert alert-success'>You are logged in successfully!</div>";
+            }
+            //else, log the user into the correct home page based on the role he/ she is registered in
+            else{
+      
                 $_SESSION["user_id"]=$user_id;
                 if($role=='teacher'){
                   header('location:teacher/index.php');
@@ -172,12 +176,13 @@
                 else{
                   header('location:student/index.php');
                 }    
-               // }      
+                     
             }
         }
     ?>
 
     <div>
+        <!--creating the form; all fields are required for user to log in-->
     <form class="login" action="login.php" method="post" autocomplete="off">
         <label class = "user_id" for="user_id"> User Number: </label>
         <input class = "userID_input"type="text" maxlength = "7" placeholder = "Enter your user number" name="user_id" id = "user_id"><br>
