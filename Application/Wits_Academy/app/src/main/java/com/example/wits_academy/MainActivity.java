@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
         }
         else{
-
+            DataBase.exists(this, user_id.getText().toString(), user_password.getText().toString());
         }
 
     }
