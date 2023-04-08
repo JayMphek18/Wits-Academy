@@ -35,28 +35,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
         }
         else{
-            DataBase user_info = new DataBase(user_id.getText().toString());
-            user_info.exists(this,  user_password.getText().toString());
-            if (user_info.user_exists){
 
-                if (user_info.role.equals("Teacher")){
-                    Intent intent = new Intent(this, main_menu_teacher.class);
-                    intent.putExtra("information", user_info.user_number);
-                    startActivity(intent);
-                }
-                else if (user_info.role.equals("Student")){
-                    Intent intent = new Intent(this, main_menu_student.class);
-                    intent.putExtra("information", user_info.user_number);
-                    startActivity(intent);
-                }
-            }
-            else {
-                Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show();
-            }
         }
+
     }
 
-    public void forgot_password_toolbox(View view) {
+    public void forgot_password(View view) {
         Intent intent = new Intent(this, forgot_password.class);
         startActivity(intent);
     }

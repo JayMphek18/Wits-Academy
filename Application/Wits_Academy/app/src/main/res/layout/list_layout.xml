@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/first_course"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_below="@+id/image_first_course"
+            android:layout_marginTop="0dp"
+            android:background="@color/light_blue"
+            android:textColor="@color/black"
+            android:text="nothing"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/image_first_course"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/second_course"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_below="@+id/image_second_course"
+            android:layout_marginTop="0dp"
+            android:background="@color/dark_green"
+            android:text="nothing"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+        <ImageView
+            android:id="@+id/image_second_course"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/first_course"
+            android:layout_marginTop="20dp"
+            android:layout_height="100dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

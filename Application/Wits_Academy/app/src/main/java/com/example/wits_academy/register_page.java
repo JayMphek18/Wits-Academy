@@ -17,6 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,8 +76,6 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         }
         else {
             adding_to_databasa();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
         }
     }
 
@@ -140,9 +146,11 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         map.put("user_number", user_number.getText().toString());
         map.put("password", create_password.getText().toString());
         map.put("role", string);
+        map.put("confirm_password" , confirm_password.getText().toString());
 
-        DataBase.save(this, map);
+        DataBase.save(this,map);
     }
+
 
     //checks if the email is an email
 
