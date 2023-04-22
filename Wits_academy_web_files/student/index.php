@@ -32,7 +32,7 @@
             <ul>
                 <li><a href="./index.php"><i class="fas fa-tv"></i>Dashboard</a></li>
                 <li><a href="./profileview.php"><i class="fas fa-user"></i>Profile</a></li>
-                <li><a href="./create_course.php"><i class="fas fa-add"></i>Enroll into Course</a></li>
+                <li><a href="./enroll.php"><i class="fas fa-add"></i>Enroll into Course</a></li>
                 <li><a href="#"><i class="fas fa-folder"></i>Courses</a></li>
                 <li><a href="logout.php"><i class="fas fa-arrow-right-from-bracket"></i>Logout</a></li>
             </ul>
