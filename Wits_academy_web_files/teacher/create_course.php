@@ -78,8 +78,20 @@ if ($_SESSION['user_id']) {
     top: -30px;
 }
 
-.select-faculty, .select-school, .course_code, .course_name {
+.select-faculty, .select-school, .select-year, .course_code, .course_name, .password, .course_year {
     border-radius: 18px;
+  }
+
+.text-block1{
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 11px;
+}
+
+.create{
+    background-color: #1a2852;
+    border-radius: 18px;
+    color: #c4d1db ;
+    font-family: Droid Sans, sans-serif;
   }
 
     </style>
@@ -115,12 +127,15 @@ if ($_SESSION['user_id']) {
                     <option value="wbs">Wits Business School</option>
                     <option value="#">Another option</option>
                 </select>
+                <label for="course_year">Course Year of Study:</label>
+                <input type="number" class="course_year" maxlength="2" name="course_year" placeholder="Enter course year of study"required="" />
                 <label for="course_code">Course Code:</label>
-                <input type="text" class="course_code" maxlength="128" name="field" placeholder="Enter course code"required="" />
+                <input type="text" class="course_code" maxlength="128" name="course_code" placeholder="Enter course code"required="" />
                 <label for="course_name">Course Name:</label>
                 <input type="text" class="course_name" maxlength="256" name="course_name" placeholder="Enter Course Name" required="" />
                 <label for="course_password">Course Password:</label>
-                <input type="password" class="password" maxlength="256" name="course_password" placeholder="Enter Course Password" required="" />
+                <input type="password" class="password" maxlength="10" name="course_password" placeholder="Enter Course Password" required="" />
+                <div class="text-block1">Enter the course password</div>
                 <button type="submit"  data-wait="Please wait..." class="create">Create</button>
                 </form>
         </div>
