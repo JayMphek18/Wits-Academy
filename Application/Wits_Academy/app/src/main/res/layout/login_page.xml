@@ -102,7 +102,7 @@
                 android:layout_marginEnd="-5dp"
                 android:textColor="@color/white"
                 android:gravity="center"
-                android:onClick="forgot_password"
+                android:onClick="forgot_password_toolbox"
                 android:text="Forgot my password?"
                 android:textSize="15dp" />
 
@@ -117,7 +117,7 @@
                 android:layout_marginTop="22dp"
                 android:layout_marginEnd="80dp"
                 android:layout_marginBottom="33dp"
-                android:onClick="Main_page"
+                android:onClick="main_page"
                 android:background="@drawable/button_background"
                 android:gravity="center"
                 android:text="Login"

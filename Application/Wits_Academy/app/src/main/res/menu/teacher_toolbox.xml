@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item android:id="@+id/profile"
-        android:title="View or Edit Profile"
-        android:icon="@drawable/profile_icon"
-        app:showAsAction="ifRoom"/>
-
     <item android:id="@+id/manage_course"
         android:title="Manage Courses"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/profile"
+        android:title="View/Edit Profile"
         app:showAsAction="never"/>
 
     <item android:id="@+id/logout"

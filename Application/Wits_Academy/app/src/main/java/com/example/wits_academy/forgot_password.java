@@ -68,9 +68,11 @@ public class forgot_password extends AppCompatActivity implements AdapterView.On
         return;
     }
 
-    public void reset_password(View view) {
+    public void after_reset(View view) {
         if(validate_password()){
             adding_to_databasa();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
         else {
             Toast.makeText(this, "Please try again", Toast.LENGTH_SHORT).show();
@@ -106,8 +108,8 @@ public class forgot_password extends AppCompatActivity implements AdapterView.On
         map.put("email", email.getText().toString());
         map.put("user_number", user_number.getText().toString());
         map.put("password", new_password.getText().toString());
-        map.put("c_password", confirm_new_password.getText().toString());
+        map.put("role", string);
 
-        DataBase.change_password(this,map);
+        DataBase.change_password(this, map);
     }
 }

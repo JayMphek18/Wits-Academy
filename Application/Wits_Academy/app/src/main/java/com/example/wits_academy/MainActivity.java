@@ -30,17 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void Main_page(View view) {
-        if (!validate_input()){
-            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            DataBase.exists(this, user_id.getText().toString(), user_password.getText().toString());
-        }
 
-    }
-
-    public void forgot_password(View view) {
+    public void forgot_password_toolbox(View view) {
         Intent intent = new Intent(this, forgot_password.class);
         startActivity(intent);
     }
@@ -51,11 +42,19 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean validate_input(){
         if (user_id.getText().toString().isEmpty()){
+            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(user_password.getText().toString().isEmpty()){
+            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
+    }
+
+    public void main_page(View view) {
+        if (validate_input()){
+            DataBase.exists(this,user_password.getText().toString(), user_id.getText().toString());
+        }
     }
 }
