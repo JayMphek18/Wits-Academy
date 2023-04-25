@@ -2,10 +2,12 @@ package com.example.wits_academy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -21,14 +23,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
 
-        //changing background and title on toolbar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-        getSupportActionBar().setTitle("Log into your account");
 
         user_id = (EditText) findViewById(R.id.user_number);
         user_password = (EditText) findViewById(R.id.user_password);
 
     }
+
 
 
     public void forgot_password_toolbox(View view) {

@@ -31,18 +31,21 @@
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/enroll_password.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/enrrollment_password.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/forgot_password.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/fragment_fullscreen.xml" value="0.1265625" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/list_layout.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/login_page.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/main_menu_student.xml" value="0.264" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/main_menu_teacher.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/own_course.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/navigator.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/own_course.xml" value="0.264" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/profile.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/register_page.xml" value="0.2" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/search_courses.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/student_course_view.xml" value="0.1265625" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/subject_view.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/layout/teacher_course_view.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/menu/student_navigator.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/menu/student_toolbox.xml" value="0.264" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/menu/student_navigator.xml" value="0.1" />
+        <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/menu/student_toolbox.xml" value="0.536" />
         <entry key="..\:/Users/Hlubi_MN/Desktop/Projects/Wits_Academy_Project/Application/Wits_Academy/app/src/main/res/menu/teacher_toolbox.xml" value="0.27447916666666666" />
       </map>
     </option>

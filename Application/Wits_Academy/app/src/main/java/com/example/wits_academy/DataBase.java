@@ -41,8 +41,6 @@ public class DataBase {
             intent.putExtra("userNumber", number);
             context.startActivity(intent);
         }
-
-
     }
 
     public static int add_layout(int left, int index, Context context , ArrayList<String> course_names, ArrayList<String> course_code,
@@ -58,7 +56,7 @@ public class DataBase {
                 courseCode.setText(course_code.get(index));
                 teacherName.setText(teacher_name.get(index));
                 Picasso.get()
-                    .load("http://10.203.198.18/wits/php/profile_photos/" + courseCode + ".jpg")
+                    .load("http://10.203.197.211/wits/php/profile_photos/" + courseCode + ".jpg")
                     .error(R.drawable.course_pic_1)
                     .fit()
                     .into(courseImage);
@@ -88,7 +86,7 @@ public class DataBase {
                 courseCode2.setText(course_code.get(index + 1));
                 teacherName2.setText(teacher_name.get(index + 1));
                 Picasso.get()
-                    .load("http://10.203.198.18/wits/php/profile_photos/" + courseCode2 + ".jpg")
+                    .load("http://10.203.197.211/wits/php/profile_photos/" + courseCode2 + ".jpg")
                     .error(R.drawable.course_pic_1)
                     .fit()
                     .into(courseImage2);
@@ -107,7 +105,7 @@ public class DataBase {
                 courseCode.setText(course_code.get(index));
                 teacherName.setText(teacher_name.get(index));
                 Picasso.get()
-                    .load("http://10.203.198.18/wits/php/profile_photos/" + courseCode + ".jpg")
+                    .load("http://10.203.197.211/wits/php/profile_photos/" + courseCode + ".jpg")
                     .error(R.drawable.course_pic_1)
                     .fit()
                     .into(courseImage);
@@ -169,7 +167,7 @@ public class DataBase {
             courseCode.setText(course_code.get(index));
             teacherName.setText(teacher_name.get(index));
             Picasso.get()
-                    .load("http://10.203.198.18/wits/php/profile_photos/" + courseCode + ".jpg")
+                    .load("http://10.203.197.211/wits/php/profile_photos/" + courseCode + ".jpg")
                     .error(R.drawable.course_pic_1)
                     .fit()
                     .into(courseImage);
@@ -199,7 +197,7 @@ public class DataBase {
             courseCode2.setText(course_code.get(index + 1));
             teacherName2.setText(teacher_name.get(index + 1));
             Picasso.get()
-                    .load("http://10.203.198.18/wits/php/profile_photos/" + courseCode2 + ".jpg")
+                    .load("http://10.203.197.211/wits/php/profile_photos/" + courseCode2 + ".jpg")
                     .error(R.drawable.course_pic_1)
                     .fit()
                     .into(courseImage2);
@@ -218,7 +216,7 @@ public class DataBase {
             courseCode.setText(course_code.get(index));
             teacherName.setText(teacher_name.get(index));
             Picasso.get()
-                    .load("http://10.203.198.18/wits/php/profile_photos/" + courseCode + ".jpg")
+                    .load("http://10.203.197.211/wits/php/profile_photos/" + courseCode + ".jpg")
                     .error(R.drawable.course_pic_1)
                     .fit()
                     .into(courseImage);
@@ -267,7 +265,7 @@ public class DataBase {
     }
 
     public static void teacher_courses(Context context, String user_number, LinearLayout courses_list) {
-        String url = "http://10.203.198.18/wits/php/teaching_courses.php";
+        String url = "http://10.203.197.211/wits/php/teaching_courses.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -300,7 +298,7 @@ public class DataBase {
 
 
     public static void get_all_courses(Context context, String user_number, LinearLayout courses_list) {
-        String url = "http://10.203.198.18/wits/php/courses.php";
+        String url = "http://10.203.197.211/wits/php/courses.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -326,7 +324,7 @@ public class DataBase {
 
 
     public static void student_courses(Context context, String user_number, LinearLayout courses_list) {
-        String url = "http://10.203.198.18/wits/php/enrolled_course.php";
+        String url = "http://10.203.197.211/wits/php/enrolled_course.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -360,7 +358,7 @@ public class DataBase {
     //check if the user does exist in the current data base
 
     public static void exists(Context context, String user_password, String user_number){
-        String url = "http://10.203.198.18/wits/php/login.php";
+        String url = "http://10.203.197.211/wits/php/login.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -396,7 +394,7 @@ public class DataBase {
     // Allow data to be saved on the database
 
     public static void save (Context context, Map < String, String > data_to_send){
-        String url = "http://10.203.198.18/wits/php/register.php";
+        String url = "http://10.203.197.211/wits/php/register.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -423,7 +421,7 @@ public class DataBase {
     //changes the password of the user
 
     public static void change_password(Context context, Map < String, String > data_to_send){
-        String url = "http://10.203.198.18/wits/php/forgot_password.php";
+        String url = "http://10.203.197.211/wits/php/forgot_password.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -446,7 +444,7 @@ public class DataBase {
     }
 
     public static void create_course (Context context, Map < String, String > data_to_send){
-        String url = "http://10.203.198.18/wits/php/create_course.php";
+        String url = "http://10.203.197.211/wits/php/create_course.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -475,7 +473,7 @@ public class DataBase {
     }
 
     public static void enroll_on(Context context, String course_name, String course_password, String student_number){
-        String url = "http://10.203.198.18/wits/php/enroll.php";
+        String url = "http://10.203.197.211/wits/php/enroll.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -502,7 +500,7 @@ public class DataBase {
 
     public static void profile(Context context, String userNumber, TextView name, TextView surname , TextView email,
                                TextView number){
-        String url = "http://10.203.198.18/wits/php/view_profile.php";
+        String url = "http://10.203.197.211/wits/php/view_profile.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -540,7 +538,7 @@ public class DataBase {
     }
 
     public static void change_profile(Context context, Map<String, String> map){
-        String url = "http://10.203.198.18/wits/php/change_profile.php";
+        String url = "http://10.203.197.211/wits/php/change_profile.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -572,7 +570,7 @@ public class DataBase {
     }
 
     public static void upload_image(Context context, String image_intent, String userNumber){
-        String url = "http://10.203.198.18/wits/php/upload_image.php";
+        String url = "http://10.203.197.211/wits/php/upload_image.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -36,9 +36,6 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.register_page);
 
-        //changing background and title on toolbar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-        getSupportActionBar().setTitle("Register your account");
 
         user_number = (EditText) findViewById(R.id.user_r_number);
         user_name = (EditText) findViewById(R.id.first_name);

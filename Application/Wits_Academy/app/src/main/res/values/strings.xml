@@ -16,4 +16,10 @@
         <item><font fgcolor='#FFFFFFFF'>7 - Seventh Year</font></item>
     </string-array>
 
+    <string name="navigator_open">Open navigation drawer</string>
+    <string name="navigator_close">Close navigation drawer</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+
 </resources>
