@@ -73,18 +73,10 @@ public class create_course extends AppCompatActivity implements AdapterView.OnIt
         ImageView imageView = view.findViewById(R.id.imageView9);
         Picasso.get()
                 .load("http://10.203.197.211/wits/php/profile_photos/" + userNumber + ".jpg")
+                .placeholder(R.drawable.profile_icon)
                 .error(R.drawable.profile_icon)
                 .fit()
                 .into(imageView);
-
-        logout = view.findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_menu_student.out(create_course.this);
-            }
-        });
-
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tooolbar);
@@ -200,12 +192,16 @@ public class create_course extends AppCompatActivity implements AdapterView.OnIt
                 startActivity(search);
                 return true;
             case R.id.menu_page:
-                Intent create = new Intent(this, main_menu_teacher.class);
-                create.putExtra("usernumber",userNumber);
-                startActivity(create);
+                DataBase.back_to_menu(create_course.this,userNumber);
                 return true;
+
             case R.id.create:
                 drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+
+            case R.id.logout:
+                Intent log = new Intent(this, MainActivity.class);
+                startActivity(log);
                 return true;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

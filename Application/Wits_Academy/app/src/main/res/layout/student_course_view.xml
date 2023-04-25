@@ -53,7 +53,7 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:layout_gravity="start"
             android:id="@+id/nav"
-            app:headerLayout="@layout/navigator"
+            app:headerLayout="@layout/nav_course_list"
             app:menu="@menu/student_navigator"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>

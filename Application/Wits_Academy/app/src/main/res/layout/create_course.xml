@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="0dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:textColor="@color/white"
                         android:textSize="15dp"
@@ -60,140 +60,128 @@
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:layout_below="@+id/name"
-                        android:layout_alignStart="@+id/name"
-                        android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/input_shape"
-                        android:paddingLeft="20dp"
                         android:ems="10"
+                        android:hint="Enter course name"
                         android:inputType="textPersonName"
-                        android:hint="Enter course name" />
+                        android:paddingLeft="20dp" />
 
                     <TextView
                         android:id="@+id/code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/course_name"
-                        android:layout_alignStart="@+id/course_name"
+                        android:layout_alignStart="@+id/name"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
+                        android:text="Course Code"
                         android:textColor="@color/white"
-                        android:textSize="15dp"
-                        android:text="Course Code" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/course_code"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:layout_below="@+id/code"
-                        android:layout_alignStart="@+id/code"
-                        android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/input_shape"
-                        android:paddingLeft="20dp"
                         android:ems="10"
+                        android:hint="Enter course code"
                         android:inputType="textPersonName"
-                        android:hint="Enter course code" />
+                        android:paddingLeft="20dp" />
 
                     <TextView
                         android:id="@+id/school"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/course_code"
-                        android:layout_alignStart="@+id/course_code"
+                        android:layout_alignStart="@+id/code"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
+                        android:text="School"
                         android:textColor="@color/white"
-                        android:textSize="15dp"
-                        android:text="School" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/course_school"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:layout_below="@+id/school"
-                        android:layout_alignStart="@+id/school"
-                        android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/input_shape"
-                        android:paddingLeft="20dp"
                         android:ems="10"
+                        android:hint="Enter school name"
                         android:inputType="textPersonName"
-                        android:hint="Enter school name" />
+                        android:paddingLeft="20dp" />
 
                     <TextView
                         android:id="@+id/faculty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/course_school"
-                        android:layout_alignStart="@+id/course_school"
+                        android:layout_alignStart="@+id/school"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
+                        android:text="Faculty"
                         android:textColor="@color/white"
-                        android:textSize="15dp"
-                        android:text="Faculty" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/course_faculty"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:layout_below="@+id/faculty"
-                        android:layout_alignStart="@+id/faculty"
-                        android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/input_shape"
-                        android:paddingLeft="20dp"
                         android:ems="10"
+                        android:hint="Enter faculty name"
                         android:inputType="textPersonName"
-                        android:hint="Enter faculty name" />
+                        android:paddingLeft="20dp" />
 
                     <TextView
                         android:id="@+id/year"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/course_faculty"
-                        android:layout_alignStart="@+id/course_faculty"
+                        android:layout_alignStart="@+id/faculty"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
+                        android:text="Year of Study"
                         android:textColor="@color/white"
-                        android:textSize="15dp"
-                        android:text="Year of Study" />
+                        android:textSize="15dp" />
 
                     <Spinner
                         android:id="@+id/year_of_study"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:layout_below="@+id/year"
-                        android:layout_alignStart="@+id/year"
-                        android:popupBackground="@drawable/pop_background"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        android:popupBackground="@drawable/pop_background" />
 
                     <TextView
                         android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/year_of_study"
-                        android:layout_alignStart="@+id/year_of_study"
+                        android:layout_alignStart="@+id/year"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
+                        android:text="Password"
                         android:textColor="@color/white"
-                        android:textSize="15dp"
-                        android:text="Password" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/course_password"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:layout_below="@+id/password"
-                        android:layout_alignStart="@+id/password"
-                        android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/input_shape"
-                        android:paddingLeft="20dp"
                         android:ems="10"
                         android:hint="Enter password"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:paddingLeft="20dp" />
 
                     <TextView
                         android:id="@+id/create_button"
@@ -219,39 +207,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/course_password"
-                        android:layout_alignParentStart="true"
+                        android:layout_alignStart="@+id/password"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
+                        android:text="Confirm Password"
                         android:textColor="@color/white"
-                        android:textSize="15dp"
-                        android:text="Confirm Password" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/confirm_c_password"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:layout_below="@+id/confirm"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="0dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/input_shape"
-                        android:paddingLeft="20dp"
                         android:ems="10"
                         android:hint="Enter password"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:paddingLeft="20dp" />
 
                 </RelativeLayout>
 
             </LinearLayout>
-
-
 
         </ScrollView>
 
         <com.google.android.material.navigation.NavigationView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="85dp"
+            android:layout_marginTop="?attr/actionBarSize"
             android:layout_marginLeft="10dp"
             android:layout_gravity="start"
             android:id="@+id/nav"

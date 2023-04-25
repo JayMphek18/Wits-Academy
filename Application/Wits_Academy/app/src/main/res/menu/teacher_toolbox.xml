@@ -13,9 +13,12 @@
         app:showAsAction="never"/>
 
     <item android:id="@+id/menu_page"
-    android:title="Back to Menu"
-    app:showAsAction="never"/>
+        android:title="Back to Menu"
+        app:showAsAction="never"/>
 
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        app:showAsAction="never"/>
 
 
 

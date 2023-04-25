@@ -59,7 +59,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
 
 
         Picasso.get()
-                .load("http://10.203.198.18/wits/php/profile_photos/" + user + ".jpg")
+                .load("http://10.203.203.49/wits/php/profile_photos/" + user + ".jpg")
                 .error(R.drawable.profile_icon)
                 .fit()
                 .into(userImage);
@@ -79,21 +79,8 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         View view = navigationView.getHeaderView(0);
 
         TextView userName = view.findViewById(R.id.name);
-        userName.setText(name.getText().toString() + " " + surname.getText().toString());
+        userName.setText(user);
         ImageView imageView = view.findViewById(R.id.imageView9);
-        Picasso.get()
-                .load("http://10.203.197.211/wits/php/profile_photos/" + userNumber + ".jpg")
-                .error(R.drawable.profile_icon)
-                .fit()
-                .into(imageView);
-
-        logout = view.findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_menu_student.out(profile.this);
-            }
-        });
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
@@ -106,8 +93,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         toggle.syncState();
 
         //changing background and title on toolbar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-        getSupportActionBar().setTitle(name.getText().toString() + " " + surname.getText().toString());
+
 
         if (user_number.getStringExtra("has_image").isEmpty()){
             navigationView.getMenu().clear();
@@ -119,6 +105,9 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         }
 
         DataBase.profile(this, user, name, surname, email, userNumber);
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+        getSupportActionBar().setTitle("Profile");
     }
 
     @Override
@@ -141,16 +130,16 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         }
     }
 
-    public void editprofile(View view) {
-        Intent intent = new Intent(this, edit_profile.class);
-        intent.putExtra("userNumber", user);
-        intent.putExtra("email", email.getText().toString());
-        intent.putExtra("surname", surname.getText().toString());
-        intent.putExtra("name", name.getText().toString());
-        intent.putExtra("image", Image);
-        intent.putExtra("has_image", has);
-        startActivity(intent);
-    }
+//    public void editprofile(View view) {
+//        Intent intent = new Intent(this, edit_profile.class);
+//        intent.putExtra("userNumber", user);
+//        intent.putExtra("email", email.getText().toString());
+//        intent.putExtra("surname", surname.getText().toString());
+//        intent.putExtra("name", name.getText().toString());
+//        intent.putExtra("image", Image);
+//        intent.putExtra("has_image", has);
+//        startActivity(intent);
+//    }
 
     public void back_to_login(View view) {
         DataBase.exists(this, "", user);
@@ -186,6 +175,18 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
                 Intent create = new Intent(this, create_course.class);
                 create.putExtra("usernumber",user);
                 startActivity(create);
+                return true;
+
+            case R.id.logout:
+                Intent log = new Intent(this, MainActivity.class);
+                startActivity(log);
+                return true;
+
+            case R.id.menu_page:
+                DataBase.back_to_menu(profile.this, user);
+                return true;
+            case R.id.profile:
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

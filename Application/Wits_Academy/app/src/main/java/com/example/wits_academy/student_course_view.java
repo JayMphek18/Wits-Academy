@@ -52,14 +52,6 @@ public class student_course_view extends AppCompatActivity implements Navigation
                 .fit()
                 .into(imageView);
 
-        logout = view.findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_menu_student.out(student_course_view.this);
-            }
-        });
-
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tooolbar);

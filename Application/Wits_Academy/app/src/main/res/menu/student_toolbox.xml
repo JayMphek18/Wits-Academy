@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
+
         <item android:id="@+id/profile"
             android:title="View/Edit Profile"
             app:showAsAction="never"/>
@@ -14,6 +15,10 @@
 
         <item android:id="@+id/menu_page"
             android:title="Back to Menu"
+            app:showAsAction="never"/>
+
+        <item android:id="@+id/logout"
+            android:title="Logout"
             app:showAsAction="never"/>
 
     </group>

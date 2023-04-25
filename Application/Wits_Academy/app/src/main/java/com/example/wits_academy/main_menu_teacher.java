@@ -52,19 +52,13 @@ public class main_menu_teacher extends AppCompatActivity implements NavigationVi
         TextView userName = view.findViewById(R.id.name);
         userName.setText(userNumber);
         ImageView imageView = view.findViewById(R.id.imageView9);
+
         Picasso.get()
-                .load("http://10.203.197.211/wits/php/profile_photos/" + userNumber + ".jpg")
+                .load("http://10.203.203.49/wits/php/profile_photos/" + userNumber + ".jpg")
+                .placeholder(R.drawable.profile_icon)
                 .error(R.drawable.profile_icon)
                 .fit()
                 .into(imageView);
-
-        logout = view.findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main_menu_student.out(main_menu_teacher.this);
-            }
-        });
 
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
                 R.string.navigator_open,R.string.navigator_close);
@@ -74,8 +68,6 @@ public class main_menu_teacher extends AppCompatActivity implements NavigationVi
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle("Course Dashboard");
-
-
 
         DataBase.teacher_courses(this, userNumber, course_list);
 
@@ -103,6 +95,10 @@ public class main_menu_teacher extends AppCompatActivity implements NavigationVi
                 profile.putExtra("usernumber", userNumber);
                 profile.putExtra("has_image", "ghhhh");
                 startActivity(profile);
+                return true;
+            case R.id.logout:
+                Intent log = new Intent(this, MainActivity.class);
+                startActivity(log);
                 return true;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

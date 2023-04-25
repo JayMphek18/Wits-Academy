@@ -56,10 +56,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
-        <option value="resourceFile" />
-        <option value="layoutResourceFile" />
         <option value="valueResourceFile" />
+        <option value="resourceFile" />
+        <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -193,7 +193,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/profile.java</url>
-          <line>161</line>
+          <line>150</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
       </breakpoints>
