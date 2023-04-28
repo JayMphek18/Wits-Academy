@@ -83,7 +83,8 @@ if ($_SESSION['user_id']) {
                 <img  src="" alt="profile image" class="profile">
 
                 <?php
-                $user_id = $_SESSION['user_id'];
+   //display the user's fullname, user ID and email address on the view profile page
+                 $user_id = $_SESSION['user_id'];
                 $sql="select * from registration where user_id='$user_id'";
                 $result=$conn->query($sql);
                 $row=$result->fetch_assoc();
