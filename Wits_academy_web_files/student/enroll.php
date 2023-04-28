@@ -117,7 +117,10 @@
                 <button type="submit"  class="search" name="search">Search</button>
             </form>
             <?php
-                                    if(isset($_POST['search']))
+        //from the selected faculty and year of study of the course, display all the
+        //courses in that faculty for that year in table format
+        
+                                            if(isset($_POST['search']))
                                     {
                                         $faculty=$_POST['faculty'];
                                         $yos=$_POST['year'];
