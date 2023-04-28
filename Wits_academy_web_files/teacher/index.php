@@ -38,6 +38,41 @@
             </ul>
         </div>
     </label>
+<?php
+                  
+                    $user_id=$_SESSION['user_id'];
+                    $sql="select * from courses where teacher='$user_id'";
+                    $result=$conn->query($sql);
+                    $rowcount=mysqli_num_rows($result);
+                    if(!($rowcount))
+                        echo "<br><center><h2><b><i>Create/ Add Course</i></b></h2></center>";
+                    else
+                    {
+                    ?>
+                    <table class="table" id = "tables">
+                    <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+            
+            //$result=$conn->query($sql);
+            while($row=$result->fetch_assoc())
+            {
+                $code=$row['course_code'];
+                $course=$row['course_name'];
+
+            ?>
+                    <tr>
+                        <td><a href="#"><?php echo $code ?></a></td>
+                        <td><a href="#"><?php echo $course ?></a></td>
+                    </tr>
+                <?php }} ?>
+                </tbody>
+                </table>
     </body>
 
 </html>
@@ -45,3 +80,4 @@
 else {
     echo "<script type='text/javascript'>alert('Access Denied!!!')</script>";
 } ?>
+
