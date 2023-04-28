@@ -39,7 +39,8 @@
         </div>
     </label>
 <?php
-                  
+                  // from the database, search from the courses table for the courses this user created and display on the
+        //Course Dashboard 
                     $user_id=$_SESSION['user_id'];
                     $sql="select * from courses where teacher='$user_id'";
                     $result=$conn->query($sql);
