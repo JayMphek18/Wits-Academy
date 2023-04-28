@@ -110,6 +110,7 @@
             </div>
             <div class="module-body">
                 <?php
+        //search for the selected course from the search course page and display its details
                     $x=$_GET['id'];
                     $sql="select * from courses where course_code='$x'";
                     $result=$conn->query($sql);
@@ -141,6 +142,7 @@
 </div>
 </body>
 <?php
+       // unfortunately, this part of the code gives the user an error, therefore it cannot be explained
     if(isset ($_POST['enroll'])){
         $x=$_GET['id'];
         $sql="select * from courses where course_code='$x'";
