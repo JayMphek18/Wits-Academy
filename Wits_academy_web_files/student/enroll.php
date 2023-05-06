@@ -104,7 +104,7 @@
         <div class="form-block">
             <form class="form" action="enroll.php" method="post">
                 <label for="faculty">Faculty:</label>
-                <select  name="faculty" required="" class="select-faculty">
+                <select  name="faculty" class="select-faculty" required="">
                     <option value="">Select faculty</option>
                     <option value="Commerce, Law and Management">Commerce, Law and Management</option>
                     <option value="Engineering and the Built Environment">Engineering and the Built Environment</option>
@@ -117,10 +117,7 @@
                 <button type="submit"  class="search" name="search">Search</button>
             </form>
             <?php
-        //from the selected faculty and year of study of the course, display all the
-        //courses in that faculty for that year in table format
-        
-                                            if(isset($_POST['search']))
+                                    if(isset($_POST['search']))
                                     {
                                         $faculty=$_POST['faculty'];
                                         $yos=$_POST['year'];
@@ -159,7 +156,9 @@
                                       <td><?php echo $course ?></td>
                                       <td><?php echo $faculty ?></td>
                                       <td><?php echo $school ?></td>
-                                      <td><center><a href="enter_password.php?id=<?php echo $code; ?>" class="btn btn-primary">Enroll</a>
+                                      <td><center><?php
+                                      		echo "<a href=\"enroll_course.php?id=".$code."\" class=\"btn btn-success\">Enroll</a>";
+                                        ?>
                                         </center></td>
                                     </tr>
                                <?php }} }?>
