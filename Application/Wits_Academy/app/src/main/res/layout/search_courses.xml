@@ -19,10 +19,10 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
+
 
                 <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
@@ -33,10 +33,20 @@
                     app:popupTheme="@style/Theme.AppCompat.Light"
                     android:elevation="4dp"/>
 
+
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/frame_layout"/>
+
+                <LinearLayout
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
 
             </LinearLayout>
 

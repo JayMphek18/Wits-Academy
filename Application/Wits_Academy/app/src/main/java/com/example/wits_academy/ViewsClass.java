@@ -22,7 +22,6 @@ public class ViewsClass {
         String student_number = number;
         if (left >= 2){
             View layout = View.inflate(context, R.layout.course_layout, null);
-
             TextView courseName = layout.findViewById(R.id.courseName);
             TextView courseCode = layout.findViewById(R.id.courseCode);
             TextView teacherName = layout.findViewById(R.id.teacherName);
@@ -31,11 +30,8 @@ public class ViewsClass {
             courseName.setText(course_names.get(index));
             courseCode.setText(course_code.get(index));
             teacherName.setText(teacher_name.get(index));
-            Picasso.get()
-                    .load("http://10.203.203.49/wits/php/profile_photos/" + courseCode + ".jpg")
-                    .error(R.drawable.course_pic_1)
-                    .fit()
-                    .into(courseImage);
+
+            DataBase.get_course_image(context, courseName.getText().toString(), courseImage);
 
             TextView first = layout.findViewById(R.id.enroll_botton);
             first.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +47,9 @@ public class ViewsClass {
             ImageView courseImage2 = layout.findViewById(R.id.imageView7);
 
             TextView last = layout.findViewById(R.id.enroll_botton2);
+
+
+
             last.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -61,12 +60,7 @@ public class ViewsClass {
             courseName2.setText(course_names.get(index + 1));
             courseCode2.setText(course_code.get(index + 1));
             teacherName2.setText(teacher_name.get(index + 1));
-            Picasso.get()
-                    .load("http://10.203.203.49/wits/php/profile_photos/" + courseCode2 + ".jpg")
-                    .error(R.drawable.course_pic_1)
-                    .fit()
-                    .into(courseImage2);
-
+            DataBase.get_course_image(context, courseName2.getText().toString(), courseImage2);
             course_list.addView(layout);
             left = left - 2;
         }
@@ -80,11 +74,7 @@ public class ViewsClass {
             courseName.setText(course_names.get(index));
             courseCode.setText(course_code.get(index));
             teacherName.setText(teacher_name.get(index));
-            Picasso.get()
-                    .load("http://10.203.203.49/wits/php/profile_photos/" + courseCode + ".jpg")
-                    .error(R.drawable.course_pic_1)
-                    .fit()
-                    .into(courseImage);
+            DataBase.get_course_image(context, courseName.getText().toString(), courseImage);
 
             TextView first = layout.findViewById(R.id.enroll_botton);
             first.setOnClickListener(new View.OnClickListener() {
@@ -102,17 +92,34 @@ public class ViewsClass {
     }
 
 
-    public static void get_information(Context context,String _list,LinearLayout courses_list, JSONArray jsonArray,
+    public static void get_information(Context context,String newText,LinearLayout courses_list, JSONArray jsonArray,
                                        ArrayList<String> teacher_name, ArrayList<String> course_code,
                                        ArrayList<String> course_names,String student_number) {
+        courses_list.removeAllViews();
         try{
-            for (int i = 0; i < jsonArray.length(); i++){
-                JSONObject course_information = jsonArray.getJSONObject(i);
-                teacher_name.add(course_information.getString("teacher_id"));
-                course_code.add(course_information.getString("course_code"));
-                course_names.add(course_information.getString("course_name"));
+            if(newText.equals("")){
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject course_information = jsonArray.getJSONObject(i);
+                    teacher_name.add(course_information.getString("teacher_id"));
+                    course_code.add(course_information.getString("course_code"));
+                    course_names.add(course_information.getString("course_name"));
+                }
             }
-            int i = 0;
+            else{
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject course_information = jsonArray.getJSONObject(i);
+                    if (course_information.getString("course_name").startsWith(newText)){
+                        teacher_name.add(course_information.getString("teacher_id"));
+                        course_code.add(course_information.getString("course_code"));
+                        course_names.add(course_information.getString("course_name"));
+                    }
+                }
+            }
+
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        int i = 0;
             int left = course_names.size();
             while (i < course_names.size()){
                 if (left >= 2){
@@ -124,10 +131,7 @@ public class ViewsClass {
                     i = i + 1;
                 }
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-    }
 
     public static void get_information_on_JSON(Context context,String number,LinearLayout courses_list, JSONArray jsonArray,
                                                ArrayList<String> teacher_name, ArrayList<String> course_code,
@@ -168,12 +172,7 @@ public class ViewsClass {
             courseName.setText(course_names.get(index));
             courseCode.setText(course_code.get(index));
             teacherName.setText(teacher_name.get(index));
-            Picasso.get()
-                    .load("http://10.203.203.49/wits/php/profile_photos/" + courseCode + ".jpg")
-                    .placeholder(R.drawable.course_pic_2)
-                    .error(R.drawable.course_pic_1)
-                    .fit()
-                    .into(courseImage);
+            DataBase.get_course_image(context, courseName.getText().toString(), courseImage);
 
             RelativeLayout first = layout.findViewById(R.id.lay);
             first.setOnClickListener(new View.OnClickListener() {
@@ -199,12 +198,7 @@ public class ViewsClass {
             courseName2.setText(course_names.get(index + 1));
             courseCode2.setText(course_code.get(index + 1));
             teacherName2.setText(teacher_name.get(index + 1));
-            Picasso.get()
-                    .load("http://10.203.203.49/wits/php/profile_photos/" + courseCode2 + ".jpg")
-                    .error(R.drawable.course_pic_1)
-                    .placeholder(R.drawable.course_pic_2)
-                    .fit()
-                    .into(courseImage2);
+            DataBase.get_course_image(context, courseName2.getText().toString(), courseImage2);
 
             course_list.addView(layout);
             left = left - 2;
@@ -219,12 +213,7 @@ public class ViewsClass {
             courseName.setText(course_names.get(index));
             courseCode.setText(course_code.get(index));
             teacherName.setText(teacher_name.get(index));
-            Picasso.get()
-                    .load("http://10.203.203.49/wits/php/profile_photos/" + courseCode + ".jpg")
-                    .error(R.drawable.course_pic_1)
-                    .placeholder(R.drawable.course_pic_2)
-                    .fit()
-                    .into(courseImage);
+            DataBase.get_course_image(context, courseName.getText().toString(), courseImage);
 
             RelativeLayout first = layout.findViewById(R.id.lay);
             first.setOnClickListener(new View.OnClickListener() {
@@ -235,13 +224,13 @@ public class ViewsClass {
                 }
             });
             RelativeLayout last = layout.findViewById(R.id.lay2);
-            last.setVisibility(View.GONE);
+            last.setVisibility(View.GONE);  
             course_list.addView(layout);
         }
         return left;
     }
 
-    public static void get_nav_list_layout(Context context,String _list,LinearLayout courses_list, JSONArray jsonArray,
+    public static void get_nav_list_layout(Context context,LinearLayout courses_list, JSONArray jsonArray,
                                        ArrayList<String> course_names,String student_number) {
         try{
             for (int i = 0; i < jsonArray.length(); i++){
@@ -256,11 +245,30 @@ public class ViewsClass {
 
     public static void nav_list_layout( Context context , ArrayList<String> course_names, String number,
                                       LinearLayout course_list){
-        String student_number = number;
-
-
-
-
+        for (int i = 0; i < course_names.size(); i++){
+            View layout = View.inflate(context, R.layout.nav_course_view, null);
+            TextView textView = layout.findViewById(R.id.courseN);
+            textView.setText(course_names.get(i));
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String courseN = textView.getText().toString().trim();
+                    DataBase.course(context, courseN,number);
+                }
+            });
+            course_list.addView(layout);
+        }
     }
 
+    public static ArrayList<String> sear(ArrayList<String>  course, String newText){
+        ArrayList newlist = new ArrayList<>();
+        for (int i = 0; i < course.size(); i++){
+            for (int j = 0; j < course.get(i).length() - newText.length(); j ++){
+                if (course.get(i).substring(j,j + newText.length()).equals(newText)){
+                    newlist.add(course.get(i));
+                }
+            }
+        }
+        return newlist;
+    }
 }

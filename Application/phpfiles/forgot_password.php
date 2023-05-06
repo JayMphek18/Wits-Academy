@@ -20,7 +20,7 @@
         }
 
         require("database.php");
-        $sql1= "SELECT * FROM registration WHERE emp_stud_num='$emp_stud_num' AND email_address='$email_address'";
+        $sql1= "SELECT * FROM Registration WHERE emp_stud_num='$emp_stud_num' AND email_address='$email_address'";
         $result1 = mysqli_query($conn, $sql1);
         $rowCount= mysqli_num_rows($result1);
         if($rowCount == 0){
@@ -32,7 +32,7 @@
                 echo $error;
             }
         }else{
-            $sql2 = "UPDATE registration SET user_password='$user_password' WHERE emp_stud_num='$emp_stud_num'";
+            $sql2 = "UPDATE Registration SET user_password='$user_password' WHERE emp_stud_num='$emp_stud_num'";
             $result2=mysqli_query($conn,$sql2);
             echo "Password successfully reset! Please login:)";
             }   

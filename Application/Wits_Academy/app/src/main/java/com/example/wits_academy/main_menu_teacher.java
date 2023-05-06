@@ -53,12 +53,7 @@ public class main_menu_teacher extends AppCompatActivity implements NavigationVi
         userName.setText(userNumber);
         ImageView imageView = view.findViewById(R.id.imageView9);
 
-        Picasso.get()
-                .load("http://10.203.203.49/wits/php/profile_photos/" + userNumber + ".jpg")
-                .placeholder(R.drawable.profile_icon)
-                .error(R.drawable.profile_icon)
-                .fit()
-                .into(imageView);
+        DataBase.get_image(this, userNumber, imageView);
 
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
                 R.string.navigator_open,R.string.navigator_close);

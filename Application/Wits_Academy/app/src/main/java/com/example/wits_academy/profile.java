@@ -57,12 +57,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         userNumber = findViewById(R.id.profile_number);
         userImage = (ImageView)findViewById(R.id.profile_image);
 
-
-        Picasso.get()
-                .load("http://10.203.203.49/wits/php/profile_photos/" + user + ".jpg")
-                .error(R.drawable.profile_icon)
-                .fit()
-                .into(userImage);
+        DataBase.get_image(this, user, userImage);
 
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +120,6 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         }
     }
@@ -142,7 +136,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
 //    }
 
     public void back_to_login(View view) {
-        DataBase.exists(this, "", user);
+        DataBase.back_to_menu(this, user);
     }
 
     private void add_image(){
@@ -152,6 +146,9 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
             byte[] bytes = byteArrayOutputStream.toByteArray();
             final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
             DataBase.upload_image(this, base64Image, user);
+            DataBase.get_image(this, user, userImage);
+
+//            userNumber.setText(base64Image);
         }
     }
 
@@ -185,6 +182,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
             case R.id.menu_page:
                 DataBase.back_to_menu(profile.this, user);
                 return true;
+
             case R.id.profile:
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;

@@ -46,6 +46,17 @@
                     android:layout_height="match_parent"
                     android:id="@+id/frame_layout"/>
 
+                <TextView
+                    android:id="@+id/NoCoursesAvailable"
+                    android:textColor="@color/white"
+                    android:textSize="17dp"
+                    android:layout_marginTop="300dp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="You are not currently enrolled in any course click on this text to see the available courses"
+                    android:onClick="go_to_courses"/>
+
 
             </LinearLayout>
         </ScrollView>

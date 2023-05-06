@@ -10,6 +10,8 @@
             android:title="Send an announcements"/>
         <item android:id="@+id/back"
             android:title="Back to menu"/>
+        <item android:id="@+id/logout"
+            android:title="Logout"/>
     </group>
 
     <item android:title="Content">

@@ -15,73 +15,89 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".student_course_view"
-            android:exported="false"
+            android:name=".upload_file"
+            android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
+
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".student_course_view"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".edit_profile"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".own_course"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
         </activity>
         <activity
             android:name=".teacher_course_view"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".create_course"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".profile"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".search_courses"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".forgot_password"
-            android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".main_menu_teacher"
-            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
         </activity>
         <activity
+            android:name=".forgot_password"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".main_menu_teacher"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".main_menu_student"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".register_page"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

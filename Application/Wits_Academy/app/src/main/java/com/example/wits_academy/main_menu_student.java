@@ -33,7 +33,7 @@ public class main_menu_student extends AppCompatActivity implements NavigationVi
     String userNumber;
     LinearLayout course_list;
     private DrawerLayout drawerLayout;
-    TextView logout;
+    TextView display;
     NavigationView navigationView;
 
     @Override
@@ -45,6 +45,7 @@ public class main_menu_student extends AppCompatActivity implements NavigationVi
         Intent user_number = getIntent();
         userNumber = user_number.getStringExtra("information");
         course_list = (LinearLayout) findViewById(R.id.list_courses);
+        display = findViewById(R.id.NoCoursesAvailable);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar)findViewById(R.id.tooolbar);
@@ -57,12 +58,7 @@ public class main_menu_student extends AppCompatActivity implements NavigationVi
         TextView userName = view.findViewById(R.id.name);
         userName.setText(userNumber);
         ImageView imageView = view.findViewById(R.id.imageView9);
-        Picasso.get()
-                .load("http://10.203.203.49/wits/php/profile_photos/" + userNumber + ".jpg")
-                .placeholder(R.drawable.profile_icon)
-                .error(R.drawable.profile_icon)
-                .fit()
-                .into(imageView);
+        DataBase.get_image(this, userNumber, imageView);
 
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
                 R.string.navigator_open,R.string.navigator_close);
@@ -73,8 +69,9 @@ public class main_menu_student extends AppCompatActivity implements NavigationVi
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle("Course Dashboard");
 
-        DataBase.student_courses(this, userNumber, course_list);
+        DataBase.student_courses(this, userNumber, course_list, display);
     }
+
     public static void out(Context context){
         Intent search = new Intent(context, MainActivity.class);
         context.startActivity(search);
@@ -114,5 +111,11 @@ public class main_menu_student extends AppCompatActivity implements NavigationVi
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void go_to_courses(View view) {
+        Intent search = new Intent(this, search_courses.class);
+        search.putExtra("usernumber",userNumber);
+        startActivity(search);
     }
 }
