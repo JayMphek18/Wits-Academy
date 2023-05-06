@@ -65,33 +65,32 @@
   top: 34px;
 }
 .form {
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
--webkit-flex-direction: column;
--ms-flex-direction: column;
-flex-direction: column;
--webkit-box-align: stretch;
--webkit-align-items: stretch;
--ms-flex-align: stretch;
-align-items: stretch;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  text-align: left;
+  flex-direction: column;
+  grid-template: ". ."
+                 ". ."
+                 ". ."
+                 "Area Area"
+                 / 1fr 1fr;
+  grid-auto-columns: 1fr;
+  justify-content: flex-start;
+  align-items: stretch;
+  font-family: Montserrat, sans-serif;
+  display: grid;
+  position: relative;
+  top: -30px;
 }
 .input {
   border-radius: 18px;
 }
 .submit {
-border-radius: 18px;
-background-color: #1a2852;
-font-family: 'Droid Sans', sans-serif;
-font-weight: 700;
-color: white;
-}
-.text-block1{
-    font-family: 'Droid Sans', sans-serif;
-    font-size: 11px;
+  background-color: #1a2852;
+  border-radius: 18px;
+  position: relative;
+  left: 401px;
+  color:#c4d1db;
 }
     </style>
 </head>
@@ -110,12 +109,13 @@ color: white;
         $f_name=$row['first_name'];
         $l_name=$row['last_name'];
         $email=$row['email_address'];
+        $profile=$row['profile_pic'];
     ?>    
     <div class="container">
     <h2 class="head2">Update Profile</h2>
     <br>
     <div class="form-block">
-        <form class="form" name="form" action="edit_profile.php?id" method="post">
+        <form class="form" name="form" action="edit_profile.php?id=<?php echo $user_id?>" method="post" enctype="multipart/form-data">
             <label for="fname">First name:</label>
             <input class="input" name="fname" type="text" value="<?php echo $f_name ?>"/>
             <label for="lname">Last name:</label>
@@ -123,9 +123,11 @@ color: white;
             <label for="email">Email Address:</label>
             <input class="input" name="email" type="email" value="<?php echo $email ?>"/>
             <label for="pp">Profile Picture</label>
-		    <input type="file" class="input" name="pp"/>
+		    <input type="file" name="pp" />
+            <img src="profile_pic/<?php echo $profile?>" class="rounded-circle" style="width: 70px" />
+            <input type="text" hidden="hidden"  name="old_pp" value="<?php echo $profile?>" />
             <div class="text-block1">Acceptable file types: .jpg, .jpeg, .png</div>
-            <button type="submit" name="update" class="submit">Update</button>
+            <button type="submit" name="update" class="btn btn-primary">Update</button>
         </form>
     </div>
     </div>
@@ -144,79 +146,105 @@ else {
             $fname=$_POST["fname"];
             $lname=$_POST["lname"];
             $email=$_POST["email"];
-            //$old_pp = $_POST['old_pp'];
-
+            $old_pp=$_POST["old_pp"];
+            
             $errors = array();
 
-
-            require("database.php");
             /*
+            require("database.php");
             $sql1= "SELECT * FROM registration WHERE email_address='$email'";
             $result1 = mysqli_query($conn, $sql1);
             $rowCount= mysqli_num_rows($result1);
             if($rowCount !== 0){
                 array_push($errors, "Email address already exist");
-            }
-            */
+            }*/
             $sql= "SELECT user_id, role, password FROM registration WHERE user_id='$user_id'";
             $result = mysqli_query($conn, $sql);
             $rowCount= mysqli_num_rows($result);
             $row = $result->fetch_assoc();//create a list of all the entries of this user
             $role=$row["role"];
-            $exist_email=$row['email'];
 
             if(count($errors)>0){
                 foreach($errors as $error){
                     echo"<div class='alert alert-danger'>$error</div>";
                 }
             }
-            else{
-                if(isset($_FILES['pp']['name']) AND !empty($_FILES['pp']['name'])) {
-                    $img_name = $_FILES['pp']['name'];
-                    $tmp_name = $_FILES['pp']['tmp_name'];
-                    $error = $_FILES['pp']['error'];
-                    
-                    if($error === 0){
-                       $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                       $img_ex_to_lc = strtolower($img_ex);
-           
-                       $allowed_exs = array('jpg', 'jpeg', 'png');
-                       if(in_array($img_ex_to_lc, $allowed_exs)){
-                            $new_img_name = uniqid($user_id, true).'.'.$img_ex_to_lc;
-                            $img_upload_path = './profile_pic/'.$new_img_name;
-                            move_uploaded_file($tmp_name, $img_upload_path);
-            
-                            // Update into Database
-                            $sql3 = "UPDATE registration SET first_name='$fname', last_name='$lname', email_address='$email', profile_pic='$new_img_name' WHERE user_id='$user_id'";
-                            $result3=mysqli_query($conn,$sql3);
-            
-                            if($role=='teacher'){
-                                header('location:teacher/profileview.php?success= Your profile details are updated successfully');
-                            }
-                            else{
-                                header('location:student/profileview.php?success= Your profile details are updated successfully');
-                            }
-                            
-                        }
-                        //gives error message when the file type is incorrect
-                        else {
-                            $em = "File type of profile picture is incorrect! Please upload the correct type: .jpg, .jpeg. .png";
-                            header("Location: ./edit_profile.php?error=$em");   
-                        }
+            $img_name=$_FILES["pp"]["name"];
+            //echo "$img_name </br>";
+
+            if (!empty($img_name)) {
+                //$img_name = $_FILES['pp']['name'];
+                $tmp_name = $_FILES['pp']['tmp_name'];
+                $error = $_FILES['pp']['error'];
+                
+                if($error === 0){
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_to_lc = strtolower($img_ex);
+
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+                    if(in_array($img_ex_to_lc, $allowed_exs)){
+                    $new_img_name = uniqid($user_id, true).'.'.$img_ex_to_lc;
+                    //echo "$new_img_name </br>";
+                    $img_upload_path = './profile_pic/'.$new_img_name;
+                    // Delete old profile pic
+                    $old_pp_des = "./profile_pic/$old_pp";
+                    if(unlink($old_pp_des)){
+                        // just deleted
+                        move_uploaded_file($tmp_name, $img_upload_path);
+                    }else {
+                        // error or already deleted
+                        move_uploaded_file($tmp_name, $img_upload_path);
                     }
-                 }else{
-                    $sql2 = "UPDATE registration SET first_name='$fname', last_name='$lname', email_address='$email' WHERE user_id='$user_id'";
-                    $result2=mysqli_query($conn,$sql2);
-                    //echo "<script type='text/javascript'>alert('You have successfully updated your profile :)')</script>";
+                    
+
+                    // update the Database
+                    $sql = "UPDATE registration 
+                            SET first_name=?, last_name=?, email_address=?, profile_pic=?
+                            WHERE user_id=?";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute([$fname, $lname, $email, $new_img_name, $user_id]);
+                    //$_SESSION['fname'] = $fname;
+                    echo "<script type='text/javascript'>alert('You have successfully updated your profile :)')</script>";
                     if($role=='teacher'){
-                        header('location:teacher/profileview.php?success = Your profile details are updated successfully');
+                        header('location:teacher/profileview.php');
                       }
                       else{
-                        header('location:student/profileview.php?success = Your profile details are updated successfully');
-                      }    
-                    //header( "Refresh:0.01; url=index.php", true, 303);
-                }   
-        
-            }
+                        header('location:student/profileview.php');
+                      }
+                    exit;
+                    }else {
+                    //echo "<script type='text/javascript'>alert('You can't upload files of this type')</script>";
+                    if($role=='teacher'){
+                        header('location:teacher/profileview.php');
+                      }
+                      else{
+                        header('location:student/profileview.php');
+                      }
+                    exit;
+                    }
+                }else {
+                    //echo"<script type='text/javascript'>alert('unknown error occurred!')</script>";
+                    if($role=='teacher'){
+                        header('location:teacher/profileview.php');
+                      }
+                      else{
+                        header('location:student/profileview.php');
+                      }
+                    exit;
+                }
+
+                
+            }else{
+                $sql2 = "UPDATE registration SET first_name='$fname', last_name='$lname', email_address='$email' WHERE user_id='$user_id'";
+                $result2=mysqli_query($conn,$sql2);
+                echo "<script type='text/javascript'>alert('You have successfully updated your profile :)')</script>";
+                if($role=='teacher'){
+                    header('location:teacher/profileview.php');
+                  }
+                  else{
+                    header('location:student/profileview.php');
+                  }   
+                //header( "Refresh:0.01; url=index.php", true, 303);
+            }  
             }
     ?>
