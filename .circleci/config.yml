@@ -54,4 +54,4 @@ jobs:
       - run:
           name: Run tests
           command: |
-            php database.php
+            php Wits_academy_web_files/database.php

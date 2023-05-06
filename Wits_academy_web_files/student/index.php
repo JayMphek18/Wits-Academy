@@ -31,13 +31,51 @@
          <h2 class="head2">MENU </h2>
             <ul>
                 <li><a href="./index.php"><i class="fas fa-tv"></i>Dashboard</a></li>
-                <li><a href="#"><i class="fas fa-user"></i>Profile</a></li>
+                <li><a href="./profileview.php"><i class="fas fa-user"></i>Profile</a></li>
                 <li><a href="./enroll.php"><i class="fas fa-add"></i>Enroll into Course</a></li>
                 <li><a href="#"><i class="fas fa-folder"></i>Courses</a></li>
                 <li><a href="logout.php"><i class="fas fa-arrow-right-from-bracket"></i>Logout</a></li>
             </ul>
         </div>
     </label>
+    <?php
+                  
+                    $user_id=$_SESSION['user_id'];
+                    $sql="select * from enrollment where student_num='$user_id'";
+                    $result=$conn->query($sql);
+                    $rowcount=mysqli_num_rows($result);
+                    if(!($rowcount))
+                        echo "<br><center><h2><b><i>Enroll into Course</i></b></h2></center>";
+                    else
+                    {
+                    ?>
+                    <table class="table" id = "tables">
+                    <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+            
+            //$result=$conn->query($sql);
+            while($row=$result->fetch_assoc())
+            {
+                $code=$row['course_code'];
+                $sql1="select * from courses where course_code='$code'";
+                $result1=$conn->query($sql1);
+                $row1=$result1->fetch_assoc();
+                $course=$row1['course_name'];
+
+            ?>
+                    <tr>
+                        <td><a href="#"><?php echo $code ?></a></td>
+                        <td><a href="#"><?php echo $course ?></a></td>
+                    </tr>
+                <?php }} ?>
+                </tbody>
+                </table>
     </body>
 
 </html>
