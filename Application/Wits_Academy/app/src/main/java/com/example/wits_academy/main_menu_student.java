@@ -1,143 +1,118 @@
 package com.example.wits_academy;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
-public class main_menu_student extends AppCompatActivity {
+public class main_menu_student extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    String usernumber;
+    String userNumber;
     LinearLayout course_list;
-    ArrayList<String> course_names;
+    private DrawerLayout drawerLayout;
+    TextView logout;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu_student);
 
+
+        Intent user_number = getIntent();
+        userNumber = user_number.getStringExtra("information");
+        course_list = (LinearLayout) findViewById(R.id.list_courses);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tooolbar);
+        setSupportActionBar(toolbar);
+
+
+        navigationView = (NavigationView) findViewById(R.id.nav);
+        navigationView.setNavigationItemSelectedListener(this);
+        View view = navigationView.getHeaderView(0);
+        TextView userName = view.findViewById(R.id.name);
+        userName.setText(userNumber);
+        ImageView imageView = view.findViewById(R.id.imageView9);
+        Picasso.get()
+                .load("http://10.203.203.49/wits/php/profile_photos/" + userNumber + ".jpg")
+                .placeholder(R.drawable.profile_icon)
+                .error(R.drawable.profile_icon)
+                .fit()
+                .into(imageView);
+
+        ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
+                R.string.navigator_open,R.string.navigator_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle("Course Dashboard");
 
-        Intent user_number = getIntent();
-        usernumber = user_number.getStringExtra("information");
-        course_list = (LinearLayout) findViewById(R.id.list_courses);
-        course_names = new ArrayList<>();
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-        course_names.add("Physics");
-//        add_layout();
+        DataBase.student_courses(this, userNumber, course_list);
+    }
+    public static void out(Context context){
+        Intent search = new Intent(context, MainActivity.class);
+        context.startActivity(search);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.student_toolbox,menu);
-        return true;
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.search:
                 Intent search = new Intent(this, search_courses.class);
-                search.putExtra("usernumber",usernumber);
+                search.putExtra("usernumber",userNumber);
                 startActivity(search);
-                break;
+                return true;
             case R.id.profile:
                 Intent profile = new Intent(this, profile.class);
-                profile.putExtra("usernumber", usernumber);
+                profile.putExtra("usernumber", userNumber);
+                profile.putExtra("has_image", "");
                 startActivity(profile);
-                break;
+                return true;
             case R.id.logout:
-                Intent logout = new Intent(this, MainActivity.class);
-                logout.putExtra("usernumber", usernumber);
-                startActivity(logout);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+                Intent log = new Intent(this, MainActivity.class);
+                startActivity(log);
+                return true;
+            case R.id.menu_page:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
 
-    public void add_layout(){
-        int i = 0;
-        int left = course_names.size();
-        while (i < course_names.size()){
-            if (left >= 2){
-                View course_layout = getLayoutInflater().inflate(R.layout.box_layout, null);
-                TextView course_name_1 = course_layout.findViewById(R.id.course_name_1);
-                course_name_1.setText(course_names.get(i));
-                course_name_1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String course = course_name_1.getText().toString();
-                        course(course);
-                    }
-                });
-                TextView course_name_2 = course_layout.findViewById(R.id.course_name_2);
-                course_name_2.setText(course_names.get(i + 1));
-                course_name_2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String course = course_name_2.getText().toString();
-                        course(course);
-                    }
-                });
-                course_list.addView(course_layout);
-                i = i + 2;
-                left = left - 2;
-            }
-            else{
-                View course_layout = getLayoutInflater().inflate(R.layout.box_layout, null);
-                TextView course_name_1 = course_layout.findViewById(R.id.course_name_1);
-                course_name_1.setText(course_names.get(i));
-                RelativeLayout last = course_layout.findViewById(R.id.second);
-                last.setVisibility(View.GONE);
-                course_name_1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String course = course_name_1.getText().toString();
-                        course(course);
-                    }
-                });
-                course_list.addView(course_layout);
-                i = i + 1;
-            }
         }
-    }
-
-    public void course(String course_name){
-        Intent intent = new Intent(this, subject.class);
-        intent.putExtra("course_name" , course_name);
-        startActivity(intent);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

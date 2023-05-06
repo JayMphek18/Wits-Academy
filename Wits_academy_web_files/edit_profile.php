@@ -64,34 +64,12 @@
   position: relative;
   top: 34px;
 }
-.form {
-  grid-column-gap: 16px;
-  grid-row-gap: 16px;
-  text-align: left;
-  flex-direction: column;
-  grid-template: ". ."
-                 ". ."
-                 ". ."
-                 "Area Area"
-                 / 1fr 1fr;
-  grid-auto-columns: 1fr;
-  justify-content: flex-start;
-  align-items: stretch;
-  font-family: Montserrat, sans-serif;
-  display: grid;
-  position: relative;
-  top: -30px;
-}
+
 .input {
   border-radius: 18px;
 }
-.submit {
-  background-color: #1a2852;
-  border-radius: 18px;
-  position: relative;
-  left: 401px;
-  color:#c4d1db;
-}
+
+
     </style>
 </head>
 <body class="body">
@@ -116,11 +94,7 @@
     <div class="form-block">
         <form class="form" name="form" action="edit_profile.php?id" method="post">
             <label for="fname">First name:</label>
-            <input class="input" name="fname" type="text" value="<?php echo $f_name ?>" required/>
-            <label for="lname">Last name:</label>
-            <input class="input" name="lname" type="text" value="<?php echo $l_name ?>" required/>
-            <label for="email">Email Address:</label>
-            <input class="input" name="email" type="email" value="<?php echo $email ?>" required/>
+
             <input type="submit" name="update" class="submit" value="Update"/>
         </form>
     </div>
@@ -141,19 +115,18 @@ else {
             $lname=$_POST["lname"];
             $email=$_POST["email"];
 
+
             $errors = array();
 
 
             require("database.php");
-            //check if the email address exists in the database, otherwise append the error message 
-            //"Email address already exists"
             $sql1= "SELECT * FROM registration WHERE email_address='$email'";
             $result1 = mysqli_query($conn, $sql1);
             $rowCount= mysqli_num_rows($result1);
             if($rowCount !== 0){
                 array_push($errors, "Email address already exist");
             }
-            //select the row where the user ID exists and iterate to the 'role' column
+
             $sql= "SELECT user_id, role, password FROM registration WHERE user_id='$user_id'";
             $result = mysqli_query($conn, $sql);
             $rowCount= mysqli_num_rows($result);
@@ -164,20 +137,5 @@ else {
                 foreach($errors as $error){
                     echo"<div class='alert alert-danger'>$error</div>";
                 }
-            }else{
-                //given that the user made changes to the first name or last name or email address, update these changes on the 
-                //registration table on the database
-                $sql2 = "UPDATE registration SET first_name='$fname', last_name='$lname', email_address='$email' WHERE user_id='$user_id'";
-                $result2=mysqli_query($conn,$sql2);
-                echo "<script type='text/javascript'>alert('You have successfully updated your profile :)')</script>";
-                //once changes are made, redirect user to the view profile page to view the changes made
-                if($role=='teacher'){
-                    header('location:teacher/profileview.php');
-                  }
-                  else{
-                    header('location:student/profileview.php');
-                  }    
-                //header( "Refresh:0.01; url=index.php", true, 303);
-            }   
-             }
+
     ?>

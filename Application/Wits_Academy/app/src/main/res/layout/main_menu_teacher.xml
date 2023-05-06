@@ -1,61 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/page_background"
-    tools:context=".main_menu_teacher">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".main_menu_teacher"
+    tools:openDrawer="start">
 
-    <ScrollView
-        android:id="@+id/t_sroll"
+    <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
+        android:background="@drawable/page_background"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="80dp">
+        android:id="@+id/draw_layout"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+        <ScrollView
+            android:id="@+id/t_sroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="80dp">
 
-        <LinearLayout
-            android:id="@+id/t_courses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            <LinearLayout
+                android:id="@+id/t_courses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    </ScrollView>
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/design_default_color_primary"
+                    android:id="@+id/tooolbar"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:popupTheme="@style/Theme.AppCompat.Light"
+                    android:elevation="4dp"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="320dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="17dp"
-        android:clickable="true"
-        android:onClick="create_courses"
-        app:srcCompat="@android:drawable/ic_menu_add" />
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="192dp"
-        android:layout_height="40dp"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="215dp"
-        android:text="Subjects" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/frame_layout"/>
 
 
-</RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_gravity="start"
+            android:id="@+id/nav"
+            app:headerLayout="@layout/navigator"
+            app:menu="@menu/teacher_toolbox"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</LinearLayout>

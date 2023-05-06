@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
-public class forgot_password extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class forgot_password extends AppCompatActivity {
 
     String string;
     EditText email;
@@ -31,9 +31,6 @@ public class forgot_password extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forgot_password);
 
-        //changing background and title on toolbar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-        getSupportActionBar().setTitle("Make a new password");
 
         email = (EditText) findViewById(R.id.f_enter_email);
         user_number = (EditText) findViewById(R.id.f_enter_number);
@@ -41,36 +38,13 @@ public class forgot_password extends AppCompatActivity implements AdapterView.On
         confirm_new_password = (EditText) findViewById(R.id.f_enter_corfirm_password);
         role = (TextView) findViewById(R.id.f_user_number);
 
-
-        Spinner spinner = findViewById(R.id.f_role);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.role, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //String of the role Selected on the dropdown menu
-        string = parent.getItemAtPosition(position).toString();
-        if(string.equals("Teacher")){
-            role.setText("Employee number");
-            user_number.setHint("Enter employee number");
-        }
-        else if(string.equals("Student")){
-            role.setText("Student number");
-            user_number.setHint("Enter student number");
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        return;
-    }
-
-    public void reset_password(View view) {
+    public void after_reset(View view) {
         if(validate_password()){
             adding_to_databasa();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
         else {
             Toast.makeText(this, "Please try again", Toast.LENGTH_SHORT).show();
@@ -83,7 +57,7 @@ public class forgot_password extends AppCompatActivity implements AdapterView.On
             return false;
         }
         else if (user_number.getText().toString().isEmpty()){
-            Toast.makeText(this, "Please enter " + role.getText().toString() + "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter user number" , Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (email.getText().toString().isEmpty()){
@@ -106,8 +80,7 @@ public class forgot_password extends AppCompatActivity implements AdapterView.On
         map.put("email", email.getText().toString());
         map.put("user_number", user_number.getText().toString());
         map.put("password", new_password.getText().toString());
-        map.put("c_password", confirm_new_password.getText().toString());
 
-        DataBase.change_password(this,map);
+        DataBase.change_password(this, map);
     }
 }
