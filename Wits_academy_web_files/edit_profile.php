@@ -169,6 +169,7 @@ else {
                     echo"<div class='alert alert-danger'>$error</div>";
                 }
             }
+	//uploading the profile picture into the database
             if(isset($_FILES['pp']['name']) AND !empty($_FILES['pp']['name'])) {
                 $img_name = $_FILES['pp']['name'];
                 $tmp_name = $_FILES['pp']['tmp_name'];
