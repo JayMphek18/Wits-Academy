@@ -79,12 +79,8 @@ if ($_SESSION['user_id']) {
         <a href="./index.php" class="link">Back To Dashboard</a>
     </div>
     <div class="container">
-        
-                <img  src="" alt="profile image" class="profile">
-
                 <?php
-   //display the user's fullname, user ID and email address on the view profile page
-                 $user_id = $_SESSION['user_id'];
+                $user_id = $_SESSION['user_id'];
                 $sql="select * from registration where user_id='$user_id'";
                 $result=$conn->query($sql);
                 $row=$result->fetch_assoc();
@@ -93,9 +89,11 @@ if ($_SESSION['user_id']) {
                 $lname=$row['last_name'];
                 $fullname=$fname." ".$lname;
                 $email=$row['email_address'];
-                ?>    
+                $profile=$row['profile_pic'];
+                ?> 
+            <img  src="../profile_pic/<?php echo $profile ?>" loading="lazy" width="239" alt="profile image" class="profile">   
             <div class="text"><?php echo $fullname ?></div>
-            <h4 class="head4"><b>Employee Number: </b><i><?php echo $user_id?><i></h4>
+            <h4 class="head4"><b>Student Number: </b><i><?php echo $user_id?><i></h4>
             <h4 class="head4"><b>Email Address: </b><i><?php echo $email?></i></h4><br>
         <a href="../edit_profile.php?id=<?php echo $user_id ?>" class="btn btn-primary">Edit Details</a>             
     </div>
