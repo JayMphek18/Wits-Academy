@@ -78,6 +78,8 @@ public class student_course_view extends AppCompatActivity implements Navigation
                 return true;
             case R.id.announcements:
                 Intent intent1 = new Intent(this,Announcements.class);
+                intent1.putExtra("userNumber",userNumber);
+                intent1.putExtra("courseName",courseName);
                 intent1.putExtra("Role","Student");
                 startActivity(intent1);
 

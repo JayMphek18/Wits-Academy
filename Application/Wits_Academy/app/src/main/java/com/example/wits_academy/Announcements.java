@@ -68,13 +68,15 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
         getSupportActionBar().setTitle("Announcements");
 
         // Get Extra Information From Previous Activity
+        userNumber = getIntent().getStringExtra("userNumber");
         courseName = getIntent().getStringExtra("courseName");
 
 
         // Get And Display Announcements If Any
         announcementsList = new ArrayList<announcementModel>();
         RecyclerView recyclerView = findViewById(R.id.mRecyclerView);
-        DataBase.get_announcements(this,courseName,announcementsList,recyclerView);
+        TextView NoAnnounced =new TextView(this);
+        DataBase.get_announcements(this,courseName,announcementsList,recyclerView,NoAnnounced);
 
 
 

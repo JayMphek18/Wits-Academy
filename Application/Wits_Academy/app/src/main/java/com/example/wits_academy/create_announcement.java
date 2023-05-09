@@ -75,7 +75,7 @@ public class create_announcement extends AppCompatActivity implements Navigation
             case R.id.questions:
                 return true;
             case R.id.Announcement:
-                Intent A = new Intent(this , create_announcement.class);
+                Intent A = new Intent(this , Announcements.class);
                 startActivity(A);
                 return true;
             case R.id.course_slides:

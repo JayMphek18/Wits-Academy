@@ -71,7 +71,7 @@ public class DataBase{
     }
 
     //
-    public static void get_announcements(Context context, String courseName,ArrayList<announcementModel> announcementModels, RecyclerView recyclerView) {
+    public static void get_announcements(Context context, String courseName,ArrayList<announcementModel> announcementModels, RecyclerView recyclerView, TextView NoAnnounced) {
         String url = ip + "/get_announcements.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -86,10 +86,14 @@ public class DataBase{
                         // Do Stuff
                         announcementModels.add(new announcementModel(subject,announcement_text,date,R.drawable.read_more));
                     }
+                    if(announcementModels.size()!=0){
+                        announcement_recyclerViewAdapter adapter = new announcement_recyclerViewAdapter(context,announcementModels);
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    }else{
+                        Toast.makeText(context,"No announcements currently, check in later",Toast.LENGTH_LONG).show();
+                    }
 
-                    announcement_recyclerViewAdapter adapter = new announcement_recyclerViewAdapter(context,announcementModels);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
