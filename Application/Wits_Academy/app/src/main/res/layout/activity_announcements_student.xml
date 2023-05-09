@@ -3,59 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/page_background"
     android:layout_height="match_parent"
-    android:id="@+id/liner"
+    android:background="@drawable/page_background"
     android:fitsSystemWindows="true"
-    tools:context=".main_menu_student"
+    android:orientation="vertical"
+    tools:context=".Announcements"
     tools:openDrawer="start">
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:background="@drawable/page_background"
-        android:layout_height="match_parent"
         android:id="@+id/draw_layout"
+        android:layout_width="match_parent"
+        android:layout_height="671dp"
+        android:background="@drawable/page_background"
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
+
         <ScrollView
             android:id="@+id/t_sroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="2dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="80dp">
 
             <LinearLayout
-                android:id="@+id/list_courses"
+                android:id="@+id/t_courses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/design_default_color_primary"
-                    android:id="@+id/toolbar"
+                    android:elevation="4dp"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:popupTheme="@style/Theme.AppCompat.Light"
-                    android:elevation="4dp"/>
+                    app:popupTheme="@style/Theme.AppCompat.Light" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
                 <FrameLayout
+                    android:id="@+id/frame_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/frame_layout"/>
+                    android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/NoCoursesAvailable"
-                    android:textColor="@color/white"
-                    android:textSize="17dp"
-                    android:layout_marginTop="300dp"
-                    android:textStyle="bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="You are not currently enrolled in any course click on this text to see the available courses"
-                    android:onClick="go_to_courses"/>
+                </FrameLayout>
 
 
             </LinearLayout>
@@ -68,10 +64,9 @@
             android:layout_gravity="start"
             android:id="@+id/nav"
             app:headerLayout="@layout/navigator"
-            app:menu="@menu/student_toolbox"/>
+            app:menu="@menu/student_navigator" />
+
+
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
-
-
 </LinearLayout>

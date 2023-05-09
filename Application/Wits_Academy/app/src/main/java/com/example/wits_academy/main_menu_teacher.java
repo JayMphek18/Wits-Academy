@@ -1,6 +1,6 @@
 package com.example.wits_academy;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,18 +10,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import org.jetbrains.annotations.Nullable;
 
 public class main_menu_teacher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,7 +39,7 @@ public class main_menu_teacher extends AppCompatActivity implements NavigationVi
         course_list = (LinearLayout) findViewById(R.id.t_courses);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tooolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
@@ -78,7 +75,7 @@ public class main_menu_teacher extends AppCompatActivity implements NavigationVi
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
             case R.id.create:
                 Intent search = new Intent(this, create_course.class);

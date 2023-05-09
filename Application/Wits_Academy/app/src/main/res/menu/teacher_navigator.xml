@@ -6,8 +6,8 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/questions"
             android:title="Question Forum"/>
-        <item android:id="@+id/announcements"
-            android:title="Send an announcements"/>
+        <item android:id="@+id/Announcement"
+            android:title="Announcements"/>
         <item android:id="@+id/back"
             android:title="Back to menu"/>
         <item android:id="@+id/logout"

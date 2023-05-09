@@ -26,7 +26,7 @@ public class own_course extends AppCompatActivity {
         course_list = (LinearLayout) findViewById(R.id.search);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tooolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,

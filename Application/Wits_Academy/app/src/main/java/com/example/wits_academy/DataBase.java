@@ -3,6 +3,7 @@ package com.example.wits_academy;
 import static com.example.wits_academy.R.color.white;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -12,6 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,7 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DataBase {
+public class DataBase{
 
     final static String ip  = "http://10.0.2.2/php_app";
     public static void teacher_courses(Context context, String user_number, LinearLayout courses_list) {
@@ -63,6 +68,49 @@ public class DataBase {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
+    }
+
+    //
+    public static void get_announcements(Context context, String courseName,ArrayList<announcementModel> announcementModels, RecyclerView recyclerView) {
+        String url = ip + "/get_announcements.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for(int i =0; i < jsonArray.length();i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String date = jsonObject.getString("announcement_date");
+                        String subject = jsonObject.getString("announcement_subject");
+                        String announcement_text = jsonObject.getString("announcement_text");
+                        // Do Stuff
+                        announcementModels.add(new announcementModel(subject,announcement_text,date,R.drawable.read_more));
+                    }
+
+                    announcement_recyclerViewAdapter adapter = new announcement_recyclerViewAdapter(context,announcementModels);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("courseName", courseName);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+
     }
 
 

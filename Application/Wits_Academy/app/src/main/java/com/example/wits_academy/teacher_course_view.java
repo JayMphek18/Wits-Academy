@@ -1,20 +1,10 @@
 package com.example.wits_academy;
 
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.MenuItem;
@@ -23,16 +13,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.navigation.NavigationView;
 
-import com.squareup.picasso.Picasso;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 
 public class teacher_course_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -66,7 +58,7 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
         imageView = view.findViewById(R.id.imageView9);
         DataBase.get_course_image(this, courseName, imageView);
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tooolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +124,12 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
         switch(item.getItemId()){
             case R.id.questions:
                 return true;
-            case R.id.announcements:
+            case R.id.Announcement:
+                Intent A = new Intent(this , Announcements.class);
+                A.putExtra("userNumber",userNumber);
+                A.putExtra("courseName",courseName);
+                A.putExtra("Role","Teacher");
+                startActivity(A);
                 return true;
             case R.id.course_slides:
                 return true;

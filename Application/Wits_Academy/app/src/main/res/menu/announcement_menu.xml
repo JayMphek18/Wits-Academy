@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/add_announcement"
+        android:icon="@drawable/add_icon"
+        android:onClick="go_to_CreateAnnounce"
+        android:title="Add"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/app_bar_search"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/profile"
+        android:title="View/Edit Profile"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/create"
+        android:title="Create a new Course"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu_page"
+        android:title="Back to Menu"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        app:showAsAction="never"/>
+
+</menu>

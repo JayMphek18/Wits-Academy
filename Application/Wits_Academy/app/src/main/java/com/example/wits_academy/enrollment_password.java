@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import org.jetbrains.annotations.Nullable;
 
 public class enrollment_password extends AppCompatDialogFragment {
 
@@ -47,7 +47,7 @@ public class enrollment_password extends AppCompatDialogFragment {
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
+    public void onAttach(@Nullable Context context) {
         super.onAttach(context);
         try {
             listner = (Listner) context;

@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="warn" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AutoImportSettings">
@@ -66,8 +66,8 @@
       <list>
         <option value="valueResourceFile" />
         <option value="resourceFile" />
-        <option value="layoutResourceFile" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -117,10 +117,19 @@
     <key name="android.template.-1258175260">
       <recent name="com.example.wits_academy" />
     </key>
+    <key name="android.template.-1646151137">
+      <recent name="com.example.wits_academy" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.example.wits_academy" />
+    </key>
     <key name="android.template.-466664350">
       <recent name="com.example.wits_academy" />
     </key>
     <key name="android.template.680841600">
+      <recent name="com.example.wits_academy" />
+    </key>
+    <key name="android.template.-635080928">
       <recent name="com.example.wits_academy" />
     </key>
   </component>
@@ -245,32 +254,50 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/DataBase.java</url>
-          <line>307</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/teacher_course_view.java</url>
-          <line>105</line>
+          <line>97</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/DataBase.java</url>
-          <line>477</line>
+          <line>525</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/ViewsClass.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/create_announcement.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/create_announcement.java</url>
+          <line>121</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/DataBase.java</url>
-          <line>583</line>
-          <option name="timeStamp" value="51" />
+          <line>79</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/DataBase.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/DataBase.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-method">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/DataBase.java</url>
-          <line>226</line>
-          <properties class="com.example.wits_academy.DataBase" method="exists">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="52" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/MainActivity.java</url>
+          <line>33</line>
+          <properties class="com.example.wits_academy.MainActivity" method="forgot_password_toolbox" />
+          <option name="timeStamp" value="53" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
