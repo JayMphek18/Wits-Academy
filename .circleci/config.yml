@@ -5,7 +5,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/code/Application/Wits_Academy
+    working_directory: ~/code
     docker:
 #       - image: circleci/android:api-30
       - image: ccistaging/android:api-30
@@ -14,7 +14,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "Application/Wits_Academy/app/build.gradle" }}
       - run:
           name: chmod permissions
           command: chmod +x ./gradlew
