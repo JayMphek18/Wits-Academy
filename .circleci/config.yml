@@ -5,7 +5,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/code
+    working_directory: ~/Application/Wits_Academy/code
     docker:
 #       - image: circleci/android:api-30
       - image: ccistaging/android:api-30
@@ -23,7 +23,7 @@ jobs:
           command: ./gradlew androidDependencies
       - save_cache:
           paths:
-            - Application/Wits_Academy/.gradle
+            - ~/Application/Wits_Academy/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
       - run:
           name: Run Tests
