@@ -26,8 +26,8 @@
     </label>
     <?php
                     
-                    $user_id=$_SESSION['user_id'];
-                    $sql="select * from enrollment where student_num='$user_id'";
+                    $code=$_GET['id'];
+                    $sql="select * from enrollment where course_code='$code'";
                     $result=$conn->query($sql);
                     $rowcount=mysqli_num_rows($result);
                     if(!($rowcount))
@@ -50,30 +50,19 @@
             //$result=$conn->query($sql);
             while($row=$result->fetch_assoc())
             {
-                $code=$row['course_code'];
-                $sql1="select * from enrollment where course_code='$code'";
-                $result1=$conn->query($sql1);
-                $row1=$result1->fetch_assoc();
-                $snum=$row1['student_num'];
+                $snum=$row['student_num'];
                 $sql2="select * from registration where user_id='$snum'";
                 $result2=$conn->query($sql2);
                 $row2=$result2->fetch_assoc();
                 $name=$row2['first_name'];
                 $lname=$row2['last_name'];
-                echo $name
-                
-                
-               
-                
-
+                $pp=$row2['profile_pic'];
             ?>
                     <tr>
-                        <td>
-                    
-                        
-                        <td><?id=<?php echo $code ?>"><?php echo $name ?></a></td>
-                        <td><?id=<?php echo $code ?>"><?php echo $lname ?></a></td>
-                        <td><?id=<?php echo $code ?>"><?php echo $snum ?></a></td>
+                        <td><img src="../teacher/course_pic/<?php echo $$pp ?>" alt="profile picture" /><td>
+                        <td><?php echo $name ?></td>
+                        <td><?php echo $lname ?></td>
+                        <td><?php echo $snum ?></td>
                     </tr>
                 <?php }} ?>
                 </tbody>
