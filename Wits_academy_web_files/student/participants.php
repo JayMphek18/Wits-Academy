@@ -25,9 +25,13 @@
  
     </label>
     <?php
-                    
-                    $code=$_GET['id'];
-                    $sql="select * from enrollment where course_code='$code'";
+                     $code = $_GET['id'];
+        $sql="select * from courses where course_code='$code'";
+        $result=$conn->query($sql);
+        $row=$result->fetch_assoc();
+
+                    $user_id=$_SESSION['user_id'];
+                    $sql="select * from enrollment where student_num='$user_id'";
                     $result=$conn->query($sql);
                     $rowcount=mysqli_num_rows($result);
                     if(!($rowcount))
@@ -46,23 +50,23 @@
                     </thead>
                     <tbody>
                     <?php
-            
+          
             //$result=$conn->query($sql);
-            while($row=$result->fetch_assoc())
+        $sql1="select * from enrollment inner join registration where enrollment.student_num=registration.user_id && course_code='$code'";
+ $result1=$conn->query($sql1);
+        while($row=$result1->fetch_assoc())
             {
-                $snum=$row['student_num'];
-                $sql2="select * from registration where user_id='$snum'";
-                $result2=$conn->query($sql2);
-                $row2=$result2->fetch_assoc();
-                $name=$row2['first_name'];
-                $lname=$row2['last_name'];
-                $pp=$row2['profile_pic'];
-            ?>
+               
+              ?>
                     <tr>
-                        <td><img src="../teacher/course_pic/<?php echo $$pp ?>" alt="profile picture" /><td>
-                        <td><?php echo $name ?></td>
-                        <td><?php echo $lname ?></td>
-                        <td><?php echo $snum ?></td>
+                        <td>
+                    
+                        
+                        <td><?id=<?php echo $code ?>"><?php echo $row['first_name'] ?></a></td>
+                        <td><?id=<?php echo $code ?>"><?php echo $row['last_name'] ?></a></td>
+                        <td><?id=<?php echo $code ?>"><?php echo $row['student_num'] ?></a></td>
+                    
+                        
                     </tr>
                 <?php }} ?>
                 </tbody>
