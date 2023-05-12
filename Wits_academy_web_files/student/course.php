@@ -151,7 +151,7 @@ ul li i{
             <section class="section2">
             <ul>
                 <li><a href="#" class="link-3"><i class="fas fa-house"></i>Home</a></li>
-                <li><a href="#" class="link-3"><i class="fas fa-users"></i>Participants</a></li>
+                <li><a href="participants.php?id=<?php echo $code ?>" class="link-3"><i class="fas fa-users"></i>Participants</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-bullhorn"></i>Announcements</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-question"></i>Q&amp;A Forum</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-book"></i>Course Materials</a></li>
