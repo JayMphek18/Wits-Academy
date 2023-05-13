@@ -36,10 +36,12 @@ public class MainActivityTest {
 
     @Test
     public void everythingIsDisplayed(){
+        onView(withId(R.id.imageView)).check(matches(isDisplayed()));
         onView(withText("User number")).check(matches(isDisplayed()));
         onView(withText("Password")).check(matches((isDisplayed())));
-        onView(withId(R.id.imageView)).check(matches(isDisplayed()));
+        onView(withText("Login")).check(matches(isDisplayed()));
         onView(withText("Forgot my password?")).check(matches(isDisplayed()));
+        onView(withText("Register")).check(matches(isDisplayed()));
     }
     @Test
     public void loginButtonClickable(){
