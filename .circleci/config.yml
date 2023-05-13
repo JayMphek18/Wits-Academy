@@ -65,7 +65,8 @@ jobs:
       - run:
           name: Launch emulator
           command: |
-            emulator -avd test -delay-adb -verbose -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+            echo "no" | android-emu-quick-boot --name emulator-5554
+            android-emu-quick-boot --name emulator-5554
           background: true
       - run:
           name: Generate cache key
