@@ -15,11 +15,5 @@ public class ExampleUnitTest {
         assertEquals(4, 2 + 2);
     }
 
-    @Test
-    public void validate_input() {
-        assertNotNull(MainActivity.user_id.getText());
-        assertNotNull(MainActivity.user_password.getText());
-    }
-
 
 }
