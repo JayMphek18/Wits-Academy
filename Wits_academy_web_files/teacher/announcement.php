@@ -192,7 +192,7 @@ else {
      //read data entered by user and submit to database
      if(isset($_POST["create"])){
         $date = date('y-m-d h:i:s');
-        echo $date;
+        //echo $date;
         $announce= $_POST["announcement"];
         $course_id=$_POST["id"];
        
