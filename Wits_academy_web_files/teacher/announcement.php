@@ -175,7 +175,7 @@
             $statement = mysqli_stmt_init($conn);
             $prepare = mysqli_stmt_prepare($statement, $sql);
             if($prepare){
-                mysqli_stmt_bind_param($statement,"sssssss",$date,$announce);
+                mysqli_stmt_bind_param($statement,"ss",$date,$announce);
                 mysqli_stmt_execute($statement);
                 echo "<script type='text/javascript'>alert('You have successfully created your announcement!)')</script>";
                 header( "Refresh:0.01; url=index.php", true, 303);
