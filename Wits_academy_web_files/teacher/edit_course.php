@@ -267,9 +267,9 @@ else {
                     // update the Database
                     $sql = "UPDATE courses 
                             SET course_code=?, course_name=?, description=?, picture=?, password=?
-                            WHERE course_code=?";
+                            WHERE course_id=?";
                     $stmt = $conn->prepare($sql);
-                    $stmt->execute([$code, $course, $descrip, $new_img_name, $password, $course_code]);
+                    $stmt->execute([$code, $course, $descrip, $new_img_name, $password, $id]);
                     //$_SESSION['fname'] = $fname;
                     echo "<script type='text/javascript'>alert('Course Details Updated:)')</script>";
                     exit;
@@ -286,9 +286,9 @@ else {
             }else{
                 $sql = "UPDATE courses 
                 SET course_code=?, course_name=?, description=?, password=?
-                WHERE course_code=?";
+                WHERE course_id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$code, $course,$descrip, $password, $course_code]);
+        $stmt->execute([$code, $course,$descrip, $password, $id]);
                 echo "<script type='text/javascript'>alert('Course Details Updated:)')</script>";
                 //header( "Refresh:0.01; url=index.php", true, 303);
             }  
