@@ -1,5 +1,5 @@
 <?php
-    require("database.php");
+    require('database.php');
 ?>
 <?php 
     if ($_SESSION['user_id']) {
@@ -10,25 +10,31 @@
 <head>
     <meta charset="utf-8">
     <title>
-        Create Announcement
+        Edit Course Details
     </title>
-    <!--<link type="text/css" href="create_course.css" rel="stylesheet">-->
+    <link type="text/css" href="*" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <style>
-
-.body {
+    .body {
+    max-width: 500px;
     background-color: #bed2e2;
-    font-family: 'Droid Serif', serif;
-}
-
-.section {
+    }
+    .container {
+    position: relative;
+    top: 49px;
+    }
+    .section1 {
     background-color: #1a2852;
     justify-content: flex-start;
     display: flex;
-  }
-
-.head1 {
+    position: fixed;
+    top: 0%;
+    bottom: auto;
+    left: 0%;
+    right: 0%;
+    }
+    .head1 {
     color: #c4d1db;
     font-family: Droid Sans, sans-serif;
     font-weight: 700;
@@ -45,151 +51,171 @@
     text-decoration: none;
     position: relative;
     top: 50px;
-    left: 330px;
+    left: 494px;
     right: 0;
   }
-
-.head2 {
+    .section2 {
+    max-width: 100px;
+    min-height: 1000px;
+    min-width: 250px;
+    text-align: center;
+    background-color: #1a2852;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: justify;
+    font-family: Droid Sans, sans-serif;
+    font-weight: 700;
+    display: flex;
+    position: fixed;
+    top: 101px;
+    }
+    .link-3 {
+    color: #c4d1db;
+    font-family: Droid Sans, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  h2{
     float: none;
     text-align: center;
     font-family: Montserrat, sans-serif;
-    font-size: 25px;
+    font-size: 30px;
     font-style: normal;
     font-weight: 800;
     text-decoration: none;
     position: static;
 }
-.container {
-    position: relative;
-    top: 49px;
+  ul li{
+   list-style: none;
 }
-
+  ul li a{
+   font-family: 'Droid Sans', sans-serif;
+   font-weight: 500px;
+   padding: 5px 0;
+   display: block;
+   text-decoration: none;
+   transition: 0.2s ease-out;
+   color: #c4d1db;
+}
+ul li:hover a{
+   color: #1a2852;
+   background-color: #c4d1db;
+}
+ul li i{
+   width: 40px;
+   text-align: justify;
+}
 .form-block {
-    position: relative;
-    top: 34px;
-  }
-
+flex-direction: column;
+display: block;
+position: relative;
+top: 141px;
+left: 503px;
+}
 .form {
-    text-align: left;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    font-family: Montserrat, sans-serif;
-    font-weight: 700;
     display: flex;
-    position: relative;
-    top: -30px;
 }
-
-.cpassword {
-   #textboxid
-{
-    height:2000px;
-    font-size:40pt;
+.input {
+  border-radius: 18px;
 }
-  }
-.course_year {
+.submit {
+    background-color: #1a2852;
+    color: #c4d1db;
     border-radius: 18px;
-  }
-
+    font-family: Droid Sans, sans-serif;
+}
+label {
+    color: black;
+    font-weight: 700;
+    font-family: Droid Sans, sans-serif;
+}
 .text-block1{
     font-family: 'Droid Sans', sans-serif;
     font-size: 11px;
 }
-
-.create{
-    background-color: #1a2852;
-    border-radius: 18px;
-    color: #c4d1db ;
-    font-family: Droid Sans, sans-serif;
-  }
-
-    </style>
-
-</head>
-
-   <body class="body">
-    <div class="section">
-        <img src="./Wits_Logo.png" loading="lazy" width="239" alt="Wits emblem" />
-        <h1 class="head1">Create Announcement</h1>
-       <a href="./index.php" class="link"><i class="fas fa-gauge"></i>Back To Dashboard</a>
-    </div>
-
   
-    <div class="container">
-        <h2 class="head2">Please fill in all details below:</h2>
-        <div class="form-block">
-<form class="form" action="announcement.php" method="post">
-      
-             
-                <label for="Date">Date/Time of announcement:</label>
-                <input type="date" class="course_year" name="Date" placeholder="Enter Date/Time of announcement"required="" />
+    </style>
+</head>
+<body class="body">
+        <?php
+            $id = $_GET['id'];
+            $sql="select * from courses where course_id='$id'";
+            $result=$conn->query($sql);
+            $row=$result->fetch_assoc();
+
+            $code=$row['course_code'];
+            $course=$row['course_name'];
+            $description = $row['description'];
+            $picture=$row['picture'];
+            $password=$row['password'];
             
-
-<label for="w3review">Announcement:</label>
-<textarea id="" name="Announcement" rows="4" cols="50">
-              
-
-
- </textarea>
-                <button type="submit"  class="create" name="create">Create</button>
-                </form>
+        ?>     
+        <section class="section2">
+        <ul>
+            <li><a href="course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-house"></i>Home</a></li>
+            <li><a href="participants.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-users"></i>Participants</a></li>
+            <li><a href="announcement.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-bullhorn"></i>Announcement</a></li>
+            <li><a href="#" class="link-3"><i class="fas fa-question"></i>Q&amp;A Forum</a></li>
+            <li><a href="#" class="link-3"><i class="fas fa-square-plus"></i>Create Quiz</a></li>
+            <li><a href="#" class="link-3"><i class="fas fa-comment"></i>View Course Feedback</a></li>
+            <li><a href="edit_course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-pen-to-square"></i>Edit Course Details</a></li>
+        </ul>
+        </section>
+        <div class="form-block">
+            <form class="form" method="post" action="announcement.php?id=<?php echo $id ?>" enctype="multipart/form-data">
+            <div><h2><center>Please fill in all details below:</center></h2></div>
+                <input  hidden="hidden" type="text" name="id" value="<?php echo $id ?>" required="" />
+                <label for="Announcement">Announcement:</label>
+                <textarea class="input" name="announcement" rows="4" cols="50" placeholder="Enter your announcement"></textarea>
+                <button type="submit"  class="submit" name="create">Send</button>
+            </form>
         </div>
+        <div class="container">
+        <div class="section1">
+        <img src="./Wits_Logo.png" loading="lazy" alt="wits logo" />
+        <h1 class="head1"><?php echo $code.":".$course ?></h1>
+        <a href="./index.php" class="link"><i class="fas fa-gauge"></i> Back To Dashboard</a>
+        </div>
+        </div>
+</body>
+</html>
+<?php }
+else {
+    echo "<script type='text/javascript'>alert('Access Denied!!!')</script>";
+} ?>
 
-    </body>
-    
-             
-    <?php
-
-     
-
+<?php
      //read data entered by user and submit to database
      if(isset($_POST["create"])){
-     
-
-       
-        
-        $date = $_POST["Date"];
-        $announce= $_POST["Announcement"];
+        $date = date('y-m-d h:i:s');
+        echo $date;
+        $announce= $_POST["announcement"];
+        $course_id=$_POST["id"];
        
         //create array to store the errors
         $errors = array();
-        
        
-      
-
-        $user_id = $_SESSION['user_id'];
-       
-     
-        
-
-       
-
-      
         if(count($errors)>0){
             foreach($errors as $error){
                 echo"<div class='alert alert-danger'>$error</div>";
             }
         }else{
-            $sql = "INSERT INTO announcement (date_time,announce_text) VALUES (?,?)";
+            $sql = "INSERT INTO announcement (course_id,date_time,announce_text) VALUES (?,?,?)";
             $statement = mysqli_stmt_init($conn);
             $prepare = mysqli_stmt_prepare($statement, $sql);
             if($prepare){
-                mysqli_stmt_bind_param($statement,"ss",$date,$announce);
+                mysqli_stmt_bind_param($statement,"sss",$course_id,$date,$announce);
                 mysqli_stmt_execute($statement);
-                echo "<script type='text/javascript'>alert('You have successfully created your announcement!)')</script>";
-                header( "Refresh:0.01; url=index.php", true, 303);
+                echo "<script type='text/javascript'>alert('Your announcement have been sent!)')</script>";
+                
               }else{
                 die("Something went wrong :(");
-echo $code;
+
             }
         }
       }
 ?>
-</html>
-
-
-<?php }
-else {
-    echo "<script type='text/javascript'>alert('Access Denied!!!')</script>";
-} ?>
