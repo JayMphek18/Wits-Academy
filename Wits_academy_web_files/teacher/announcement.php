@@ -148,11 +148,7 @@ label {
             $row=$result->fetch_assoc();
 
             $code=$row['course_code'];
-            $course=$row['course_name'];
-            $description = $row['description'];
-            $picture=$row['picture'];
-            $password=$row['password'];
-            
+            $course=$row['course_name'];   
         ?>     
         <section class="section2">
         <ul>
@@ -210,7 +206,7 @@ else {
             if($prepare){
                 mysqli_stmt_bind_param($statement,"sss",$course_id,$date,$announce);
                 mysqli_stmt_execute($statement);
-                echo "<script type='text/javascript'>alert('Your announcement have been sent!)')</script>";
+                echo "<script type='text/javascript'>alert('Your announcement have been sent!')</script>";
                 
               }else{
                 die("Something went wrong :(");
