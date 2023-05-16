@@ -142,11 +142,12 @@ label {
 </head>
 <body class="body">
         <?php
-            $code = $_GET['id'];
-            $sql="select * from courses where course_code='$code'";
+            $id = $_GET['id'];
+            $sql="select * from courses where course_id='$id'";
             $result=$conn->query($sql);
             $row=$result->fetch_assoc();
 
+            $code=$row['course_code'];
             $course=$row['course_name'];
             $description = $row['description'];
             $picture=$row['picture'];
@@ -155,19 +156,23 @@ label {
         ?>     
         <section class="section2">
         <ul>
-            <li><a href="#" class="link-3"><i class="fas fa-house"></i>Home</a></li>
-            <li><a href="#" class="link-3"><i class="fas fa-bullhorn"></i>Announcement</a></li>
+            <li><a href="course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-house"></i>Home</a></li>
+            <li><a href="participants.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-users"></i>Participants</a></li>
+            <li><a href="announcement.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-bullhorn"></i>Announcement</a></li>
             <li><a href="#" class="link-3"><i class="fas fa-question"></i>Q&amp;A Forum</a></li>
-            <li><a href="#" class="link-3"><i class="fas fa-book"></i>Course Materials</a></li>
             <li><a href="#" class="link-3"><i class="fas fa-square-plus"></i>Create Quiz</a></li>
             <li><a href="#" class="link-3"><i class="fas fa-comment"></i>View Course Feedback</a></li>
-            <li><a href="edit_course.php?id=<?php echo $code ?>" class="link-3"><i class="fas fa-pen-to-square"></i>Edit Course Details</a></li>
+            <li><a href="edit_course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-pen-to-square"></i>Edit Course Details</a></li>
         </ul>
         </section>
         <div class="form-block">
-            <form class="form" method="post" action="edit_course.php?id=<?php echo $code ?>" enctype="multipart/form-data">
+            <form class="form" method="post" action="edit_course.php?id=<?php echo $id ?>" enctype="multipart/form-data">
             <div><h2><center>Update Details</center></h2></div>
-                <input hidden="hidden" type="text" class="course_code" maxlength="10" name="course_code" value="<?php echo $code ?>"required="" />
+                <input hidden="hidden" type="text"  maxlength="10" name="course_id" value="<?php echo $id ?>"required="" />
+                <label for="code">Course Code: </label>
+                <input type="text" class="input" maxlength="10" name="code" value="<?php echo $code ?>"required="" />
+                <label for="course">Course Name: </label>
+                <input type="text" class="input" maxlength="10" name="course" value="<?php echo $course ?>"required="" />
                 <label for="pic">Course Picture</label>
 		        <input type="file" class="pic" name="pic"/>
                 <img src="course_pic/<?php echo $picture?>" class="rounded-circle" style="width: 70px" />
@@ -202,7 +207,9 @@ else {
         //read the entries of the user; if the entries are correct, change the password of the user to 
         //the new password
         if(isset($_POST["update"])){
-            $course_code=$_POST["course_code"];
+            $id=$_POST["course_id"];
+            $code=$_POST["code"];
+            $course=$_POST["course"];
             $old_pp=$_POST["old_pic"];
             $descrip=$_POST["description"];
             $password=$_POST["course_password"];
@@ -259,10 +266,10 @@ else {
 
                     // update the Database
                     $sql = "UPDATE courses 
-                            SET description=?, picture=?, password=?
-                            WHERE course_code=?";
+                            SET course_code=?, course_name=?, description=?, picture=?, password=?
+                            WHERE course_id=?";
                     $stmt = $conn->prepare($sql);
-                    $stmt->execute([$descrip, $new_img_name, $password, $course_code]);
+                    $stmt->execute([$code, $course, $descrip, $new_img_name, $password, $id]);
                     //$_SESSION['fname'] = $fname;
                     echo "<script type='text/javascript'>alert('Course Details Updated:)')</script>";
                     exit;
@@ -278,10 +285,10 @@ else {
                 
             }else{
                 $sql = "UPDATE courses 
-                SET description=?, password=?
-                WHERE course_code=?";
+                SET course_code=?, course_name=?, description=?, password=?
+                WHERE course_id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$descrip, $password, $course_code]);
+        $stmt->execute([$code, $course,$descrip, $password, $id]);
                 echo "<script type='text/javascript'>alert('Course Details Updated:)')</script>";
                 //header( "Refresh:0.01; url=index.php", true, 303);
             }  

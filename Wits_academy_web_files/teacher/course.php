@@ -129,27 +129,83 @@ ul li i{
     font-size: 20px;
     font-weight: 600;
 }
+.block {
+    background-color: rgba(0, 0, 0, 0);
+    justify-content: space-between;
+    font-family: Droid Sans, sans-serif;
+    font-weight: 700;
+    display: inline-block;
+    position: relative;
+    top: 100px;
+    left: 270px;
+  }
+
+  .head3 {
+    text-shadow: 1px 0 1px rgba(0, 0, 0, .2);
+    font-family: Droid Sans, sans-serif;
+    text-decoration: none;
+    position: relative;
+    top: 95px;
+    left: 265px;
+  }
+  .list {
+    font-family: Droid Sans, sans-serif;
+    font-weight: 400;
+    position: relative;
+    top: 88px;
+    left: 243px;
+    list-style: none;
+  }
+  .list-item {
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+  }
+  .link_list {
+    font-family: Montserrat, sans-serif;
+    color: blue;
+    text-decoration: none;
+  }
     </style>
 
 </head>
 <body class="body">
     <?php
-        $code = $_GET['id'];
-        $sql="select * from courses where course_code='$code'";
+        $id = $_GET['id'];
+        $sql="select * from courses where course_id='$id'";
         $result=$conn->query($sql);
         $row=$result->fetch_assoc();
 
         $course=$row['course_name'];
-    ?>     
+        $code=$row['course_code'];
+    ?>      
+    <div class="block">
+    <a href="upload.php?id=<?php echo $id ?>" class="btn btn-primary"><i class="fas fa-add"></i> Upload</a>
+            </div>
+            <h3 class="head3"><i class="fas fa-folder"></i> Slides/ Notes</h3>
+            <ul role="list" class="list">
+                <li class="list-item"><a href="#" class="link_list">Text Link <i class="fas fa-download"></i></a></li>
+            </ul>
+            <h3 class="head3"><i class="fas fa-file-video"></i> Lecture Videos</h3>
+            <ul role="list" class="list">
+                <li class="list-item"><a href="#" class="link_list">Text Link <i class="fas fa-download"></i></a></li>
+            </ul>
+            <h3 class="head3"><i class="fas fa-folder"></i> Tutorials</h3>
+            <ul role="list" class="list">
+                <li class="list-item"><a href="#" class="link_list">Text Link <i class="fas fa-download"></i></a></li>
+            </ul>
+            <h3 class="head3"><i class="fas fa-folder-plus"></i> Extra Resources</h3>
+            <ul role="list" class="list">
+                <li class="list-item"><a href="#" class="link_list">Text Link <i class="fas fa-download"></i></a></li>
+            </ul>
             <section class="section2">
             <ul>
-                <li><a href="#" class="link-3"><i class="fas fa-house"></i>Home</a></li>
-                <li><a href="#" class="link-3"><i class="fas fa-bullhorn"></i>Announcement</a></li>
+                <li><a href="course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-house"></i>Home</a></li>
+                <li><a href="participants.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-users"></i>Participants</a></li>
+                <li><a href="announcement.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-bullhorn"></i>Announcement</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-question"></i>Q&amp;A Forum</a></li>
-                <li><a href="#" class="link-3"><i class="fas fa-book"></i>Course Materials</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-square-plus"></i>Create Quiz</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-comment"></i>View Course Feedback</a></li>
-                <li><a href="edit_course.php?id=<?php echo $code ?>" class="link-3"><i class="fas fa-pen-to-square"></i>Edit Course Details</a></li>
+                <li><a href="edit_course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-pen-to-square"></i>Edit Course Details</a></li>
             </ul>
             </section>
             <div class="container">
