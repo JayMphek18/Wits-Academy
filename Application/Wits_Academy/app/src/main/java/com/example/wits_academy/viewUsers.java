@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -13,54 +14,60 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import org.jetbrains.annotations.Nullable;
+import java.util.ArrayList;
 
-public class student_course_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class viewUsers extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     String userNumber;
-    LinearLayout course_list;
-    private DrawerLayout drawerLayout;
     String courseName;
-    TextView logout;
-    String role;
+    private DrawerLayout drawerLayout;
     NavigationView navigationView;
+    // Array to store all announcements
+    ArrayList<userModel> userList;
+    String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.student_course_view);
-
-        Intent user_number = getIntent();
-        userNumber = user_number.getStringExtra("userNumber");
-        courseName = user_number.getStringExtra("courseName");
-        course_list = (LinearLayout) findViewById(R.id.contents);
+        // Set Content Based on whether user is a Teacher or a student TODO
         role = getIntent().getStringExtra("Role");
-        navigationView = (NavigationView) findViewById(R.id.nav_s);
-        navigationView.setNavigationItemSelectedListener(this);
-        View view = navigationView.getHeaderView(0);
-        TextView userName = view.findViewById(R.id.name);
-        userName.setText(courseName);
+        userNumber = getIntent().getStringExtra("userNumber");
+        if(role.equals("Teacher"))
+        setContentView(R.layout.activity_view_users);
+        else setContentView(R.layout.activity_view_users_students);
 
-        ImageView imageView = view.findViewById(R.id.imageView9);
-        DataBase.get_course_image(this, courseName, imageView);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigator_open, R.string.navigator_close);
+        navigationView = (NavigationView) findViewById(R.id.nav);
+        navigationView.setNavigationItemSelectedListener(this);
+        View view = navigationView.getHeaderView(0);
+        ImageView imageView = view.findViewById(R.id.imageView9);
+
+        DataBase.get_image(this, userNumber, imageView);
+
+        ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
+                R.string.navigator_open,R.string.navigator_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        courseName = getIntent().getStringExtra("courseName");
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-        getSupportActionBar().setTitle(courseName);
+        getSupportActionBar().setTitle("Participants");
 
+        // Get List of all People in Course and display them
+        userList = new ArrayList<userModel>();
+        RecyclerView recyclerView = findViewById(R.id.viewUsersRecyclerView);
+        DataBase.get_users(this,courseName,userList,recyclerView);
     }
 
     @Override
@@ -73,15 +80,15 @@ public class student_course_view extends AppCompatActivity implements Navigation
     }
 
     @Override
-    public boolean onNavigationItemSelected(@Nullable MenuItem item) {
-        switch(item.getItemId()){
+    public boolean onNavigationItemSelected(MenuItem item) {
+        switch (item.getItemId()){
             case R.id.questions:
                 return true;
             case R.id.announcements:
                 Intent intent1 = new Intent(this,Announcements.class);
                 intent1.putExtra("userNumber",userNumber);
                 intent1.putExtra("courseName",courseName);
-                intent1.putExtra("Role","Student");
+                intent1.putExtra("Role",role);
                 startActivity(intent1);
                 return true;
             case R.id.course_slides:
@@ -103,11 +110,11 @@ public class student_course_view extends AppCompatActivity implements Navigation
                 return true;
             case R.id.ViewUsers:
                 intent = new Intent(this,viewUsers.class);
+                intent.putExtra("Role",role);
                 intent.putExtra("courseName",courseName);
-                intent.putExtra("Role","Student");
+                intent.putExtra("userNumber",userNumber);
                 startActivity(intent);
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }

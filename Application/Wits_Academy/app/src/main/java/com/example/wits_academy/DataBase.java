@@ -71,7 +71,11 @@ public class DataBase{
     }
 
     //
-    public static void get_announcements(Context context, String courseName,ArrayList<announcementModel> announcementModels, RecyclerView recyclerView, TextView NoAnnounced) {
+    public static void get_announcements(Context context, String courseName,
+                                         ArrayList<announcementModel> announcementModels,
+                                         RecyclerView recyclerView,
+                                         TextView NoAnnounced,
+                                         String role) {
         String url = ip + "/get_announcements.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -87,7 +91,7 @@ public class DataBase{
                         announcementModels.add(new announcementModel(subject,announcement_text,date,R.drawable.read_more));
                     }
                     if(announcementModels.size()!=0){
-                        announcement_recyclerViewAdapter adapter = new announcement_recyclerViewAdapter(context,announcementModels);
+                        announcement_recyclerViewAdapter adapter = new announcement_recyclerViewAdapter(context,announcementModels,role);
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(context));
                     }else{
@@ -116,7 +120,33 @@ public class DataBase{
         requestQueue.add(stringRequest);
 
     }
+    /*
+        TODO
+     */
+    public static void delete_announcement(Context context,String announcementText){
+        String url = ip + "/delete_announcement.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, response, Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("text" ,announcementText);
+                return data;
+            }
+        };
 
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
+    }
 
     public static void get_all_courses(Context context, String user_number, LinearLayout courses_list, String newText) {
         String url = ip +"/courses.php";
@@ -284,11 +314,13 @@ public class DataBase{
                 if(response.trim().equals("teacher") || response.trim().equals("Teacher")){
                     Intent intent = new Intent(context, main_menu_teacher.class);
                     intent.putExtra("information",user_number);
+                    intent.putExtra("role","teacher");
                     context.startActivity(intent);
                 }
                 else if(response.trim().equals("student") || response.trim().equals("Student")){
                     Intent intent = new Intent(context, main_menu_student.class);
                     intent.putExtra("information",user_number);
+                    intent.putExtra("role","student");
                     context.startActivity(intent);
                 }
                 else{
@@ -472,6 +504,7 @@ public class DataBase{
                 return data;
             }
         };
+        // Create Folder Where Documents And Videos for Course Will be stored
         String url2 = ip +"/course_folder.php";
         StringRequest folderRequest = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
@@ -639,6 +672,50 @@ public class DataBase{
                 .placeholder(R.drawable.profile_icon)
                 .fit()
                 .into(imageView);
+    }
+
+    public static void get_users(Context context, String courseName, ArrayList<userModel> userList, RecyclerView recyclerView) {
+        String url = ip + "/get_users.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for(int i =0; i < jsonArray.length();i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String fullName = jsonObject.getString("first_name") +" "+ jsonObject.getString("last_name");
+                        String email_address = jsonObject.getString("email_address");
+                        String role = jsonObject.getString("user_role");
+                        // Do Stuff
+                        userList.add(new userModel(fullName,email_address,role,R.drawable.profile_icon,R.drawable.ic_baseline_delete_24));
+                    }
+                    if(userList.size()!=0){
+                        view_users_recyclerViewAdapter adapter = new view_users_recyclerViewAdapter(context,userList);
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    }else{
+                        Toast.makeText(context,"No People currently in this course, check in later",Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("courseName", courseName);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
     }
 
 }

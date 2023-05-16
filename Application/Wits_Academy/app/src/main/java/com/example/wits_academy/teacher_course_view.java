@@ -132,8 +132,17 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
                 startActivity(A);
                 return true;
             case R.id.course_slides:
+                Intent intent1 = new Intent(this,upload_file.class);
+                intent1.putExtra("courseName",courseName);
+                intent1.putExtra("type","Documents");
+                intent1.putExtra("userNumber",userNumber);
+                startActivity(intent1);
                 return true;
             case R.id.videos:
+                Intent intent2 = new Intent(this,upload_file.class);
+                intent2.putExtra("courseName",courseName);
+                intent2.putExtra("type","Videos");
+                intent2.putExtra("userNumber",userNumber);
                 return true;
             case R.id.quiz:
                 return true;
@@ -148,17 +157,32 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
                 Intent intent = new Intent(this , MainActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.ViewUsers:
+                intent = new Intent(this,viewUsers.class);
+                intent.putExtra("courseName",courseName);
+                intent.putExtra("userNumber",userNumber);
+                intent.putExtra("Role","Teacher");
+                startActivity(intent);
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public void upload(View view) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.setType("application/pdf");
-        startActivityForResult(intent,1);
+    public void uploadFile(View view) {
+        Intent intent1 = new Intent(this,upload_file.class);
+        intent1.putExtra("courseName",courseName);
+        intent1.putExtra("type","Documents");
+        intent1.putExtra("userNumber",userNumber);
 
+        startActivity(intent1);
+    }
+
+    public void uploadVideo(View view) {
+        Intent intent1 = new Intent(this,upload_file.class);
+        intent1.putExtra("courseName",courseName);
+        intent1.putExtra("type","Videos");
+        intent1.putExtra("userNumber",userNumber);
+        startActivity(intent1);
     }
 }
 

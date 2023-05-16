@@ -13,6 +13,8 @@
             android:title="Back to menu"/>
         <item android:id="@+id/logout"
             android:title="Logout"/>
+        <item android:id="@+id/ViewUsers"
+            android:title="View participants"/>
     </group>
 
     <item android:title="Content">

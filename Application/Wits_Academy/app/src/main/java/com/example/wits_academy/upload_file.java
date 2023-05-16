@@ -1,96 +1,308 @@
 package com.example.wits_academy;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.pdf.PdfDocument;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class upload_file extends AppCompatActivity {
+public class upload_file extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView upload_btn;
+    private ImageView select_view_btn;
+    private TextView tv;
+    private String upload_URL = "http://10.0.2.2/php_app/uploadFile.php?";
+    private RequestQueue rQueue;
+    String type;
+    String courseName;
+    private ArrayList<HashMap<String, String>> arraylist;
+
+    private DrawerLayout drawerLayout;
+    TextView logout;
+    NavigationView navigationView;
+    String userNumber;
 
 
-    private final int REQ = 1;
-    private Uri pdfdata;
-    String pdfName;
-    TextView pdfTextView;
-    EditText pdfTitle;
-    Bitmap bitmap;
+    // File Details
+    private String displayName = null;
+    private Uri uri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload_file);
-        pdfTextView = findViewById(R.id.textView);
-        pdfTitle = findViewById(R.id.pdfTitle);
+
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        navigationView = (NavigationView) findViewById(R.id.nav_t);
+        navigationView.setNavigationItemSelectedListener(this);
+        View view = navigationView.getHeaderView(0);
+
+        ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
+                R.string.navigator_open,R.string.navigator_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        type = getIntent().getStringExtra("type");
+
+        //changing background and title on toolbar
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+        if(type=="Documents") getSupportActionBar().setTitle("Upload File");
+        else getSupportActionBar().setTitle("Upload Video");
+
+
+
+
+        upload_btn = findViewById(R.id.btn);
+        select_view_btn = findViewById(R.id.selecViewFile);
+        tv = findViewById(R.id.fileName);
+        courseName = getIntent().getStringExtra("courseName");
+
+        userNumber = getIntent().getStringExtra("userNumber");
+
+        // Open File Explorer to select the file
+        select_view_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");
+                startActivityForResult(intent,1);
+            }
+        });
+
+
+        upload_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(displayName == null){
+                    Toast.makeText(upload_file.this,"Please select a file",Toast.LENGTH_LONG).show();
+                }else {
+                    uploadPDF(displayName, uri);
+                }
+            }
+        });
+
     }
 
-    public void upload(View view) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("pdf/mp4");
-        intent.setData(MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"select pdf"),REQ);
-
-
-    }
-
-    @SuppressLint("Range")
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ && resultCode == RESULT_OK ){
-            pdfdata = data.getData();
-            if (pdfdata.toString().startsWith("content://")){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            // Get the Uri of the selected file
+            uri = data.getData();
+            String uriString = uri.toString();
+            File myFile = new File(uriString);
+            String path = myFile.getAbsolutePath();
+            displayName = null;
+
+            if (uriString.startsWith("content://")) {
                 Cursor cursor = null;
                 try {
-                    cursor = upload_file.this.getContentResolver().query(pdfdata,null, null,null,null,null);
-                    if (cursor != null && cursor.moveToFirst()){
-                        pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    cursor = this.getContentResolver().query(uri, null, null, null, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        displayName = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME));
+                        tv.setText(displayName);
+                        Log.d("nameeeee>>>>  ",displayName);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } finally {
+                    cursor.close();
+                }
+            } else if (uriString.startsWith("file://")) {
+                displayName = myFile.getName();
+                Log.d("nameeeee>>>>  ",displayName);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    private void uploadPDF(final String pdfname, Uri pdffile){
+
+        InputStream iStream = null;
+        try {
+
+            iStream = getContentResolver().openInputStream(pdffile);
+            final byte[] inputData = getBytes(iStream);
+
+            VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, upload_URL,
+                    new Response.Listener<NetworkResponse>() {
+                        @Override
+                        public void onResponse(NetworkResponse response) {
+                            Log.d("ressssssoo",new String(response.data));
+                            rQueue.getCache().clear();
+                            try {
+                                JSONObject jsonObject = new JSONObject(new String(response.data));
+                                Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
+                                jsonObject.toString().replace("\\\\","");
+
+                                if (jsonObject.getString("status").equals("true")) {
+                                    Log.d("come::: >>>  ","yessssss");
+                                    arraylist = new ArrayList<HashMap<String, String>>();
+                                    JSONArray dataArray = jsonObject.getJSONArray("data");
+
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }) {
+
+                /*
+                 * If you want to add more parameters with the image
+                 * you can do it here
+                 * here we have only one parameter with the image
+                 * which is tags
+                 * */
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("courseName",courseName);
+                    params.put("type",type);
+                    // params.put("tags", "ccccc");  add string parameters
+                    return params;
                 }
 
-            }
-            else if (pdfdata.toString().startsWith("file://")){
-                pdfName = new File(pdfdata.toString()).getName();
-            }
-            pdfTextView.setText(pdfName);
+                /*
+                 *pass files using below method
+                 * */
+                @Override
+                protected Map<String, DataPart> getByteData() {
+                    Map<String, DataPart> params = new HashMap<>();
+                    params.put("filename", new DataPart(pdfname ,inputData));
+                    return params;
+                }
+            };
+
+            volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    0,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            rQueue = Volley.newRequestQueue(upload_file.this);
+            rQueue.add(volleyMultipartRequest);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
         }
     }
 
-    public void upload_file(View view) {
-        String title = pdfTitle.getText().toString();
-        if (title.isEmpty()){
-            pdfTitle.setError("Empty");
-            pdfTitle.requestFocus();
+    @Override
+    public boolean onNavigationItemSelected(@Nullable MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.questions:
+                return true;
+            case R.id.Announcement:
+                Intent A = new Intent(this , Announcements.class);
+                A.putExtra("userNumber",userNumber);
+                A.putExtra("courseName",courseName);
+                A.putExtra("Role","Teacher");
+                startActivity(A);
+                return true;
+            case R.id.course_slides:
+                Intent intent1 = new Intent(this,upload_file.class);
+                intent1.putExtra("courseName",courseName);
+                intent1.putExtra("type","Documents");
+                intent1.putExtra("userNumber",userNumber);
+                startActivity(intent1);
+                return true;
+            case R.id.videos:
+                Intent intent2 = new Intent(this,upload_file.class);
+                intent2.putExtra("courseName",courseName);
+                intent2.putExtra("type","Videos");
+                intent2.putExtra("userNumber",userNumber);
+                return true;
+            case R.id.quiz:
+                return true;
+            case R.id.assignment:
+                return true;
+            case R.id.grades:
+                return true;
+            case R.id.back:
+                DataBase.back_to_menu(this,userNumber);
+                return true;
+            case R.id.logout:
+                Intent intent = new Intent(this , MainActivity.class);
+                startActivity(intent);
+                return true;
         }
-        else if (pdfdata == null){
-
-        }
-        else{
-
-        }
-    }
-
-    private void uploadPdf() {
-
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
