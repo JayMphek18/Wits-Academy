@@ -119,7 +119,7 @@ jobs:
           command: ./gradlew connectedCheck
       - store_artifacts:
           path: app/build/outputs/code_coverage/debugAndroidTest/connected
-          destination: coverage
+          destination: coverage.html
       - run: |
           curl -Os https://uploader.codecov.io/latest/linux/codecov 
           chmod +x codecov 
