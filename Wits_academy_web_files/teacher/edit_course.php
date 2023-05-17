@@ -250,7 +250,7 @@ else {
 
                     $allowed_exs = array('jpg', 'jpeg', 'png');
                     if(in_array($img_ex_to_lc, $allowed_exs)){
-                    $new_img_name = uniqid($course_code, true).'.'.$img_ex_to_lc;
+                    $new_img_name = uniqid($id, true).'.'.$img_ex_to_lc;
                     //echo "$new_img_name </br>";
                     $img_upload_path = './course_pic/'.$new_img_name;
                     // Delete old profile pic

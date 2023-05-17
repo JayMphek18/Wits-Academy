@@ -146,6 +146,7 @@
                             //$result=$conn->query($sql);
                             while($row=$result->fetch_assoc())
                             {
+                                $id=$row['course_id'];
                                 $code=$row['course_code'];
                                 $course=$row['course_name'];
                                 $faculty=$row['faculty'];
@@ -157,7 +158,7 @@
                                       <td><?php echo $faculty ?></td>
                                       <td><?php echo $school ?></td>
                                       <td><center><?php
-                                      		echo "<a href=\"enroll_course.php?id=".$code."\" class=\"btn btn-success\">Enroll</a>";
+                                      		echo "<a href=\"enroll_course.php?id=".$id."\" class=\"btn btn-success\">Enroll</a>";
                                         ?>
                                         </center></td>
                                     </tr>
