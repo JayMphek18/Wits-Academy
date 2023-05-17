@@ -38,7 +38,7 @@ public class register_pageTest {
 
     @Test
     public void allTextVisible(){
-        \\onView(withText("Email Address")).check(matches(isDisplayed()));
+        onView(withText("Email Address")).check(matches(isDisplayed()));
         onView(withText("Student number")).check(matches((isDisplayed())));
         onView(withText("First Name")).check(matches(isDisplayed()));
         onView(withText("Last Name")).check(matches(isDisplayed()));
