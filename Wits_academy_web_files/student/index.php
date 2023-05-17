@@ -63,10 +63,11 @@
             //$result=$conn->query($sql);
             while($row=$result->fetch_assoc())
             {
-                $code=$row['course_code'];
-                $sql1="select * from courses where course_code='$code'";
+                $id=$row['course_id'];
+                $sql1="select * from courses where course_id='$id'";
                 $result1=$conn->query($sql1);
                 $row1=$result1->fetch_assoc();
+                $code=$row1['course_code'];
                 $course=$row1['course_name'];
                 $pic=$row1['picture'];
 
@@ -75,8 +76,8 @@
                         <td>
                         <img src="../teacher/course_pic/<?php echo $pic ?>" alt="course_picture" loading="lazy" width="50" />
                         </td>
-                        <td><a href="./course.php?id=<?php echo $code ?>"><?php echo $code ?></a></td>
-                        <td><a href="./course.php?id=<?php echo $code ?>"><?php echo $course ?></a></td>
+                        <td><a href="./course.php?id=<?php echo $id ?>"><?php echo $code ?></a></td>
+                        <td><a href="./course.php?id=<?php echo $id ?>"><?php echo $course ?></a></td>
                     </tr>
                 <?php }} ?>
                 </tbody>

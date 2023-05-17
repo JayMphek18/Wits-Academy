@@ -109,8 +109,8 @@
         <h2 class="head2">Course Details:</h2>
         </div>
         <?php
-            $code=$_GET['id'];
-            $sql="select * from courses where course_code='$code'";
+            $id=$_GET['id'];
+            $sql="select * from courses where course_id='$id'";
             $result=$conn->query($sql);
             $row=$result->fetch_assoc();
             
@@ -131,8 +131,8 @@
             echo "<b>Course Year:</b> $year <br><br></div>";
             ?>
             <div class="form-block">
-        <form class="form" action="enroll_course.php?id=<?php echo $code?>" method="post">
-            <input hidden = "hidden" name="course_code" type="text" value="<?php echo $code ?>" /><br>
+        <form class="form" action="enroll_course.php?id=<?php echo $id?>" method="post">
+            <input hidden = "hidden" name="course_id" type="text" value="<?php echo $id ?>" /><br>
             <label for="course_password">Course Password:</label>
             <input type="password" class="password" maxlength="10" name="course_password" placeholder="Enter Course Password" required="" />
             <div class="text-block1">Enter the course password</div>
@@ -152,10 +152,10 @@ else {
 <?php
 
 if(isset ($_POST["enroll"])){
-    $course_code=$_POST["course_code"];
+    $course_id=$_POST["course_id"];
     $password=$_POST["course_password"];
     $user_id=$_SESSION['user_id'];
-    $sql1="SELECT * FROM courses WHERE course_code='$course_code'";
+    $sql1="SELECT * FROM courses WHERE course_id='$course_id'";
     $result1=mysqli_query($conn, $sql1);
     $row1=$result1->fetch_assoc();
 
@@ -168,14 +168,14 @@ if(isset ($_POST["enroll"])){
     $errors=array();
 
     //checking if the student is already enrolled
-    $sql2="SELECT * FROM enrollment WHERE student_num='$user_id' AND course_code='$course_code'";
+    $sql2="SELECT * FROM enrollment WHERE student_num='$user_id' AND course_id='$course_id'";
     $result2=mysqli_query($conn, $sql2);
     $rowCount=mysqli_num_rows($result2);
     if($rowCount>0){
         array_push($errors, "Already enrolled into course!");
     }
 
-    $sql3="SELECT * FROM courses WHERE course_code='$course_code'";
+    $sql3="SELECT * FROM courses WHERE course_id='$course_id'";
     $result3=mysqli_query($conn, $sql3);
     $row3=$result3->fetch_assoc();
     $pass=$row3["password"];
@@ -188,11 +188,11 @@ if(isset ($_POST["enroll"])){
             echo"<br><br><div class='alert alert-danger'>$error</div>";
         }
     }else{
-        $sql = "INSERT INTO enrollment (student_num, course_code) VALUES (?,?)";
+        $sql = "INSERT INTO enrollment (student_num, course_id) VALUES (?,?)";
         $statement = mysqli_stmt_init($conn);
         $prepare = mysqli_stmt_prepare($statement, $sql);
         if($prepare){
-            mysqli_stmt_bind_param($statement, "ss",$user_id, $course_code);
+            mysqli_stmt_bind_param($statement, "ss",$user_id, $course_id);
             mysqli_stmt_execute($statement);
             echo "<script type='text/javascript'>alert('You have successfully enrolled into the course!')</script>";
             header( "Refresh:0.01; url=./index.php", true, 303);

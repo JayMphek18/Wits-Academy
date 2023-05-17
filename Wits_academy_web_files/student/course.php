@@ -21,11 +21,7 @@
     font-family: 'Droid Sans', sans-serif;
     }
 
-    .section {
-        background-color: #1a2852;
-        justify-content: flex-start;
-        display: flex;
-    }
+   
     section{
         max-width: 100px;
         min-height: 1000px;
@@ -134,31 +130,31 @@ ul li i{
 </head>
 <body class="body">
     <?php
-        $code = $_GET['id'];
-        $sql="select * from courses where course_code='$code'";
+        $id = $_GET['id'];
+        $sql="select * from courses where course_id='$id'";
         $result=$conn->query($sql);
         $row=$result->fetch_assoc();
 
         $course=$row['course_name'];
-        $description = $row['description'];
+        $code=$row['course_code'];
+        $description=$row['description'];
         $picture=$row['picture'];
-        $password=$row['password'];
-    ?>     
-            <img src="./course_pic/<?php echo $picture ?>" loading="lazy" width="359" sizes="(max-width: 479px) 100vw, 358.9930725097656px" alt="course_picture" class="image-12" /> 
+    ?>        
+            <img src="../teacher/course_pic/<?php echo $picture ?>" loading="lazy" width="359" sizes="(max-width: 479px) 100vw, 358.9930725097656px" alt="course_picture" class="image-12" /> 
             <div class="rich-text-block">
                 <p> <?php echo $description ?>
             </div> 
             <section class="section2">
             <ul>
-                <li><a href="#" class="link-3"><i class="fas fa-house"></i>Home</a></li>
-                <li><a href="participants.php?id=<?php echo $code ?>" class="link-3"><i class="fas fa-users"></i>Participants</a></li>
-                <li><a href="#" class="link-3"><i class="fas fa-bullhorn"></i>Announcements</a></li>
+                <li><a href="course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-house"></i>Home</a></li>
+                <li><a href="participants.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-users"></i>Participants</a></li>
+                <li><a href="announcement.php?id=<?php echo $id?>" class="link-3"><i class="fas fa-bullhorn"></i>Announcements</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-question"></i>Q&amp;A Forum</a></li>
-                <li><a href="#" class="link-3"><i class="fas fa-book"></i>Course Materials</a></li>
+                <li><a href="course_material.php?id=<?php echo $id ?> " class="link-3"><i class="fas fa-book"></i>Course Materials</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-book"></i>Quizzes</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-book"></i>Assignments</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-comment"></i>Send Course Feedback</a></li>
-                <li><a href="edit_course.php?id=<?php echo $code ?>" class="link-3"><i class="fas fa-info-circle"></i>View Course Details</a></li>
+                <li><a href="view_course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-info-circle"></i>View Course Details</a></li>
             </ul>
             </section>
             <div class="container">
