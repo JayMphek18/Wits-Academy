@@ -22,7 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class viewUsers extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    //Declare variables
     String userNumber;
     String courseName;
     private DrawerLayout drawerLayout;
@@ -41,7 +41,7 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
         setContentView(R.layout.activity_view_users);
         else setContentView(R.layout.activity_view_users_students);
 
-
+        /**Initialise variables**/
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -51,9 +51,11 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
         ImageView imageView = view.findViewById(R.id.imageView9);
-
+        
+        /**Call the get image method from the class get image for the profile pic of the user**/
         DataBase.get_image(this, userNumber, imageView);
-
+        
+        /**Enable the user to open and close the navigation drawer using the icon on the toolbar**/
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
                 R.string.navigator_open,R.string.navigator_close);
         drawerLayout.addDrawerListener(toggle);
@@ -69,8 +71,9 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
         RecyclerView recyclerView = findViewById(R.id.viewUsersRecyclerView);
         DataBase.get_users(this,courseName,userList,recyclerView);
     }
-
-    @Override
+   /**Allows the back button to close the navigation drawer if it is open, and otherwise, 
+    it performs the default back button behavior.**/
+     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -78,7 +81,8 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
             super.onBackPressed();
         }
     }
-
+     /** This code is for the navigation bar and allows the user to be able to navigate to another
+    page depending on which section they clicked on the navigation bar **/
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()){
