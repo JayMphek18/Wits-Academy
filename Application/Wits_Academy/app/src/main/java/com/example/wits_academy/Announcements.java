@@ -44,7 +44,8 @@ import java.util.Map;
 import java.util.zip.Inflater;
 
 public class Announcements extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    
+    //Declaring the variables
     String userNumber;
     String courseName;
     LinearLayout course_list;
@@ -66,7 +67,8 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
            setContentView(R.layout.activity_announcements);
         else
             setContentView(R.layout.activity_announcements_student);
-
+        
+        /**Initialising the variables**/
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,15 +80,16 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
         TextView userName = view.findViewById(R.id.name);
         userName.setText(userNumber);
         ImageView imageView = view.findViewById(R.id.imageView9);
-
+        /**Calls the method from Database class to get the image of the user for their profile**/
         DataBase.get_image(this, userNumber, imageView);
-
+        
+        //allows users to open and close the drawer
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
                 R.string.navigator_open,R.string.navigator_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        //changing background and title on toolbar
+        //Changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle("Announcements");
 
@@ -102,7 +105,8 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
 
     }
 
-
+/**Allows the back button to close the navigation drawer if it is open, and otherwise, 
+it performs the default back button behavior.**/
 
     @Override
     public void onBackPressed() {
@@ -112,6 +116,9 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
         }
     }
+   
+    /** This code is for the navigation bar and allows the user to be able to navigate to another
+    page depending on which section they clicked on the navigation bar **/
 
     @Override
     public boolean onNavigationItemSelected(@Nullable MenuItem item) {
@@ -158,6 +165,7 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
                 intent.putExtra("Role",role);
                 startActivity(intent);
         }
+         //Close navigation bar after the selection is made
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -183,25 +191,30 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         View view1 = inflater.inflate(R.layout.activity_create_announcement,null);
 
-
+        //Initialise variables 
         EditText announce_text = (EditText) view1.findViewById(R.id.AnnouncementText);
         TextView tvSend = (TextView)view1.findViewById(R.id.sendAnnouncement);
         tvSend.setOnClickListener(new View.OnClickListener() {
+                
+           // Set a click listener for the "Send" button
             @Override
             public void onClick(View view) {
                 String url = ip + "/send_announcement.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        // Display the response message as a Toast
                         Toast.makeText(Announcements.this,response,Toast.LENGTH_LONG).show();
                         finish();
                         startActivity(getIntent());
                     }
                 },
+                        // Display the error message as a Toast
                         error -> Toast.makeText(Announcements.this, error.toString().trim(), Toast.LENGTH_SHORT).show()) {
+                    
                     @Override
                     protected Map<String, String> getParams() {
-
+                        /** specify the parameters to be sent to the server **/
                         String text = announce_text.getText().toString();
                         Map<String, String> data = new HashMap<>();
                         data.put("announcementText", text);
@@ -223,7 +236,7 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
         // Show Window
         popupWindow.showAtLocation(view, Gravity.CENTER,0,0);
 
-
+/**To ensure that the PopupWindow is properly dismissed when the dismissal event occur**/
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
