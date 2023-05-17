@@ -28,6 +28,10 @@ jobs:
           name: Wits_Academy
           path: app/build/outputs/apk/
           destination: apks/
+      - run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov 
+          chmod +x codecov 
+          ./codecov -t ${CODECOV_TOKEN}
 
   unit tests:
     working_directory: ~/code
@@ -45,6 +49,10 @@ jobs:
 
       - store_test_results:
           path: app/build/test-results
+      - run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov 
+          chmod +x codecov 
+          ./codecov -t ${CODECOV_TOKEN}
 
 
   instrumented_test:
@@ -118,8 +126,8 @@ jobs:
       - run:
           command: ./gradlew connectedCheck
       - store_artifacts:
-          path: app/build/outputs/code_coverage/debugAndroidTest/connected
-          destination: coverage.html
+          path: app/build/reports/androidTest
+          destination: coverage
       - run: |
           curl -Os https://uploader.codecov.io/latest/linux/codecov 
           chmod +x codecov 
