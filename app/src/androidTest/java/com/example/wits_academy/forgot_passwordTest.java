@@ -29,15 +29,15 @@ public class forgot_passwordTest {
         forgot_password = mActivityRule.getActivity();
     }
 
-//     @Test
-//     public void everythingIsDisplayed(){
-//         onView(withText("Email Address")).check(matches(isDisplayed()));
-//         onView(withText("User number")).check(matches((isDisplayed())));
-//         onView(withText("Confirm new password")).check(matches(isDisplayed()));
-//         onView(withText("New password")).check(matches(isDisplayed()));
-//         onView(withText("Reset Password")).check(matches(isDisplayed()));
-//         onView(withText("Back to login")).check(matches(isDisplayed()));
-//     }
+    @Test
+    public void everythingIsDisplayed(){
+        onView(withText("Email Address")).check(matches(isDisplayed()));
+        onView(withText("User number")).check(matches((isDisplayed())));
+        onView(withText("Confirm new password")).check(matches(isDisplayed()));
+        onView(withText("New password")).check(matches(isDisplayed()));
+        onView(withText("Reset Password")).check(matches(isDisplayed()));
+        onView(withText("Back to login")).check(matches(isDisplayed()));
+    }
 
     @Test
     public void ResetButtonClickable(){
