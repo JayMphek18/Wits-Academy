@@ -93,7 +93,7 @@ if ($_SESSION['user_id']) {
                 ?> 
             <img  src="../profile_pic/<?php echo $profile ?>" loading="lazy" width="239" alt="profile image" class="profile">   
             <div class="text"><?php echo $fullname ?></div>
-            <h4 class="head4"><b>Student Number: </b><i><?php echo $user_id?><i></h4>
+            <h4 class="head4"><b>Teacher Number: </b><i><?php echo $user_id?><i></h4>
             <h4 class="head4"><b>Email Address: </b><i><?php echo $email?></i></h4><br>
         <a href="../edit_profile.php?id=<?php echo $user_id ?>" class="btn btn-primary">Edit Details</a>             
     </div>
