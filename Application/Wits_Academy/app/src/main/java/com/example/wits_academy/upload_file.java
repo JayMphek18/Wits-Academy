@@ -1,10 +1,17 @@
 package com.example.wits_academy;
 
 
+import static android.media.MediaRecorder.MetricsConstants.HEIGHT;
+
+import static java.awt.font.TextAttribute.WIDTH;
+
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +49,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +57,8 @@ import java.util.Map;
 public class upload_file extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView upload_btn;
-    private ImageView select_view_btn;
+    private TextView view_btn;
+    private ImageView select_btn;
     private TextView tv;
     private String upload_URL = "http://10.0.2.2/php_app/uploadFile.php?";
     private RequestQueue rQueue;
@@ -91,21 +100,22 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
 
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-        if(type=="Documents") getSupportActionBar().setTitle("Upload File");
+        if(type.equals("Documents")) getSupportActionBar().setTitle("Upload File");
         else getSupportActionBar().setTitle("Upload Video");
 
 
 
 
         upload_btn = findViewById(R.id.btn);
-        select_view_btn = findViewById(R.id.selecViewFile);
+        select_btn = findViewById(R.id.selectFile);
+        view_btn = findViewById(R.id.view_btn);
         tv = findViewById(R.id.fileName);
         courseName = getIntent().getStringExtra("courseName");
 
         userNumber = getIntent().getStringExtra("userNumber");
 
         // Open File Explorer to select the file
-        select_view_btn.setOnClickListener(new View.OnClickListener() {
+        select_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();

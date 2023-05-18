@@ -136,6 +136,7 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
                 intent1.putExtra("courseName",courseName);
                 intent1.putExtra("type","Documents");
                 intent1.putExtra("userNumber",userNumber);
+                intent1.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(intent1);
                 return true;
             case R.id.videos:

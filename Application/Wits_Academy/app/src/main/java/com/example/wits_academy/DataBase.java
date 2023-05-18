@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.renderscript.Sampler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -38,7 +40,7 @@ import java.util.Map;
 public class DataBase{
 
     final static String ip  = "http://10.0.2.2/php_app";
-    public static void teacher_courses(Context context, String user_number, LinearLayout courses_list) {
+    public static void teacher_courses(Context context, String user_number, LinearLayout courses_list,String role) {
         String url = ip + "/teaching_courses.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -48,7 +50,7 @@ public class DataBase{
                     ArrayList<String> course_names = new ArrayList<>();
                     ArrayList<String> course_code = new ArrayList<>();
                     ArrayList<String> teacher_name = new ArrayList<>();
-                    ViewsClass.get_information_on_JSON(context, user_number, courses_list, jsonArray, teacher_name, course_code, course_names);
+                    ViewsClass.get_information_on_JSON(context, user_number, courses_list, jsonArray, teacher_name, course_code, course_names,role);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -174,7 +176,7 @@ public class DataBase{
     }
 
 
-    public static void student_courses(Context context, String user_number, LinearLayout courses_list, TextView display) {
+    public static void student_courses(Context context, String user_number, LinearLayout courses_list, TextView display,String role) {
         String url = ip + "/enrolled_course.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @SuppressLint("ResourceAsColor")
@@ -188,7 +190,7 @@ public class DataBase{
                             ArrayList<String> course_names = new ArrayList<>();
                             ArrayList<String> course_code = new ArrayList<>();
                             ArrayList<String> teacher_name = new ArrayList<>();
-                            ViewsClass.get_information_on_JSON(context, user_number, courses_list, jsonArray, teacher_name, course_code, course_names);
+                            ViewsClass.get_information_on_JSON(context, user_number, courses_list, jsonArray, teacher_name, course_code, course_names,role);
                         }
 
 
@@ -222,7 +224,7 @@ public class DataBase{
         requestQueue.add(stringRequest);
     }
 
-    public static void nav_student_courses(Context context, String user_number, LinearLayout courses_list) {
+    public static void nav_student_courses(Context context, String user_number, LinearLayout courses_list,String role) {
         String url = ip + "/enrolled_course.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @SuppressLint("ResourceAsColor")
@@ -232,7 +234,7 @@ public class DataBase{
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         ArrayList<String> course_names = new ArrayList<>();
-                        ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number);
+                        ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number,role);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -263,7 +265,7 @@ public class DataBase{
         requestQueue.add(stringRequest);
     }
 
-    public static void nav_teacher_courses(Context context, String user_number, LinearLayout courses_list) {
+    public static void nav_teacher_courses(Context context, String user_number, LinearLayout courses_list,String role) {
         String url = ip + "/enrolled_course.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @SuppressLint("ResourceAsColor")
@@ -384,7 +386,7 @@ public class DataBase{
     }
 
 //to retrieve and view the course info on course homepage
-    public static void course(Context context, String course_name, String number){
+    public static void course(Context context, String course_name, String number,String role){
         String url = ip + "/back_to_menu.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -393,6 +395,7 @@ public class DataBase{
                     Intent intent = new Intent(context, teacher_course_view.class);
                     intent.putExtra("courseName" , course_name);
                     intent.putExtra("userNumber", number);
+                    intent.putExtra("role",role);
                     context.startActivity(intent);
                 }
                 else if(response.trim().equals("student") || response.trim().equals("Student")){
@@ -718,4 +721,86 @@ public class DataBase{
         requestQueue.add(stringRequest);
     }
 
+
+    public static void get_Documents(Context context,ArrayList<String> titles, String courseName, LinearLayout Docs,String role) {
+        String url = ip+"/get_file_names.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String n=null;
+                try {
+                    JSONArray array = new JSONArray(response);
+                    for(int i=0;i < array.length(); i ++){
+                        String title = array.getString(i);
+                        titles.add(title);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                // Display them
+                for(int i =0; i < titles.size();i++) {
+                    LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View view;
+                    TextView content;
+                    ImageView downloadButton;
+                    if(role.equals("teacher")) {
+                        view = layoutInflater.inflate(R.layout.document_view, null);
+                        content = view.findViewById(R.id.titleContent);
+                        content.setText(titles.get(i));
+                        Docs.addView(view);
+                    }else{
+                        view = layoutInflater.inflate(R.layout.document_view_student, null);
+                        content = view.findViewById(R.id.titleContent);
+                        content.setText(titles.get(i));
+                        Docs.addView(view);
+                    }
+//                    downloadButton = view.findViewById(R.id.downloadBtn);
+//                    downloadButton.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            downloadPDF(context,courseName,content);
+//                        }
+//                    });
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("courseName",courseName);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
+    }
+
+    private static void downloadPDF(Context context, String courseName, TextView content) {
+        String url = ip+ "/downloadFile.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context,"Success",Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("path", content.getText().toString().trim());
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
 }

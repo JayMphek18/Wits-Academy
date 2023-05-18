@@ -1,5 +1,8 @@
 package com.example.wits_academy;
 
+import static com.example.wits_academy.R.id.DocumentsLL;
+
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,8 +12,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,15 +26,32 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.Nullable;
 
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 public class student_course_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     String userNumber;
     LinearLayout course_list;
     private DrawerLayout drawerLayout;
+    private LinearLayout Docs;
     String courseName;
     TextView logout;
     String role;
     NavigationView navigationView;
+    // List Of all Documents in the class
+    static ArrayList<String> titles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +62,13 @@ public class student_course_view extends AppCompatActivity implements Navigation
         userNumber = user_number.getStringExtra("userNumber");
         courseName = user_number.getStringExtra("courseName");
         course_list = (LinearLayout) findViewById(R.id.contents);
-        role = getIntent().getStringExtra("Role");
-        navigationView = (NavigationView) findViewById(R.id.nav_s);
+        role = getIntent().getStringExtra("role");
+        navigationView = (NavigationView) findViewById(R.id .nav_s);
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
         TextView userName = view.findViewById(R.id.name);
         userName.setText(courseName);
+
 
         ImageView imageView = view.findViewById(R.id.imageView9);
         DataBase.get_course_image(this, courseName, imageView);
@@ -60,8 +85,13 @@ public class student_course_view extends AppCompatActivity implements Navigation
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle(courseName);
-
+        Docs = findViewById(DocumentsLL);
+        // Get Course Content and Display it
+        Boolean wait = false;
+        titles = new ArrayList<>();
+        DataBase.get_Documents(this,titles,courseName,Docs,role);
     }
+
 
     @Override
     public void onBackPressed() {

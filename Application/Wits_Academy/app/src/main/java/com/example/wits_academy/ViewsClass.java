@@ -135,7 +135,7 @@ public class ViewsClass {
 
     public static void get_information_on_JSON(Context context,String number,LinearLayout courses_list, JSONArray jsonArray,
                                                ArrayList<String> teacher_name, ArrayList<String> course_code,
-                                               ArrayList<String> course_names) {
+                                               ArrayList<String> course_names,String role) {
         try{
             for (int i = 0; i < jsonArray.length(); i++){
                 JSONObject course_information = jsonArray.getJSONObject(i);
@@ -147,11 +147,11 @@ public class ViewsClass {
             int left = course_names.size();
             while (i < course_names.size()){
                 if (left >= 2){
-                    left = add_layout(left ,i ,context,course_names,course_code,teacher_name,courses_list,number);
+                    left = add_layout(left ,i ,context,course_names,course_code,teacher_name,courses_list,number,role);
                     i = i + 2;
                 }
                 else{
-                    add_layout(left ,i ,context,course_names,course_code,teacher_name,courses_list,number);
+                    add_layout(left ,i ,context,course_names,course_code,teacher_name,courses_list,number,role);
                     i = i + 1;
                 }
             }
@@ -161,7 +161,7 @@ public class ViewsClass {
     }
 
     public static int add_layout(int left, int index, Context context , ArrayList<String> course_names, ArrayList<String> course_code,
-                                 ArrayList<String> teacher_name, LinearLayout course_list, String number){
+                                 ArrayList<String> teacher_name, LinearLayout course_list, String number,String role){
         if (left >= 2){
             View layout = View.inflate(context, R.layout.list_layout, null);
             TextView courseName = layout.findViewById(R.id.courseName);
@@ -179,7 +179,7 @@ public class ViewsClass {
                 @Override
                 public void onClick(View v) {
                     String course = courseName.getText().toString();
-                    DataBase.course(context, course,number);
+                    DataBase.course(context, course,number,role);
                 }
             });
             TextView courseName2 = layout.findViewById(R.id.courseName2);
@@ -192,7 +192,7 @@ public class ViewsClass {
                 @Override
                 public void onClick(View v) {
                     String course = courseName2.getText().toString();
-                    DataBase.course(context, course,number);
+                    DataBase.course(context, course,number,role);
                 }
             });
             courseName2.setText(course_names.get(index + 1));
@@ -220,7 +220,7 @@ public class ViewsClass {
                 @Override
                 public void onClick(View v) {
                     String course = courseName.getText().toString();
-                    DataBase.course(context, course,number);
+                    DataBase.course(context, course,number,role);
                 }
             });
             RelativeLayout last = layout.findViewById(R.id.lay2);
@@ -231,20 +231,20 @@ public class ViewsClass {
     }
 
     public static void get_nav_list_layout(Context context,LinearLayout courses_list, JSONArray jsonArray,
-                                       ArrayList<String> course_names,String student_number) {
+                                       ArrayList<String> course_names,String student_number,String role) {
         try{
             for (int i = 0; i < jsonArray.length(); i++){
                 JSONObject course_information = jsonArray.getJSONObject(i);
                 course_names.add(course_information.getString("course_name"));
             }
-            nav_list_layout(context,course_names,student_number,courses_list);
+            nav_list_layout(context,course_names,student_number,courses_list,role);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     public static void nav_list_layout( Context context , ArrayList<String> course_names, String number,
-                                      LinearLayout course_list){
+                                      LinearLayout course_list,String role){
         for (int i = 0; i < course_names.size(); i++){
             View layout = View.inflate(context, R.layout.nav_course_view, null);
             TextView textView = layout.findViewById(R.id.courseN);
@@ -253,7 +253,7 @@ public class ViewsClass {
                 @Override
                 public void onClick(View v) {
                     String courseN = textView.getText().toString().trim();
-                    DataBase.course(context, courseN,number);
+                    DataBase.course(context, courseN,number,role);
                 }
             });
             course_list.addView(layout);
