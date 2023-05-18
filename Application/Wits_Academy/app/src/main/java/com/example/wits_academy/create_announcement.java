@@ -19,8 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class create_announcement extends Activity {
-
+   
+    
+    //This is the URL to the phpfiles 
     String ip = "http://10.0.2.2/php_app";
+    //Declaring the variables
     String courseName;
     EditText et_AnnounceText;
     TextView tv_SendBtn;
@@ -29,6 +32,7 @@ public class create_announcement extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Initialising the variables
         setContentView(R.layout.activity_create_announcement);
         Intent user_number = getIntent();
         courseName = user_number.getStringExtra("courseName");
@@ -36,7 +40,9 @@ public class create_announcement extends Activity {
         tv_SendBtn = findViewById(R.id.sendAnnouncement);
 
     }
-
+    
+    /** This method sends a POST request to the specified URL, includes parameters to connect to the phpfile
+     and handles the response and displays a Toast message indicating the response or error**/
     public void Send(View view) {
         String url = ip + "/send_announcement.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> Toast.makeText(create_announcement.this, response.trim(), Toast.LENGTH_SHORT).show(),

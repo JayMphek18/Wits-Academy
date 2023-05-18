@@ -14,6 +14,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ea72d0b-e5dd-4336-a602-aa531411adbd" name="Changes" comment="Changes" />
+      <change afterPath="$PROJECT_DIR$/../../User Acceptance Tests/sprint3 UAT.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Views/Use case diagram_sprint3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/student/announcements.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/student/course_material.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/student/view_course.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/participants.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/upload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../UML diagrams sprint 3/Use case diagram_sprint3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/24303236456789f958947.40927986.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/243032364569c33411e15.96651294.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/24303236456a06dc98941.21129061.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/24303236456a0ac9ae930.86496490.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/24303236456a1cabe58b8.60225252.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/24303236456a1f6a99b39.93468240.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/24303236456a1fff18242.64799988.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/24303236456a396a125f0.09728598.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/645677ecb16625.77133810.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/profile_pic/default-pp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/student/course.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/student/course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/student/enroll.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/student/enroll_course.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/student/enroll_course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/student/enter_password.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/student/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/student/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/student/participants.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/student/participants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/student/profileview.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/student/profileview.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/student/search_course.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/student/search_course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/announcement.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/announcement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/course.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/edit_course.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/edit_course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/profileview.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../Wits_academy_web_files/teacher/profileview.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -277,32 +309,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/create_announcement.java</url>
-          <line>34</line>
+          <line>38</line>
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/viewUsers.java</url>
-          <line>61</line>
+          <line>63</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/viewUsers.java</url>
-          <line>87</line>
+          <line>91</line>
           <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/DataBase.java</url>
-          <line>743</line>
+          <line>780</line>
           <option name="timeStamp" value="150" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/DataBase.java</url>
-          <line>768</line>
+          <line>805</line>
           <option name="timeStamp" value="151" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/wits_academy/DataBase.java</url>
-          <line>741</line>
+          <line>778</line>
           <option name="timeStamp" value="152" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">

@@ -55,11 +55,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class upload_file extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    //Declare the variables to be used
     private TextView upload_btn;
     private TextView view_btn;
+    private ImageView select_view_btn;
     private ImageView select_btn;
     private TextView tv;
+    //this is the url to connect to the database using phpfiles
     private String upload_URL = "http://10.0.2.2/php_app/uploadFile.php?";
     private RequestQueue rQueue;
     String type;
@@ -72,7 +74,7 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
     String userNumber;
 
 
-    // File Details
+    //This is for file Details
     private String displayName = null;
     private Uri uri;
 
@@ -100,13 +102,19 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
 
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+<<<<<<< HEAD
         if(type.equals("Documents")) getSupportActionBar().setTitle("Upload File");
+=======
+        //To change the title of the page depending on the type of course materials uploaded
+        if(type=="Documents") getSupportActionBar().setTitle("Upload File");
+>>>>>>> a1b539c5b0bec5e94c98a08ccfecf75ce812366a
         else getSupportActionBar().setTitle("Upload Video");
 
 
 
-
+        //Initialising the variables
         upload_btn = findViewById(R.id.btn);
+        select_view_btn = findViewById(R.id.selecViewFile);
         select_btn = findViewById(R.id.selectFile);
         view_btn = findViewById(R.id.view_btn);
         tv = findViewById(R.id.fileName);
@@ -114,8 +122,13 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
 
         userNumber = getIntent().getStringExtra("userNumber");
 
+<<<<<<< HEAD
         // Open File Explorer to select the file
         select_btn.setOnClickListener(new View.OnClickListener() {
+=======
+        // Open File Explorer to select the file from the user's device
+        select_view_btn.setOnClickListener(new View.OnClickListener() {
+>>>>>>> a1b539c5b0bec5e94c98a08ccfecf75ce812366a
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -124,8 +137,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                 startActivityForResult(intent,1);
             }
         });
-
-
+        
+        //Checks if a file is selected when the button is clicked and returns a toast message otherwise
         upload_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +151,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
         });
 
     }
-
+    //Handles the result of an activity for selecting a file and it sets the display name in a TextView ('tv'
+    //it directly retrieves the display name from the file and assigns it to 'displayName'.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -170,7 +184,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
         super.onActivityResult(requestCode, resultCode, data);
 
     }
-
+/**Handles the process of uploading a PDF file to a server using Volley library and processes the response from the server,
+and displays a toast message and parses the received data as JSON.**/
     private void uploadPDF(final String pdfname, Uri pdffile){
 
         InputStream iStream = null;
@@ -216,6 +231,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                  * here we have only one parameter with the image
                  * which is tags
                  * */
+                
+                /**The method is responsible for providing the parameters that will be sent along with the request to the database **/
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
@@ -226,7 +243,7 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                 }
 
                 /*
-                 *pass files using below method
+                  This code is for passing files using below method
                  * */
                 @Override
                 protected Map<String, DataPart> getByteData() {
@@ -251,6 +268,7 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
 
 
     }
+    
 
     public byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
@@ -263,7 +281,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
         }
         return byteBuffer.toByteArray();
     }
-
+/**allows the back button to close the navigation drawer if it is open, and otherwise, 
+it performs the default back button behavior.**/
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -272,7 +291,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
             super.onBackPressed();
         }
     }
-
+/** This code is for the navigation bar and allows the user to be able to navigate to another
+    page depending on which section they clicked on the navigation bar **/
     @Override
     public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
@@ -312,6 +332,7 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                 startActivity(intent);
                 return true;
         }
+        //Close navigation bar after the selection is made
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

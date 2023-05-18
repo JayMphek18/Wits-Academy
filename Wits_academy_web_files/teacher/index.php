@@ -63,6 +63,7 @@
             //$result=$conn->query($sql);
             while($row=$result->fetch_assoc())
             {
+                $course_id=$row['course_id'];
                 $pic=$row['picture'];
                 $code=$row['course_code'];
                 $course=$row['course_name'];
@@ -72,8 +73,8 @@
                         <td>
                             <img src="./course_pic/<?php echo $pic ?>" alt="course_picture" loading="lazy" width="50" />
                         </td>
-                        <td><a href="./course.php?id=<?php echo $code ?>"><?php echo $code ?></a></td>
-                        <td><a href="./course.php?id=<?php echo $code ?>"><?php echo $course ?></a></td>
+                        <td><a href="./course.php?id=<?php echo $course_id ?>"><?php echo $code ?></a></td>
+                        <td><a href="./course.php?id=<?php echo $course_id ?>"><?php echo $course ?></a></td>
                     </tr>
                 <?php }} ?>
                 </tbody>

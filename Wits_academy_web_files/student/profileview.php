@@ -74,7 +74,7 @@ if ($_SESSION['user_id']) {
     <div class="section">
         <img src="./Wits_Logo.png" loading="lazy" alt="wits logo" />
         <h1 class="head1">View Profile</h1>
-        <a href="./index.php" class="link">Back To Dashboard</a>
+        <a href="./index.php" class="link"><i class="fas fa-gauge"></i> Back To Dashboard</a>
     </div>
     <div class="container">
                 <?php

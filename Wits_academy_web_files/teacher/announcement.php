@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        Edit Course Details
+        Send an announcement
     </title>
     <link type="text/css" href="*" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -148,7 +148,8 @@ label {
             $row=$result->fetch_assoc();
 
             $code=$row['course_code'];
-            $course=$row['course_name'];   
+            $course=$row['course_name'];
+            
         ?>     
         <section class="section2">
         <ul>
@@ -194,6 +195,10 @@ else {
        
         //create array to store the errors
         $errors = array();
+
+        if(empty($announce)){
+            array_push($errors, "Please insert an announcement.");
+        }
        
         if(count($errors)>0){
             foreach($errors as $error){
