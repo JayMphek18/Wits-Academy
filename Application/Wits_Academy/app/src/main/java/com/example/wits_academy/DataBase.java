@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.renderscript.Sampler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
@@ -33,6 +35,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,12 +45,9 @@ import java.util.Map;
 public class DataBase{
      /**This string is for the IP address of our server/xampp where the PHP application is hosted**/
     final static String ip  = "http://10.0.2.2/php_app";
-<<<<<<< HEAD
-    public static void teacher_courses(Context context, String user_number, LinearLayout courses_list,String role) {
-=======
+
     /** Method to retrieve the courses taught by a teacher**/
     public static void teacher_courses(Context context, String user_number, LinearLayout courses_list) {
->>>>>>> a1b539c5b0bec5e94c98a08ccfecf75ce812366a
         String url = ip + "/teaching_courses.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
            /** Response listener**/
@@ -61,7 +63,7 @@ public class DataBase{
                     e.printStackTrace();
                 }
             }
-        }, 
+        },
          /** Error listener**/
           new Response.ErrorListener() {
             @Override
@@ -89,7 +91,7 @@ public class DataBase{
                                          String role) {
         String url = ip + "/get_announcements.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            
+
             /** Response listener*/
              @Override
             public void onResponse(String response) {
@@ -100,7 +102,7 @@ public class DataBase{
                         String date = jsonObject.getString("announcement_date");
                         String subject = jsonObject.getString("announcement_subject");
                         String announcement_text = jsonObject.getString("announcement_text");
-                        // Create a new announcementModel object and add it to the list                        
+                        // Create a new announcementModel object and add it to the list
                         announcementModels.add(new announcementModel(subject,announcement_text,date,R.drawable.read_more));
                     }
                     if(announcementModels.size()!=0){
@@ -118,14 +120,14 @@ public class DataBase{
                     e.printStackTrace();
                 }
             }
-            
+
         },/** Error listener**/
            new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
             }
-        }){ 
+        }){
             /** Request parameters**/
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -243,13 +245,10 @@ public class DataBase{
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
-<<<<<<< HEAD
 
-    public static void nav_student_courses(Context context, String user_number, LinearLayout courses_list,String role) {
-=======
+
 //Retrieves enrolled course information for a student from a server 
     public static void nav_student_courses(Context context, String user_number, LinearLayout courses_list) {
->>>>>>> a1b539c5b0bec5e94c98a08ccfecf75ce812366a
         String url = ip + "/enrolled_course.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @SuppressLint("ResourceAsColor")
@@ -289,13 +288,13 @@ public class DataBase{
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
-<<<<<<< HEAD
 
-    public static void nav_teacher_courses(Context context, String user_number, LinearLayout courses_list,String role) {
-=======
+
+
+
 //Retrieves course information for a teacher 
     public static void nav_teacher_courses(Context context, String user_number, LinearLayout courses_list) {
->>>>>>> a1b539c5b0bec5e94c98a08ccfecf75ce812366a
+
         String url = ip + "/enrolled_course.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @SuppressLint("ResourceAsColor")
@@ -416,7 +415,7 @@ public class DataBase{
     }
 
 //to retrieve and view the course info on course homepage
-    public static void course(Context context, String course_name, String number,String role){
+    public static void course(Context context, String course_name, String number){
         String url = ip + "/back_to_menu.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -425,7 +424,6 @@ public class DataBase{
                     Intent intent = new Intent(context, teacher_course_view.class);
                     intent.putExtra("courseName" , course_name);
                     intent.putExtra("userNumber", number);
-                    intent.putExtra("role",role);
                     context.startActivity(intent);
                 }
                 else if(response.trim().equals("student") || response.trim().equals("Student")){
@@ -725,7 +723,7 @@ public class DataBase{
                         userList.add(new userModel(fullName,email_address,role,R.drawable.profile_icon,R.drawable.ic_baseline_delete_24));
                     }
                     if(userList.size()!=0){
-                          /**If there are users in the course,Create an adapter for the user 
+                          /**If there are users in the course,Create an adapter for the user
                           list**/
 
                        view_users_recyclerViewAdapter adapter = new view_users_recyclerViewAdapter(context,userList);
@@ -759,7 +757,7 @@ public class DataBase{
     }
 
 
-    public static void get_Documents(Context context,ArrayList<String> titles, String courseName, LinearLayout Docs,String role) {
+    public static void get_Documents(Context context,ArrayList<String> titles, String courseName, LinearLayout Docs,String role,String userNumber) {
         String url = ip+"/get_file_names.php";
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -780,24 +778,34 @@ public class DataBase{
                     View view;
                     TextView content;
                     ImageView downloadButton;
+                    ImageView deleteBtn;
                     if(role.equals("teacher")) {
                         view = layoutInflater.inflate(R.layout.document_view, null);
                         content = view.findViewById(R.id.titleContent);
                         content.setText(titles.get(i));
                         Docs.addView(view);
+
+
+                        view.findViewById(R.id.deleteBtn).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                delete(content,view.getContext(),courseName,userNumber);
+                            }
+                        });
+
                     }else{
                         view = layoutInflater.inflate(R.layout.document_view_student, null);
                         content = view.findViewById(R.id.titleContent);
                         content.setText(titles.get(i));
                         Docs.addView(view);
                     }
-//                    downloadButton = view.findViewById(R.id.downloadBtn);
-//                    downloadButton.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            downloadPDF(context,courseName,content);
-//                        }
-//                    });
+
+                    view.findViewById(R.id.downloadBtn).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            downloadPDF(view.getContext(),courseName,content);
+                        }
+                    });
                 }
             }
         }, new Response.ErrorListener() {
@@ -818,11 +826,53 @@ public class DataBase{
     }
 
     private static void downloadPDF(Context context, String courseName, TextView content) {
-        String url = ip+ "/downloadFile.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        String url = ip+ "/downloadFile.php?"+"courseName="+courseName+"&file="+content.getText().toString().trim();
+        String mUrl= url;
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, mUrl,
+                new Response.Listener<byte[]>() {
+                    @Override
+                    public void onResponse(byte[] response) {
+                        // TODO handle the response
+                        try {
+                            if (response!=null) {
+
+                                FileOutputStream outputStream;
+                                String name=content.getText().toString().trim();
+                                outputStream = context.openFileOutput(name, Context.MODE_PRIVATE);
+                                outputStream.write(response);
+                                outputStream.close();
+                                Toast.makeText(context, "Your Download is Complete.", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                            e.printStackTrace();
+                        }
+                    }
+                } ,new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO handle the error
+                error.printStackTrace();
+            }
+        },null);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context.getApplicationContext(), new HurlStack());
+        mRequestQueue.add(request);
+    }
+    // Method to delete file upon request
+    static void delete(TextView DocTitle,Context view,String courseName,String userNumber) {
+        String ip = "http://10.0.2.2/php_app";
+        String url = ip + "/delete_file.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context,"Success",Toast.LENGTH_SHORT).show();
+                String a = DocTitle.getText().toString().trim();
+                Toast.makeText(view,response,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view,teacher_course_view.class);
+                intent.putExtra("courseName",courseName);
+                intent.putExtra("userNumber",userNumber);
+                view.startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -833,11 +883,19 @@ public class DataBase{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("path", content.getText().toString().trim());
+                data.put("file_name",DocTitle.getText().toString().trim());
+                data.put("course_name",courseName);
                 return data;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        RequestQueue requestQueue  = Volley.newRequestQueue(view);
         requestQueue.add(stringRequest);
     }
 }
+
+
+
+
+
+

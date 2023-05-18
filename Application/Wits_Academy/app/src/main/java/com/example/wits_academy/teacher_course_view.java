@@ -1,6 +1,8 @@
 package com.example.wits_academy;
 
 
+import static com.example.wits_academy.R.id.DocumentsLL;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
@@ -25,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class teacher_course_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,8 +39,11 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
     NavigationView navigationView;
     Bitmap bitmap;
     ImageView imageView;
-
+    private LinearLayout Docs;
+    // List Of all Documents in the class
+    static ArrayList<String> titles;
     private final int GALLERY_REQ_CODE = 1000;
+    ArrayList<documentView> documentViews;
 
 
     @Override
@@ -78,6 +84,15 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle(courseName);
+
+        Docs = findViewById(DocumentsLL);
+        // Get Course Content and Display it
+        Boolean wait = false;
+        titles = new ArrayList<>();
+        documentViews  = new ArrayList<documentView>();
+
+        DataBase.get_Documents(this,titles,courseName,Docs,"teacher",userNumber);
+
 
     }
     private void add_image(){

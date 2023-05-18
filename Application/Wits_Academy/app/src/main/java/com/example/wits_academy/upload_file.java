@@ -58,7 +58,7 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
     //Declare the variables to be used
     private TextView upload_btn;
     private TextView view_btn;
-    private ImageView select_view_btn;
+
     private ImageView select_btn;
     private TextView tv;
     //this is the url to connect to the database using phpfiles
@@ -102,19 +102,19 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
 
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-<<<<<<< HEAD
+
         if(type.equals("Documents")) getSupportActionBar().setTitle("Upload File");
-=======
+
         //To change the title of the page depending on the type of course materials uploaded
         if(type=="Documents") getSupportActionBar().setTitle("Upload File");
->>>>>>> a1b539c5b0bec5e94c98a08ccfecf75ce812366a
+
         else getSupportActionBar().setTitle("Upload Video");
 
 
 
         //Initialising the variables
         upload_btn = findViewById(R.id.btn);
-        select_view_btn = findViewById(R.id.selecViewFile);
+
         select_btn = findViewById(R.id.selectFile);
         view_btn = findViewById(R.id.view_btn);
         tv = findViewById(R.id.fileName);
@@ -122,22 +122,18 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
 
         userNumber = getIntent().getStringExtra("userNumber");
 
-<<<<<<< HEAD
         // Open File Explorer to select the file
         select_btn.setOnClickListener(new View.OnClickListener() {
-=======
-        // Open File Explorer to select the file from the user's device
-        select_view_btn.setOnClickListener(new View.OnClickListener() {
->>>>>>> a1b539c5b0bec5e94c98a08ccfecf75ce812366a
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
-                startActivityForResult(intent,1);
+                startActivity(intent);
             }
         });
-        
+
+
         //Checks if a file is selected when the button is clicked and returns a toast message otherwise
         upload_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +145,6 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         });
-
     }
     //Handles the result of an activity for selecting a file and it sets the display name in a TextView ('tv'
     //it directly retrieves the display name from the file and assigns it to 'displayName'.

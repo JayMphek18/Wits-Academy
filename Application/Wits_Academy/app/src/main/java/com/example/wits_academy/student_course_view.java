@@ -52,6 +52,7 @@ public class student_course_view extends AppCompatActivity implements Navigation
     NavigationView navigationView;
     // List Of all Documents in the class
     static ArrayList<String> titles;
+    ArrayList<documentView> documentViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,8 @@ public class student_course_view extends AppCompatActivity implements Navigation
         // Get Course Content and Display it
         Boolean wait = false;
         titles = new ArrayList<>();
-        DataBase.get_Documents(this,titles,courseName,Docs,role);
+        documentViews  = new ArrayList<documentView>();
+        DataBase.get_Documents(this,titles,courseName,Docs,"Student",userNumber);
     }
 
 
