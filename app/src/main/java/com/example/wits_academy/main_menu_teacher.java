@@ -27,7 +27,7 @@ public class main_menu_teacher extends AppCompatActivity implements NavigationVi
 
     String userNumber;
     LinearLayout course_list;
-    private DrawerLayout drawerLayout;
+    DrawerLayout drawerLayout;
     TextView logout;
     NavigationView navigationView;
 
