@@ -132,15 +132,7 @@ jobs:
           curl -Os https://uploader.codecov.io/latest/linux/codecov 
           chmod +x codecov 
           ./codecov
-  example-job:
-    docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
-    steps:
-      - codecov/upload:
-          file: app/build/outputs/code_coverage/debugAndroidTest/connected 
-          token: CODECOV_TOKEN 
-          validate_url: true 
+
 workflows:
   build_and_deploy:
     jobs:
@@ -151,4 +143,4 @@ workflows:
       - unit tests:
           requires:
             - build
-      - example-job
+  
