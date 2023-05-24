@@ -51,15 +51,15 @@ public class forgot_password extends AppCompatActivity {
     }
     public boolean validate_password(){
         if(!new_password.getText().toString().equals(confirm_new_password.getText().toString())){
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (user_number.getText().toString().isEmpty()){
-            Toast.makeText(this, "Please enter user number" , Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please enter user number" , Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (email.getText().toString().isEmpty()){
-            Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
+        else if (!isEmailValid()){
+//            Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -68,6 +68,10 @@ public class forgot_password extends AppCompatActivity {
     public void back_to_login(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    boolean isEmailValid() {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches();
     }
 
 

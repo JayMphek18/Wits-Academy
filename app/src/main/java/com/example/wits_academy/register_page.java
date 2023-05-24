@@ -62,6 +62,7 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
 
     public void main_menu(View view) {
         if (!filled_in()) {
+            Toast.makeText(this, "Please fill in all the spaces and make sure password is the same", Toast.LENGTH_SHORT).show();
             return;
         }
         else {
@@ -96,33 +97,32 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
 
     public boolean filled_in(){
         if (user_number.getText().toString().isEmpty()){
-            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         else if (user_name.getText().toString().isEmpty()){
-            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (user_last_name.getText().toString().isEmpty()){
-            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (!isEmailValid()){
-            Toast.makeText(this, "Email Address is invalide", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Email Address is invalide", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (create_password.getText().toString().length() < 6){
-            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (confirm_password.getText().toString().length() < 6){
-            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!create_password.getText().toString().equals(confirm_password.getText().toString())){
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Please try again", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please try again", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

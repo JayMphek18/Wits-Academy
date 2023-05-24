@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean validate_input(){
         if (user_id.getText().toString().isEmpty()){
-//             Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
+
             return false;
         }
         else if(user_password.getText().toString().isEmpty()){
-//             Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public void main_page(View view) {
         if (validate_input()){
             DataBase.exists(this,user_password.getText().toString(), user_id.getText().toString());
-        }
-        else{
+        }else{
             Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
         }
     }
