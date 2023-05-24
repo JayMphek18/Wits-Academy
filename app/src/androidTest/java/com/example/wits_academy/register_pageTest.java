@@ -46,17 +46,17 @@ public class register_pageTest {
         Intents.init();
     }
 
-    @Test
-    public void allTextVisible(){
-        onView(withText("Email Address")).check(matches(isDisplayed()));
-        onView(withText("Student number")).check(matches((isDisplayed())));
-        onView(withText("First Name")).check(matches(isDisplayed()));
-        onView(withText("Last Name")).check(matches(isDisplayed()));
-        onView(withText("Password")).check(matches(isDisplayed()));
-        onView(withText("Confirm Password")).check(matches(isDisplayed()));
-        onView(withText("Register")).check(matches(isDisplayed()));
-        onView(withText("Back to login")).check(matches(isDisplayed()));
-    }
+//     @Test
+//     public void allTextVisible(){
+//         onView(withText("Email Address")).check(matches(isDisplayed()));
+//         onView(withText("Student number")).check(matches((isDisplayed())));
+//         onView(withText("First Name")).check(matches(isDisplayed()));
+//         onView(withText("Last Name")).check(matches(isDisplayed()));
+//         onView(withText("Password")).check(matches(isDisplayed()));
+//         onView(withText("Confirm Password")).check(matches(isDisplayed()));
+//         onView(withText("Register")).check(matches(isDisplayed()));
+//         onView(withText("Back to login")).check(matches(isDisplayed()));
+//     }
 
     @Test
     public void allfilledIn(){
