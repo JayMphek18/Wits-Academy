@@ -57,7 +57,7 @@ public class main_menu_studentTest {
     public ActivityTestRule<main_menu_student> mActivityRule = new ActivityTestRule(main_menu_student.class);
     private main_menu_student student;
     private static final int[] MENU_CONTENT_ITEM_IDS = {R.id.search, R.id.profile, R.id.logout, R.id.menu_page};
-    private String userNumber = "1234567";
+    private String userNumber;
     private Map<Integer, String> menuStringContent;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -70,6 +70,7 @@ public class main_menu_studentTest {
         drawerLayout = student.findViewById(R.id.draw_layout);
         navigationView = drawerLayout.findViewById(R.id.nav);
         menu = navigationView.getMenu();
+        userNumber = student.userNumber = "1234567";
         Intents.init();
     }
 
