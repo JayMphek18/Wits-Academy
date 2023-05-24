@@ -2,24 +2,10 @@ package com.example.wits_academy;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.contrib.DrawerActions.close;
-import static androidx.test.espresso.contrib.DrawerActions.closeDrawer;
 import static androidx.test.espresso.contrib.DrawerActions.open;
-import static androidx.test.espresso.contrib.DrawerActions.openDrawer;
-import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.Intents.intending;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.toPackage;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
-import android.app.Activity;
-import android.app.Instrumentation;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,20 +30,15 @@ import org.junit.runner.RunWith;
 
 import java.util.Map;
 
-
-
-
-
 @MediumTest
 @RunWith(AndroidJUnit4.class)
-//@RunWith(RobolectricTestRunner.class)
-public class main_menu_studentTest {
+public class main_menu_teacherTest {
 
     @Rule
-    public ActivityTestRule<main_menu_student> mActivityRule = new ActivityTestRule(main_menu_student.class);
-    private main_menu_student student;
+    public ActivityTestRule<main_menu_teacher> mActivityRule = new ActivityTestRule(main_menu_teacher.class);
+    private main_menu_teacher teacher;
     private static final int[] MENU_CONTENT_ITEM_IDS = {R.id.search, R.id.profile, R.id.logout, R.id.menu_page};
-    private String userNumber = "1234567";
+    private String userNumber;
     private Map<Integer, String> menuStringContent;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -65,11 +46,12 @@ public class main_menu_studentTest {
 
     @Before
     public void setUp() throws Exception {
-        student = mActivityRule.getActivity();
+        teacher = mActivityRule.getActivity();
 //        final NavigationViewActivity activity = mActivityRule.getActivity();
-        drawerLayout = student.findViewById(R.id.draw_layout);
+        drawerLayout = teacher.findViewById(R.id.draw_layout);
         navigationView = drawerLayout.findViewById(R.id.nav);
         menu = navigationView.getMenu();
+        userNumber = teacher.userNumber = "1234567";
         Intents.init();
     }
 
@@ -81,11 +63,11 @@ public class main_menu_studentTest {
         }
     }
 
-    @Test
-    public void noCoursesDisplayed(){
-        TextView noCourse = student.findViewById(R.id.NoCoursesAvailable);
-        assertEquals(noCourse.getVisibility(), View.VISIBLE);
-    }
+//    @Test
+//    public void noCoursesDisplayed(){
+//        TextView noCourse = teacher.findViewById(R.id.NoCoursesAvailable);
+//        assertEquals(noCourse.getVisibility(), View.VISIBLE);
+//    }
 
     @Test
     public void menuItemOneTest(){
@@ -104,14 +86,14 @@ public class main_menu_studentTest {
     @Test
     public void menuItemTwoTest(){
         MenuItem menuItem = menu.getItem(1);
-        assertEquals(menuItem.getItemId(), R.id.search);
-        assertEquals(menuItem.getTitle(), "Available Courses");
+        assertEquals(menuItem.getItemId(), R.id.create);
+        assertEquals(menuItem.getTitle(), "Create a new Course");
 //        Intent new_intent = new Intent();
 //        new_intent.putExtra("userNumber", userNumber);
 //        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
 //        intending(toPackage(search_courses.class.getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
-        onView(ViewMatchers.withId(R.id.search)).perform(scrollTo()).perform(ViewActions.click());
+        onView(ViewMatchers.withId(R.id.create)).perform(scrollTo()).perform(ViewActions.click());
     }
 
     @Test
@@ -141,19 +123,17 @@ public class main_menu_studentTest {
     }
     @Test
     public void Test() throws Exception{
-        assertNotNull(student.course_list);
-        assertNotNull(student.drawerLayout);
-        assertNotNull(student.display);
-        assertNotNull(student.navigationView);
-        assertNotNull(student.view);
-        assertNotNull(student.userNumber);
+        assertNotNull(teacher.course_list);
+        assertNotNull(teacher.drawerLayout);
+        assertNotNull(teacher.navigationView);
+        assertNotNull(teacher.userNumber);
     }
 
 
     @After
     public void tearDown() throws Exception {
-        student = null;
+        teacher = null;
         Intents.release();
     }
-    
+
 }
