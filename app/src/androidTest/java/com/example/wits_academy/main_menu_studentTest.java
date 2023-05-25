@@ -15,6 +15,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
 
 import android.app.Activity;
@@ -36,12 +37,16 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 
@@ -56,9 +61,7 @@ public class main_menu_studentTest {
     @Rule
     public ActivityTestRule<main_menu_student> mActivityRule = new ActivityTestRule(main_menu_student.class);
     private main_menu_student student;
-    private static final int[] MENU_CONTENT_ITEM_IDS = {R.id.search, R.id.profile, R.id.logout, R.id.menu_page};
-    private String userNumber;
-    private Map<Integer, String> menuStringContent;
+    private String userNumber ;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Menu menu;
@@ -72,6 +75,118 @@ public class main_menu_studentTest {
         menu = navigationView.getMenu();
         userNumber = student.userNumber = "1234567";
         Intents.init();
+    }
+
+    @Test
+    public void addingTwoCoursesCoursesInPage() throws Throwable {
+        TextView noCourse = student.findViewById(R.id.NoCoursesAvailable);
+
+        ArrayList<String> courseName = new ArrayList<>();
+        ArrayList<String> teacherName = new ArrayList<>();
+        ArrayList<String> courseCode = new ArrayList<>();
+        courseCode.add("MATH1001");
+        courseName.add("Basic Analysis");
+        teacherName.add("Sethembile");
+        courseCode.add("MATH2003");
+        courseName.add("Abstract Maths");
+        teacherName.add("Martin");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                noCourse.setVisibility(View.GONE);
+//                student.course_list.removeAllViews();
+                ViewsClass.add_layout(2, 0, student.getBaseContext() , courseName, courseCode, teacherName, student.course_list, userNumber);
+            }
+        });
+        assertEquals(student.course_list.getChildCount(), 4);
+    }
+    @Test
+    public void addingOneCoursesCoursesInPage() throws Throwable {
+        TextView noCourse = student.findViewById(R.id.NoCoursesAvailable);
+
+        ArrayList<String> courseName = new ArrayList<>();
+        ArrayList<String> teacherName = new ArrayList<>();
+        ArrayList<String> courseCode = new ArrayList<>();
+        courseCode.add("MATH1001");
+        courseName.add("Basic Analysis");
+        teacherName.add("Sethembile");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                noCourse.setVisibility(View.GONE);
+                student.course_list.removeAllViews();
+                ViewsClass.add_layout(1, 0, student.getBaseContext() , courseName, courseCode, teacherName, student.course_list, userNumber);
+            }
+        });
+        assertEquals(student.course_list.getChildCount(), 1);
+    }
+
+    @Test
+    public void AddOddNumberOfCoursesStartingFromJSONArray() throws Throwable {
+        TextView noCourse = student.findViewById(R.id.NoCoursesAvailable);
+
+        ArrayList<String> courseName = new ArrayList<>();
+        ArrayList<String> teacherName = new ArrayList<>();
+        ArrayList<String> courseCode = new ArrayList<>();
+
+        JSONArray studentCourseArray = new JSONArray();
+        JSONObject studentCourse1 = new JSONObject();
+        studentCourse1.put("teacher_id", "Sethembile");
+        studentCourse1.put("course_code", "MATH1002");
+        studentCourse1.put("course_name", "Basic Analysis");
+        studentCourseArray.put(studentCourse1);
+        JSONObject studentCourse2 = new JSONObject();
+        studentCourse2.put("teacher_id", "Martin");
+        studentCourse2.put("course_code", "STAT1002");
+        studentCourse2.put("course_name", "Intro to Stats");
+        studentCourseArray.put(studentCourse2);
+        JSONObject studentCourse3 = new JSONObject();
+        studentCourse3.put("teacher_id", "Zenzele");
+        studentCourse3.put("course_code", "COMS1004");
+        studentCourse3.put("course_name", "Basic Programming");
+        studentCourseArray.put(studentCourse3);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                noCourse.setVisibility(View.GONE);
+//                student.course_list.removeAllViews();
+                ViewsClass.get_information_on_JSON(student.getBaseContext(),userNumber ,student.course_list, studentCourseArray,
+                        teacherName, courseCode, courseName);
+            }
+        });
+
+        assertEquals(student.course_list.getChildCount(), 5);
+    }
+
+
+    @Test
+    public void AddEvenNumberOfCoursesStartingFromJSONArray() throws Throwable {
+        TextView noCourse = student.findViewById(R.id.NoCoursesAvailable);
+
+        ArrayList<String> courseName = new ArrayList<>();
+        ArrayList<String> teacherName = new ArrayList<>();
+        ArrayList<String> courseCode = new ArrayList<>();
+
+        JSONArray studentCourseArray = new JSONArray();
+        JSONObject studentCourse1 = new JSONObject();
+        studentCourse1.put("teacher_id", "Sethembile");
+        studentCourse1.put("course_code", "MATH1002");
+        studentCourse1.put("course_name", "Basic Analysis");
+        studentCourseArray.put(studentCourse1);
+        JSONObject studentCourse2 = new JSONObject();
+        studentCourse2.put("teacher_id", "Martin");
+        studentCourse2.put("course_code", "STAT1002");
+        studentCourse2.put("course_name", "Intro to Stats");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                noCourse.setVisibility(View.GONE);
+//                student.course_list.removeAllViews();
+                ViewsClass.get_information_on_JSON(student.getBaseContext(),userNumber ,student.course_list, studentCourseArray,
+                        teacherName, courseCode, courseName);
+            }
+        });
+        assertEquals(student.course_list.getChildCount(), 4);
     }
 
     @Test
