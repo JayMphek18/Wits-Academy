@@ -1,7 +1,8 @@
 package com.example.wits_academy;
 
 
-import static com.example.wits_academy.R.id.DocumentsLL;
+
+import static com.example.wits_academy.R.id.Fragment_DocsLL;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,12 +16,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +35,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class teacher_course_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+
 
     String userNumber;
     LinearLayout course_list;
@@ -37,6 +46,7 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
     String courseName;
     TextView logout;
     NavigationView navigationView;
+    BottomNavigationView navigationView1;
     Bitmap bitmap;
     ImageView imageView;
     private LinearLayout Docs;
@@ -55,43 +65,42 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
         courseName = user_number.getStringExtra("courseName");
         course_list = (LinearLayout) findViewById(R.id.contents);
 
-        navigationView = (NavigationView) findViewById(R.id.nav_t);
-        navigationView.setNavigationItemSelectedListener(this);
-        View view = navigationView.getHeaderView(0);
-        TextView userName = view.findViewById(R.id.name);
-        userName.setText(courseName);
+        navigationView1 = findViewById(R.id.bottomNavigationView);
+//        Make sure that Home Fragment is always set as default
+        replaceFragement(new HomeFragment());
 
-        imageView = view.findViewById(R.id.imageView9);
-        DataBase.get_course_image(this, courseName, imageView);
-        drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        // This is the method for creating the side navigation Br
+        setSideNavigationBar();
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent access_gallary = new Intent(Intent.ACTION_PICK);
-                access_gallary.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(access_gallary, GALLERY_REQ_CODE);
-            }
-        });
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigator_open, R.string.navigator_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        //changing background and title on toolbar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-        getSupportActionBar().setTitle(courseName);
-
-        Docs = findViewById(DocumentsLL);
         // Get Course Content and Display it
         Boolean wait = false;
         titles = new ArrayList<>();
         documentViews  = new ArrayList<documentView>();
 
-        DataBase.get_Documents(this,titles,courseName,Docs,"teacher",userNumber);
+        navigationView1.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.courseHome:
+                        replaceFragement(new HomeFragment());
+                        break;
+                    case R.id.courseDocument:
+                        DocumentFragment fragment = new DocumentFragment();
+                        replaceFragement(fragment);
+                        Docs = fragment.getDocsLL();
+                        DataBase.get_Documents(getApplicationContext(),titles,courseName,"teacher",userNumber,fragment);
+                        break;
+                    case R.id.courseVideos:
+                        replaceFragement(new VideoFragment());
+                        break;
+                }
+                return true;
+            }
+        });
+
+
+
+
 
 
     }
@@ -101,7 +110,7 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
             byte[] bytes = byteArrayOutputStream.toByteArray();
             final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-            DataBase.upload_image(this, base64Image, courseName);
+            DataBase.upload_image(this, base64Image, courseName, imageView);
 //            DataBase.get_course_image(this, courseName,imageView);
 
 //            userNumber.setText(base64Image);
@@ -116,6 +125,8 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
             super.onBackPressed();
         }
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -200,5 +211,45 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
         intent1.putExtra("userNumber",userNumber);
         startActivity(intent1);
     }
+    // Navigation Bar Setters
+    private void setSideNavigationBar(){
+        navigationView = (NavigationView) findViewById(R.id.nav_t);
+        navigationView.setNavigationItemSelectedListener(this);
+        View view = navigationView.getHeaderView(0);
+        TextView userName = view.findViewById(R.id.name);
+        userName.setText(courseName);
+
+        imageView = view.findViewById(R.id.imageView9);
+        DataBase.get_course_image(this, courseName, imageView);
+        drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent access_gallary = new Intent(Intent.ACTION_PICK);
+                access_gallary.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(access_gallary, GALLERY_REQ_CODE);
+            }
+        });
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigator_open, R.string.navigator_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        //changing background and title on toolbar
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+        getSupportActionBar().setTitle(courseName);
+    }
+
+    private void replaceFragement(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.commit();
+    }
+
 }
 

@@ -1,6 +1,6 @@
 package com.example.wits_academy;
 
-import static com.example.wits_academy.R.id.DocumentsLL;
+
 
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,11 +22,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.Nullable;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,12 +52,12 @@ public class student_course_view extends AppCompatActivity implements Navigation
     private DrawerLayout drawerLayout;
     private LinearLayout Docs;
     String courseName;
-    TextView logout;
     String role;
     NavigationView navigationView;
     // List Of all Documents in the class
     static ArrayList<String> titles;
     ArrayList<documentView> documentViews;
+    private BottomNavigationView navigationView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +91,38 @@ public class student_course_view extends AppCompatActivity implements Navigation
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle(courseName);
-        Docs = findViewById(DocumentsLL);
+
+        navigationView1 = findViewById(R.id.bottomNavigationView);
+//        Make sure that Home Fragment is always set as default
+        replaceFragement(new HomeFragment());
+
         // Get Course Content and Display it
         Boolean wait = false;
         titles = new ArrayList<>();
         documentViews  = new ArrayList<documentView>();
-        DataBase.get_Documents(this,titles,courseName,Docs,"Student",userNumber);
+
+        navigationView1.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.courseHome:
+                        replaceFragement(new HomeFragment());
+                        break;
+                    case R.id.courseDocument:
+                        DocumentFragment fragment = new DocumentFragment();
+                        replaceFragement(fragment);
+                        Docs = fragment.getDocsLL();
+                        DataBase.get_Documents(getApplicationContext(),titles,courseName,"student",userNumber,fragment);
+                        break;
+                    case R.id.courseVideos:
+                        replaceFragement(new VideoFragment());
+                        break;
+                }
+                return true;
+            }
+        });
+
+
     }
 
 
@@ -116,10 +147,6 @@ public class student_course_view extends AppCompatActivity implements Navigation
                 intent1.putExtra("Role","Student");
                 startActivity(intent1);
                 return true;
-            case R.id.course_slides:
-                return true;
-            case R.id.videos:
-                return true;
             case R.id.quiz:
                 return true;
             case R.id.assignment:
@@ -141,5 +168,12 @@ public class student_course_view extends AppCompatActivity implements Navigation
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void replaceFragement(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.commit();
     }
 }

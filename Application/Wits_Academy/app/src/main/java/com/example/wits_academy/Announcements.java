@@ -34,6 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.wits_academy.databinding.ActivityAnnouncementsBinding;
 import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.Nullable;
@@ -44,7 +45,7 @@ import java.util.Map;
 import java.util.zip.Inflater;
 
 public class Announcements extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    
+
     //Declaring the variables
     String userNumber;
     String courseName;
@@ -78,11 +79,12 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
         TextView userName = view.findViewById(R.id.name);
-        userName.setText(userNumber);
+        userName.setText(courseName);
         ImageView imageView = view.findViewById(R.id.imageView9);
         /**Calls the method from Database class to get the image of the user for their profile**/
-        DataBase.get_image(this, userNumber, imageView);
-        
+        DataBase.get_course_image(this, courseName, imageView);
+
+
         //allows users to open and close the drawer
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
                 R.string.navigator_open,R.string.navigator_close);

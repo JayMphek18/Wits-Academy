@@ -22,7 +22,7 @@ public class create_announcement extends Activity {
    
     
     //This is the URL to the phpfiles 
-    String ip = "http://10.0.2.2/php_app";
+    String ip = "http://10.100.15.104/wits_academy";
     //Declaring the variables
     String courseName;
     EditText et_AnnounceText;

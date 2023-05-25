@@ -43,7 +43,7 @@ public class documentView {
     }
 
     private void delete(TextView DocTitle,View view) {
-        String ip = "http://10.0.2.2/php_app";
+        String ip = "http://10.100.15.104/wits_academy";
         String url = ip + "/delete_file.php";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override

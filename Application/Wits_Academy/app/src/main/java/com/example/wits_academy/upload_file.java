@@ -103,10 +103,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
 
-        if(type.equals("Documents")) getSupportActionBar().setTitle("Upload File");
-
         //To change the title of the page depending on the type of course materials uploaded
-        if(type=="Documents") getSupportActionBar().setTitle("Upload File");
+        if(type.equals("Documents")) getSupportActionBar().setTitle("Upload File");
 
         else getSupportActionBar().setTitle("Upload Video");
 
@@ -174,6 +172,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                 displayName = myFile.getName();
                 Log.d("nameeeee>>>>  ",displayName);
             }
+        }else{
+            Log.d(String.valueOf(resultCode),"Bad error");
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -219,20 +219,13 @@ and displays a toast message and parses the received data as JSON.**/
                             Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }) {
-
-                /*
-                 * If you want to add more parameters with the image
-                 * you can do it here
-                 * here we have only one parameter with the image
-                 * which is tags
-                 * */
                 
                 /**The method is responsible for providing the parameters that will be sent along with the request to the database **/
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
                     params.put("courseName",courseName);
-                    params.put("type",type);
+                    params.put("type",type); // type = video or pdf
                     // params.put("tags", "ccccc");  add string parameters
                     return params;
                 }

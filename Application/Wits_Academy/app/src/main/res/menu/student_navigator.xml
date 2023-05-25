@@ -19,10 +19,6 @@
 
     <item android:title="Content">
         <menu>
-            <item android:id="@+id/course_slides"
-                android:title="Course Slides"/>
-            <item android:id="@+id/videos"
-                android:title="Course Lectures"/>
             <item android:id="@+id/quiz"
                 android:title="Quiz"/>
             <item android:id="@+id/assignment"

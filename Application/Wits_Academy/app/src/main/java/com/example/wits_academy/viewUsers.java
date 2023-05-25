@@ -51,7 +51,9 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
         ImageView imageView = view.findViewById(R.id.imageView9);
-        
+        TextView userName = view.findViewById(R.id.name);
+        userName.setText(userNumber);
+
         /**Call the get image method from the class get image for the profile pic of the user**/
         DataBase.get_image(this, userNumber, imageView);
         
