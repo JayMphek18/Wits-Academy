@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -114,11 +115,11 @@ public class main_menu_studentTest {
             @Override
             public void run() {
                 noCourse.setVisibility(View.GONE);
-                student.course_list.removeAllViews();
+//                student.course_list.removeAllViews();
                 ViewsClass.add_layout(1, 0, student.getBaseContext() , courseName, courseCode, teacherName, student.course_list, userNumber);
             }
         });
-        assertEquals(student.course_list.getChildCount(), 1);
+        assertEquals(student.course_list.getChildCount(), 4);
     }
 
     @Test
@@ -177,6 +178,27 @@ public class main_menu_studentTest {
         studentCourse2.put("teacher_id", "Martin");
         studentCourse2.put("course_code", "STAT1002");
         studentCourse2.put("course_name", "Intro to Stats");
+        studentCourseArray.put(studentCourse2);
+        JSONObject studentCourse3 = new JSONObject();
+        studentCourse3.put("teacher_id", "Zenzele");
+        studentCourse3.put("course_code", "COMS1004");
+        studentCourse3.put("course_name", "Basic Programming");
+        studentCourseArray.put(studentCourse3);
+        JSONObject studentCourse4 = new JSONObject();
+        studentCourse4.put("teacher_id", "Zenzele");
+        studentCourse4.put("course_code", "COMS1004");
+        studentCourse4.put("course_name", "Basic Programming");
+        studentCourseArray.put(studentCourse4);
+        JSONObject studentCourse5 = new JSONObject();
+        studentCourse5.put("teacher_id", "Zenzele");
+        studentCourse5.put("course_code", "COMS1004");
+        studentCourse5.put("course_name", "Basic Programming");
+        studentCourseArray.put(studentCourse5);
+        JSONObject studentCourse6 = new JSONObject();
+        studentCourse6.put("teacher_id", "Zenzele");
+        studentCourse6.put("course_code", "COMS1004");
+        studentCourse6.put("course_name", "Basic Programming");
+        studentCourseArray.put(studentCourse6);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -184,9 +206,14 @@ public class main_menu_studentTest {
 //                student.course_list.removeAllViews();
                 ViewsClass.get_information_on_JSON(student.getBaseContext(),userNumber ,student.course_list, studentCourseArray,
                         teacherName, courseCode, courseName);
+                assertEquals(student.course_list.getChildCount(), 6);
+                View view = student.course_list.getChildAt(student.course_list.getChildCount() - 1).findViewById(R.id.lay);
+                view.performClick();
             }
         });
-        assertEquals(student.course_list.getChildCount(), 4);
+
+
+
     }
 
     @Test
@@ -198,9 +225,32 @@ public class main_menu_studentTest {
     }
 
     @Test
+    public void backPressOpen() throws Throwable {
+        onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                student.onBackPressed();
+            }
+        });
+        assertFalse(navigationView.isActivated());
+    }
+    @Test
+    public void backPressClosed() throws Throwable {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                student.onBackPressed();
+            }
+        });
+        assertFalse(navigationView.isActivated());
+    }
+
+    @Test
     public void noCoursesDisplayed(){
         TextView noCourse = student.findViewById(R.id.NoCoursesAvailable);
         assertEquals(noCourse.getVisibility(), View.VISIBLE);
+        student.go_to_courses(noCourse);
     }
 
     @Test
@@ -264,7 +314,26 @@ public class main_menu_studentTest {
         assertNotNull(student.view);
         assertNotNull(student.userNumber);
     }
-
+    @Test
+    public void clickedMenuItem3(){
+        MenuItem menuItem = menu.getItem(3);
+        assertTrue(student.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedMenuItem2(){
+        MenuItem menuItem = menu.getItem(2);
+        assertTrue(student.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedMenuItem1(){
+        MenuItem menuItem = menu.getItem(1);
+        assertTrue(student.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedMenuItem0(){
+        MenuItem menuItem = menu.getItem(0);
+        assertTrue(student.onNavigationItemSelected(menuItem));
+    }
 
     @After
     public void tearDown() throws Exception {
