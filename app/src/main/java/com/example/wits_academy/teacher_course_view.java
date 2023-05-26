@@ -1,6 +1,7 @@
 package com.example.wits_academy;
 
 
+<<<<<<< HEAD
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
+=======
+
+import static com.example.wits_academy.R.id.Fragment_DocsLL;
+
+>>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
@@ -23,6 +29,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+<<<<<<< HEAD
+=======
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+>>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
 import com.google.android.material.navigation.NavigationView;
 
 import com.squareup.picasso.Picasso;
@@ -31,10 +51,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+<<<<<<< HEAD
 import java.io.InputStream;
 import java.util.ArrayList;
+=======
+import java.util.ArrayList;
+
+>>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
 
 public class teacher_course_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+
 
     String userNumber;
     LinearLayout course_list;
@@ -42,10 +69,14 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
     String courseName;
     TextView logout;
     NavigationView navigationView;
+    BottomNavigationView navigationView1;
     Bitmap bitmap;
     ImageView imageView;
-
+    private LinearLayout Docs;
+    // List Of all Documents in the class
+    static ArrayList<String> titles;
     private final int GALLERY_REQ_CODE = 1000;
+    ArrayList<documentView> documentViews;
 
 
     @Override
@@ -57,35 +88,51 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
         courseName = user_number.getStringExtra("courseName");
         course_list = (LinearLayout) findViewById(R.id.contents);
 
-        navigationView = (NavigationView) findViewById(R.id.nav_t);
-        navigationView.setNavigationItemSelectedListener(this);
-        View view = navigationView.getHeaderView(0);
-        TextView userName = view.findViewById(R.id.name);
-        userName.setText(courseName);
+        navigationView1 = findViewById(R.id.bottomNavigationView);
+//        Make sure that Home Fragment is always set as default
+        replaceFragement(new HomeFragment());
 
+<<<<<<< HEAD
         imageView = view.findViewById(R.id.imageView9);
         DataBase.get_course_image(this, courseName, imageView);
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tooolbar);
         setSupportActionBar(toolbar);
+=======
+        // This is the method for creating the side navigation Br
+        setSideNavigationBar();
+>>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        // Get Course Content and Display it
+        Boolean wait = false;
+        titles = new ArrayList<>();
+        documentViews  = new ArrayList<documentView>();
+
+        navigationView1.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent access_gallary = new Intent(Intent.ACTION_PICK);
-                access_gallary.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(access_gallary, GALLERY_REQ_CODE);
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.courseHome:
+                        replaceFragement(new HomeFragment());
+                        break;
+                    case R.id.courseDocument:
+                        DocumentFragment fragment = new DocumentFragment();
+                        replaceFragement(fragment);
+                        Docs = fragment.getDocsLL();
+                        DataBase.get_Documents(getApplicationContext(),titles,courseName,"teacher",userNumber,fragment);
+                        break;
+                    case R.id.courseVideos:
+                        replaceFragement(new VideoFragment());
+                        break;
+                }
+                return true;
             }
         });
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigator_open, R.string.navigator_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
 
-        //changing background and title on toolbar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-        getSupportActionBar().setTitle(courseName);
+
+
+
 
     }
     private void add_image(){
@@ -94,7 +141,7 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
             byte[] bytes = byteArrayOutputStream.toByteArray();
             final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-            DataBase.upload_image(this, base64Image, courseName);
+            DataBase.upload_image(this, base64Image, courseName, imageView);
 //            DataBase.get_course_image(this, courseName,imageView);
 
 //            userNumber.setText(base64Image);
@@ -109,6 +156,8 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
             super.onBackPressed();
         }
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -135,8 +184,18 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
             case R.id.announcements:
                 return true;
             case R.id.course_slides:
+                Intent intent1 = new Intent(this,upload_file.class);
+                intent1.putExtra("courseName",courseName);
+                intent1.putExtra("type","Documents");
+                intent1.putExtra("userNumber",userNumber);
+                intent1.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent1);
                 return true;
             case R.id.videos:
+                Intent intent2 = new Intent(this,upload_file.class);
+                intent2.putExtra("courseName",courseName);
+                intent2.putExtra("type","Videos");
+                intent2.putExtra("userNumber",userNumber);
                 return true;
             case R.id.quiz:
                 return true;
@@ -151,17 +210,72 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
                 Intent intent = new Intent(this , MainActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.ViewUsers:
+                intent = new Intent(this,viewUsers.class);
+                intent.putExtra("courseName",courseName);
+                intent.putExtra("userNumber",userNumber);
+                intent.putExtra("Role","Teacher");
+                startActivity(intent);
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public void upload(View view) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.setType("application/pdf");
-        startActivityForResult(intent,1);
+    public void uploadFile(View view) {
+        Intent intent1 = new Intent(this,upload_file.class);
+        intent1.putExtra("courseName",courseName);
+        intent1.putExtra("type","Documents");
+        intent1.putExtra("userNumber",userNumber);
 
+        startActivity(intent1);
     }
+
+    public void uploadVideo(View view) {
+        Intent intent1 = new Intent(this,upload_file.class);
+        intent1.putExtra("courseName",courseName);
+        intent1.putExtra("type","Videos");
+        intent1.putExtra("userNumber",userNumber);
+        startActivity(intent1);
+    }
+    // Navigation Bar Setters
+    private void setSideNavigationBar(){
+        navigationView = (NavigationView) findViewById(R.id.nav_t);
+        navigationView.setNavigationItemSelectedListener(this);
+        View view = navigationView.getHeaderView(0);
+        TextView userName = view.findViewById(R.id.name);
+        userName.setText(courseName);
+
+        imageView = view.findViewById(R.id.imageView9);
+        DataBase.get_course_image(this, courseName, imageView);
+        drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent access_gallary = new Intent(Intent.ACTION_PICK);
+                access_gallary.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(access_gallary, GALLERY_REQ_CODE);
+            }
+        });
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigator_open, R.string.navigator_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        //changing background and title on toolbar
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+        getSupportActionBar().setTitle(courseName);
+    }
+
+    private void replaceFragement(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.commit();
+    }
+
 }
 

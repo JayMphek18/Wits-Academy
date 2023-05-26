@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -89,3 +90,48 @@
             app:menu="@menu/teacher_navigator"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 </LinearLayout>
+=======
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blue"
+    android:backgroundTint="@color/light_blue_A400"
+    android:fitsSystemWindows="true"
+    tools:context=".create_announcement"
+    tools:openDrawer="start">
+
+    <EditText
+        android:id="@+id/AnnouncementText"
+        android:layout_width="330dp"
+        android:layout_height="184dp"
+        android:background="@color/light_blue"
+        android:hint="Enter announcement here."
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sendAnnouncement"
+        android:layout_width="160dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/button_background"
+        android:gravity="center"
+        android:text="Send Announcement"
+        android:textColor="@color/white"
+        android:onClick="Send"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AnnouncementText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360

@@ -30,7 +30,7 @@
         <div class="slide">
          <h2 class="head2">MENU </h2>
             <ul>
-                <li><a href="./index.php"><i class="fas fa-tv"></i>Dashboard</a></li>
+                <li><a href="./index.php"><i class="fas fa-gauge"></i>Dashboard</a></li>
                 <li><a href="./profileview.php"><i class="fas fa-user"></i>Profile</a></li>
                 <li><a href="./create_course.php"><i class="fas fa-add"></i>Create Course</a></li>
                 <li><a href="#"><i class="fas fa-folder"></i>Manage Courses</a></li>
@@ -39,8 +39,7 @@
         </div>
     </label>
 <?php
-                  // from the database, search from the courses table for the courses this user created and display on the
-        //Course Dashboard 
+                  
                     $user_id=$_SESSION['user_id'];
                     $sql="select * from courses where teacher='$user_id'";
                     $result=$conn->query($sql);
@@ -53,6 +52,7 @@
                     <table class="table" id = "tables">
                     <thead>
                     <tr>
+                        <th></th>
                         <th>Course Code</th>
                         <th>Course name</th>
                     </tr>
@@ -63,13 +63,18 @@
             //$result=$conn->query($sql);
             while($row=$result->fetch_assoc())
             {
+                $course_id=$row['course_id'];
+                $pic=$row['picture'];
                 $code=$row['course_code'];
                 $course=$row['course_name'];
 
             ?>
                     <tr>
-                        <td><a href="#"><?php echo $code ?></a></td>
-                        <td><a href="#"><?php echo $course ?></a></td>
+                        <td>
+                            <img src="./course_pic/<?php echo $pic ?>" alt="course_picture" loading="lazy" width="50" />
+                        </td>
+                        <td><a href="./course.php?id=<?php echo $course_id ?>"><?php echo $code ?></a></td>
+                        <td><a href="./course.php?id=<?php echo $course_id ?>"><?php echo $course ?></a></td>
                     </tr>
                 <?php }} ?>
                 </tbody>

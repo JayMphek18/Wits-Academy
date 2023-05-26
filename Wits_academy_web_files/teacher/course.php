@@ -129,29 +129,162 @@ ul li i{
     font-size: 20px;
     font-weight: 600;
 }
+.block {
+    background-color: rgba(0, 0, 0, 0);
+    justify-content: space-between;
+    font-family: Droid Sans, sans-serif;
+    font-weight: 700;
+    display: inline-block;
+    position: relative;
+    top: 100px;
+    left: 270px;
+  }
+
+  .head3 {
+    text-shadow: 1px 0 1px rgba(0, 0, 0, .2);
+    font-family: Droid Sans, sans-serif;
+    text-decoration: none;
+    position: relative;
+    top: 95px;
+    left: 265px;
+  }
+  .list {
+    font-family: Droid Sans, sans-serif;
+    font-weight: 400;
+    position: relative;
+    top: 88px;
+    left: 243px;
+    list-style: none;
+  }
+  .list-item {
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+  }
+  .link_list {
+    font-family: Montserrat, sans-serif;
+    color: blue;
+    text-decoration: none;
+  }
     </style>
 
 </head>
 <body class="body">
     <?php
-        $code = $_GET['id'];
-        $sql="select * from courses where course_code='$code'";
+        $id = $_GET['id'];
+        $sql="select * from courses where course_id='$id'";
         $result=$conn->query($sql);
         $row=$result->fetch_assoc();
 
         $course=$row['course_name'];
-    ?>     
+        $code=$row['course_code'];
+    ?>   
+     
+    <div class="block">
+    <a href="upload.php?id=<?php echo $id ?>" class="btn btn-primary"><i class="fas fa-add"></i> Upload</a>
+    </div>
+    <h3 class="head3"><i class="fas fa-folder"></i> Slides/ Notes</h3>
+    <?php 
+        $sql1="SELECT * FROM upload WHERE course_id='$id' AND type='slides/notes'";
+        $result1=$conn->query($sql1);
+        $rowcount=mysqli_num_rows($result1);
+        if(!($rowcount)){
+          ?>
+          <ul role="list" class="list">
+                <li class="list-item"> Upload Lecture Slides/ Notes</li>
+          </ul>
+        <?php }else{
+        while($row1=$result1->fetch_assoc()){
+
+        $path=$row1['course_material'];
+        $filename=$row1['name_of_file'];
+        $type=$row1['type'];
+        if($type == 'slides/notes'){
+      ?>
+            <ul role="list" class="list">
+                <li class="list-item"><a href="./upload_material/<?php echo $path ?>" class="link_list" ><?php echo $filename ?> <i class="fas fa-eye"></i></a></li>
+            </ul>
+            <?php }}} ?>
+            
+            <h3 class="head3"><i class="fas fa-file-video"></i> Lecture Videos</h3>
+    <?php 
+          $sql1="SELECT * FROM upload WHERE course_id='$id' AND type='video'";
+          $result1=$conn->query($sql1);
+          $rowcount=mysqli_num_rows($result1);
+        if(!($rowcount)){
+          ?>
+          <ul role="list" class="list">
+                <li class="list-item"> Upload Lecture Videos</li>
+          </ul>
+        <?php }else{
+          while($row1=$result1->fetch_assoc()){
+
+          $path=$row1['course_material'];
+          $filename=$row1['name_of_file'];
+          $type=$row1['type'];
+          if($type == 'video'){
+    ?>
+            <ul role="list" class="list">
+                <li class="list-item"><a href="./upload_material/<?php echo $path ?>" class="link_list" ><?php echo $filename ?> <i class="fas fa-eye"></i></a></li>
+            </ul>
+            <?php }} } ?>
+
+            <h3 class="head3"><i class="fas fa-folder"></i> Tutorials</h3>
+      <?php 
+        $sql1="SELECT * FROM upload WHERE course_id='$id' AND type='tutorial'";
+        $result1=$conn->query($sql1);
+        $rowcount=mysqli_num_rows($result1);
+        if(!($rowcount)){
+          ?>
+          <ul role="list" class="list">
+                <li class="list-item"> Upload Tutorials</li>
+          </ul>
+        <?php }else{
+        while($row1=$result1->fetch_assoc()){
+
+        $path=$row1['course_material'];
+        $filename=$row1['name_of_file'];
+        $type=$row1['type'];
+        if($type == 'tutorial'){
+      ?>
+            <ul role="list" class="list">
+                <li class="list-item"><a href="./upload_material/<?php echo $path ?>" class="link_list" ><?php echo $filename ?> <i class="fas fa-eye"></i></a></li>
+            </ul>
+            <?php }} }?>
+
+        <h3 class="head3"><i class="fas fa-folder-plus"></i> Extra Resources</h3>
+      <?php 
+        $sql1="SELECT * FROM upload WHERE course_id='$id' AND type='extra resources'";
+        $result1=$conn->query($sql1);
+        $rowcount=mysqli_num_rows($result1);
+        if(!($rowcount)){
+          ?>
+          <ul role="list" class="list">
+                <li class="list-item"> Upload Extra Resources</li>
+          </ul>
+        <?php }else{
+        while($row1=$result1->fetch_assoc()){
+        
+        $path=$row1['course_material'];
+        $filename=$row1['name_of_file'];
+        $type=$row1['type'];
+        if($type == 'extra resources'){
+        ?>
+            <ul role="list" class="list">
+                <li class="list-item"><a href="./upload_material/<?php echo $path ?>" class="link_list" ><?php echo $filename ?> <i class="fas fa-eye"></i></a></li>
+            </ul>
+        <?php }}}?>
             <section class="section2">
             <ul>
-                <li><a href="#" class="link-3"><i class="fas fa-house"></i>Home</a></li>
-                <li><a href="#" class="link-3"><i class="fas fa-bullhorn"></i>Announcement</a></li>
+                <li><a href="course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-house"></i>Home</a></li>
+                <li><a href="participants.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-users"></i>Participants</a></li>
+                <li><a href="announcement.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-bullhorn"></i>Announcement</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-question"></i>Q&amp;A Forum</a></li>
-                <li><a href="#" class="link-3"><i class="fas fa-book"></i>Course Materials</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-square-plus"></i>Create Quiz</a></li>
                 <li><a href="#" class="link-3"><i class="fas fa-comment"></i>View Course Feedback</a></li>
-                <li><a href="edit_course.php?id=<?php echo $code ?>" class="link-3"><i class="fas fa-pen-to-square"></i>Edit Course Details</a></li>
+                <li><a href="edit_course.php?id=<?php echo $id ?>" class="link-3"><i class="fas fa-pen-to-square"></i>Edit Course Details</a></li>
             </ul>
-            </section>
+            </section> 
+           
             <div class="container">
             <div class="section1">
             <img src="./Wits_Logo.png" loading="lazy" alt="wits logo" />

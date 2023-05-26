@@ -12,6 +12,8 @@
             android:title="Back to menu"/>
         <item android:id="@+id/logout"
             android:title="Logout"/>
+        <item android:id="@+id/ViewUsers"
+            android:title="View participants "/>
     </group>
 
     <item android:title="Content">
@@ -26,6 +28,7 @@
                 android:title="Upload assignment"/>
             <item android:id="@+id/grades_quiz_and_assigments"
                 android:title="Mark quizzes and assignments"/>
+
         </menu>
     </item>
 

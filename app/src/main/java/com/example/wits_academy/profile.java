@@ -57,7 +57,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         userNumber = findViewById(R.id.profile_number);
         userImage = (ImageView)findViewById(R.id.profile_image);
 
-        DataBase.get_image(this, user, userImage);
+
 
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +77,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         userName.setText(user);
         ImageView imageView = view.findViewById(R.id.imageView9);
 
-
+        DataBase.get_image(this,user,imageView);
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tooolbar);
         setSupportActionBar(toolbar);
@@ -100,6 +100,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         }
 
         DataBase.profile(this, user, name, surname, email, userNumber);
+//        DataBase.get_image(this, user, imageView);
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle("Profile");
@@ -145,9 +146,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
             byte[] bytes = byteArrayOutputStream.toByteArray();
             final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-            DataBase.upload_image(this, base64Image, user);
-            DataBase.get_image(this, user, userImage);
-
+            DataBase.upload_image(this, base64Image, user , userImage);
 //            userNumber.setText(base64Image);
         }
     }

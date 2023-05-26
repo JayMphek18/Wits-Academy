@@ -7,14 +7,34 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/wits_launcher"
         android:label="@string/app_name"
+<<<<<<< HEAD
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+=======
+        android:roundIcon="@mipmap/wits_launcher_round"
+        android:supportsRtl="false"
+>>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
         android:theme="@style/Theme.Wits_Academy"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+<<<<<<< HEAD
+=======
+            android:name=".viewUsers"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Announcements"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".create_announcement"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+>>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
             android:name=".upload_file"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">

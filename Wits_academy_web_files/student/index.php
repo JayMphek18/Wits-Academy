@@ -32,7 +32,7 @@
             <ul>
                 <li><a href="./index.php"><i class="fas fa-tv"></i>Dashboard</a></li>
                 <li><a href="./profileview.php"><i class="fas fa-user"></i>Profile</a></li>
-                <li><a href="./enroll.php"><i class="fas fa-add"></i>Enroll into Course</a></li>
+                <li><a href="./search_course.php"><i class="fas fa-add"></i>Enroll into Course</a></li>
                 <li><a href="#"><i class="fas fa-folder"></i>Courses</a></li>
                 <li><a href="logout.php"><i class="fas fa-arrow-right-from-bracket"></i>Logout</a></li>
             </ul>
@@ -52,6 +52,7 @@
                     <table class="table" id = "tables">
                     <thead>
                     <tr>
+                        <th></th>
                         <th>Course Code</th>
                         <th>Course name</th>
                     </tr>
@@ -62,16 +63,21 @@
             //$result=$conn->query($sql);
             while($row=$result->fetch_assoc())
             {
-                $code=$row['course_code'];
-                $sql1="select * from courses where course_code='$code'";
+                $id=$row['course_id'];
+                $sql1="select * from courses where course_id='$id'";
                 $result1=$conn->query($sql1);
                 $row1=$result1->fetch_assoc();
+                $code=$row1['course_code'];
                 $course=$row1['course_name'];
+                $pic=$row1['picture'];
 
             ?>
                     <tr>
-                        <td><a href="#"><?php echo $code ?></a></td>
-                        <td><a href="#"><?php echo $course ?></a></td>
+                        <td>
+                        <img src="../teacher/course_pic/<?php echo $pic ?>" alt="course_picture" loading="lazy" width="50" />
+                        </td>
+                        <td><a href="./course.php?id=<?php echo $id ?>"><?php echo $code ?></a></td>
+                        <td><a href="./course.php?id=<?php echo $id ?>"><?php echo $course ?></a></td>
                     </tr>
                 <?php }} ?>
                 </tbody>
