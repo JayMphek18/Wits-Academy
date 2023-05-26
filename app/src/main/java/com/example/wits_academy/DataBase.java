@@ -140,87 +140,87 @@ public class DataBase {
         requestQueue.add(stringRequest);
     }
 
-    public static void nav_student_courses(Context context, String user_number, LinearLayout courses_list) {
-        String url = ip + "/enrolled_course.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onResponse(String response) {
-                if(!response.isEmpty()){
-                    try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        ArrayList<String> course_names = new ArrayList<>();
-                        ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    TextView empty = new TextView(context);
-                    empty.setText("No Courses enrolled, check the available Courses");
-                    empty.setTextColor(white);
-                    courses_list.addView(empty);
-//                    Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
-                }
+//     public static void nav_student_courses(Context context, String user_number, LinearLayout courses_list) {
+//         String url = ip + "/enrolled_course.php";
+//         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+//             @SuppressLint("ResourceAsColor")
+//             @Override
+//             public void onResponse(String response) {
+//                 if(!response.isEmpty()){
+//                     try {
+//                         JSONArray jsonArray = new JSONArray(response);
+//                         ArrayList<String> course_names = new ArrayList<>();
+//                         ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number);
+//                     } catch (JSONException e) {
+//                         e.printStackTrace();
+//                     }
+//                 }
+//                 else{
+//                     TextView empty = new TextView(context);
+//                     empty.setText("No Courses enrolled, check the available Courses");
+//                     empty.setTextColor(white);
+//                     courses_list.addView(empty);
+// //                    Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
+//                 }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-                data.put("student_number", user_number);
-                return data;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(stringRequest);
-    }
+//             }
+//         }, new Response.ErrorListener() {
+//             @Override
+//             public void onErrorResponse(VolleyError error) {
+//                 Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+//             }
+//         }){
+//             @Override
+//             protected Map<String, String> getParams() throws AuthFailureError {
+//                 Map<String, String> data = new HashMap<>();
+//                 data.put("student_number", user_number);
+//                 return data;
+//             }
+//         };
+//         RequestQueue requestQueue = Volley.newRequestQueue(context);
+//         requestQueue.add(stringRequest);
+//     }
 
-    public static void nav_teacher_courses(Context context, String user_number, LinearLayout courses_list) {
-        String url = ip + "/enrolled_course.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onResponse(String response) {
-                if(!response.isEmpty()){
-                    try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        ArrayList<String> course_names = new ArrayList<>();
-                        ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    TextView empty = new TextView(context);
-                    empty.setText("No Courses enrolled, check the available Courses");
-                    empty.setTextColor(white);
-                    courses_list.addView(empty);
-//                    Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
-                }
+//     public static void nav_teacher_courses(Context context, String user_number, LinearLayout courses_list) {
+//         String url = ip + "/enrolled_course.php";
+//         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+//             @SuppressLint("ResourceAsColor")
+//             @Override
+//             public void onResponse(String response) {
+//                 if(!response.isEmpty()){
+//                     try {
+//                         JSONArray jsonArray = new JSONArray(response);
+//                         ArrayList<String> course_names = new ArrayList<>();
+//                         ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number);
+//                     } catch (JSONException e) {
+//                         e.printStackTrace();
+//                     }
+//                 }
+//                 else{
+//                     TextView empty = new TextView(context);
+//                     empty.setText("No Courses enrolled, check the available Courses");
+//                     empty.setTextColor(white);
+//                     courses_list.addView(empty);
+// //                    Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
+//                 }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-                data.put("student_number", user_number);
-                return data;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(stringRequest);
-    }
+//             }
+//         }, new Response.ErrorListener() {
+//             @Override
+//             public void onErrorResponse(VolleyError error) {
+//                 Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+//             }
+//         }){
+//             @Override
+//             protected Map<String, String> getParams() throws AuthFailureError {
+//                 Map<String, String> data = new HashMap<>();
+//                 data.put("student_number", user_number);
+//                 return data;
+//             }
+//         };
+//         RequestQueue requestQueue = Volley.newRequestQueue(context);
+//         requestQueue.add(stringRequest);
+//     }
 
     //check if the user does exist in the current data base
 
