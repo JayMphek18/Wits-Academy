@@ -105,10 +105,6 @@ public class main_menu_student extends AppCompatActivity implements NavigationVi
                 Intent log = new Intent(this, MainActivity.class);
                 startActivity(log);
                 return true;
-            case R.id.menu_page:
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
