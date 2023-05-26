@@ -4,6 +4,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.contrib.DrawerActions.open;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
 
 import android.view.Menu;
@@ -22,12 +23,15 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @MediumTest
@@ -53,6 +57,161 @@ public class main_menu_teacherTest {
         menu = navigationView.getMenu();
         userNumber = teacher.userNumber = "1234567";
         Intents.init();
+    }
+
+    @Test
+    public void addingTwoCoursesCoursesInPage() throws Throwable {
+//        TextView noCourse = teacher.findViewById(R.id.NoCoursesAvailable);
+
+        ArrayList<String> courseName = new ArrayList<>();
+        ArrayList<String> teacherName = new ArrayList<>();
+        ArrayList<String> courseCode = new ArrayList<>();
+        courseCode.add("MATH1001");
+        courseName.add("Basic Analysis");
+        teacherName.add("Sethembile");
+        courseCode.add("MATH2003");
+        courseName.add("Abstract Maths");
+        teacherName.add("Martin");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                noCourse.setVisibility(View.GONE);
+//                teacher.course_list.removeAllViews();
+                ViewsClass.add_layout(2, 0, teacher.getBaseContext() , courseName, courseCode, teacherName, teacher.course_list, userNumber);
+            }
+        });
+        assertEquals(teacher.course_list.getChildCount(), 3);
+    }
+
+    @Test
+    public void addingOneCoursesCoursesInPage() throws Throwable {
+//        TextView noCourse = teacher.findViewById(R.id.NoCoursesAvailable);
+
+        ArrayList<String> courseName = new ArrayList<>();
+        ArrayList<String> teacherName = new ArrayList<>();
+        ArrayList<String> courseCode = new ArrayList<>();
+        courseCode.add("MATH1001");
+        courseName.add("Basic Analysis");
+        teacherName.add("Sethembile");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                noCourse.setVisibility(View.GONE);
+//                teacher.course_list.removeAllViews();
+                ViewsClass.add_layout(1, 0, teacher.getBaseContext() , courseName, courseCode, teacherName, teacher.course_list, userNumber);
+            }
+        });
+        assertEquals(teacher.course_list.getChildCount(), 3);
+    }
+
+    @Test
+    public void AddOddNumberOfCoursesStartingFromJSONArray() throws Throwable {
+//        TextView noCourse = teacher.findViewById(R.id.NoCoursesAvailable);
+
+        ArrayList<String> courseName = new ArrayList<>();
+        ArrayList<String> teacherName = new ArrayList<>();
+        ArrayList<String> courseCode = new ArrayList<>();
+
+        JSONArray teacherCourseArray = new JSONArray();
+        JSONObject teacherCourse1 = new JSONObject();
+        teacherCourse1.put("teacher_id", "Sethembile");
+        teacherCourse1.put("course_code", "MATH1002");
+        teacherCourse1.put("course_name", "Basic Analysis");
+        teacherCourseArray.put(teacherCourse1);
+        JSONObject teacherCourse2 = new JSONObject();
+        teacherCourse2.put("teacher_id", "Martin");
+        teacherCourse2.put("course_code", "STAT1002");
+        teacherCourse2.put("course_name", "Intro to Stats");
+        teacherCourseArray.put(teacherCourse2);
+        JSONObject teacherCourse3 = new JSONObject();
+        teacherCourse3.put("teacher_id", "Zenzele");
+        teacherCourse3.put("course_code", "COMS1004");
+        teacherCourse3.put("course_name", "Basic Programming");
+        teacherCourseArray.put(teacherCourse3);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                noCourse.setVisibility(View.GONE);
+//                teacher.course_list.removeAllViews();
+                ViewsClass.get_information_on_JSON(teacher.getBaseContext(),userNumber ,teacher.course_list, teacherCourseArray,
+                        teacherName, courseCode, courseName);
+            }
+        });
+
+        assertEquals(teacher.course_list.getChildCount(), 4);
+    }
+
+
+    @Test
+    public void AddEvenNumberOfCoursesStartingFromJSONArray() throws Throwable {
+//        TextView noCourse = teacher.findViewById(R.id.NoCoursesAvailable);
+
+        ArrayList<String> courseName = new ArrayList<>();
+        ArrayList<String> teacherName = new ArrayList<>();
+        ArrayList<String> courseCode = new ArrayList<>();
+
+        JSONArray teacherCourseArray = new JSONArray();
+        JSONObject teacherCourse1 = new JSONObject();
+        teacherCourse1.put("teacher_id", "Sethembile");
+        teacherCourse1.put("course_code", "MATH1002");
+        teacherCourse1.put("course_name", "Basic Analysis");
+        teacherCourseArray.put(teacherCourse1);
+        JSONObject teacherCourse2 = new JSONObject();
+        teacherCourse2.put("teacher_id", "Martin");
+        teacherCourse2.put("course_code", "STAT1002");
+        teacherCourse2.put("course_name", "Intro to Stats");
+        teacherCourseArray.put(teacherCourse2);
+        JSONObject teacherCourse3 = new JSONObject();
+        teacherCourse3.put("teacher_id", "Zenzele");
+        teacherCourse3.put("course_code", "COMS1004");
+        teacherCourse3.put("course_name", "Basic Programming");
+        teacherCourseArray.put(teacherCourse3);
+        JSONObject teacherCourse4 = new JSONObject();
+        teacherCourse4.put("teacher_id", "Zenzele");
+        teacherCourse4.put("course_code", "COMS1004");
+        teacherCourse4.put("course_name", "Basic Programming");
+        teacherCourseArray.put(teacherCourse4);
+        JSONObject teacherCourse5 = new JSONObject();
+        teacherCourse5.put("teacher_id", "Zenzele");
+        teacherCourse5.put("course_code", "COMS1004");
+        teacherCourse5.put("course_name", "Basic Programming");
+        teacherCourseArray.put(teacherCourse5);
+        JSONObject teacherCourse6 = new JSONObject();
+        teacherCourse6.put("teacher_id", "Zenzele");
+        teacherCourse6.put("course_code", "COMS1004");
+        teacherCourse6.put("course_name", "Basic Programming");
+        teacherCourseArray.put(teacherCourse6);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                noCourse.setVisibility(View.GONE);
+//                teacher.course_list.removeAllViews();
+                ViewsClass.get_information_on_JSON(teacher.getBaseContext(),userNumber ,teacher.course_list, teacherCourseArray,
+                        teacherName, courseCode, courseName);
+            }
+        });
+        assertEquals(teacher.course_list.getChildCount(), 5);
+    }
+    @Test
+    public void backPressOpen() throws Throwable {
+        onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                teacher.onBackPressed();
+            }
+        });
+        assertFalse(navigationView.isActivated());
+    }
+    @Test
+    public void backPressClosed() throws Throwable {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                teacher.onBackPressed();
+            }
+        });
+        assertFalse(navigationView.isActivated());
     }
 
     @Test
