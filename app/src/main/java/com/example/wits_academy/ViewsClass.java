@@ -229,17 +229,4 @@ public class ViewsClass {
         }
         return left;
     }
-
-    public static void get_nav_list_layout(Context context,LinearLayout courses_list, JSONArray jsonArray,
-                                       ArrayList<String> course_names,String student_number) {
-        try{
-            for (int i = 0; i < jsonArray.length(); i++){
-                JSONObject course_information = jsonArray.getJSONObject(i);
-                course_names.add(course_information.getString("course_name"));
-            }
-            nav_list_layout(context,course_names,student_number,courses_list);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 }
