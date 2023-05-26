@@ -242,33 +242,4 @@ public class ViewsClass {
             e.printStackTrace();
         }
     }
-
-    public static void nav_list_layout( Context context , ArrayList<String> course_names, String number,
-                                      LinearLayout course_list){
-        for (int i = 0; i < course_names.size(); i++){
-            View layout = View.inflate(context, R.layout.nav_course_view, null);
-            TextView textView = layout.findViewById(R.id.courseN);
-            textView.setText(course_names.get(i));
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String courseN = textView.getText().toString().trim();
-                    DataBase.course(context, courseN,number);
-                }
-            });
-            course_list.addView(layout);
-        }
-    }
-
-    public static ArrayList<String> sear(ArrayList<String>  course, String newText){
-        ArrayList newlist = new ArrayList<>();
-        for (int i = 0; i < course.size(); i++){
-            for (int j = 0; j < course.get(i).length() - newText.length(); j ++){
-                if (course.get(i).substring(j,j + newText.length()).equals(newText)){
-                    newlist.add(course.get(i));
-                }
-            }
-        }
-        return newlist;
-    }
 }
