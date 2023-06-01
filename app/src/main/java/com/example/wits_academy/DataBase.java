@@ -1,8 +1,10 @@
 package com.example.wits_academy;
 
+import static com.example.wits_academy.R.color.black;
 import static com.example.wits_academy.R.color.white;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -17,6 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -39,56 +45,51 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-<<<<<<< HEAD
-public class DataBase {
-=======
 public class DataBase{
-     /**This string is for the IP address of our server/xampp where the PHP application is hosted**/
+    /**This string is for the IP address of our server/xampp where the PHP application is hosted**/
     final static String ip  = "http://10.100.15.104/wits_academy";
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
 
     /** Method to retrieve the courses taught by a teacher**/
-    public static void teacher_courses(Context context, String user_number, LinearLayout courses_list) {
+    public static void teacher_courses(Context context, String user_number, LinearLayout courses_list,TextView display) {
         String url = ip + "/teaching_courses.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-           /** Response listener**/
+            /** Response listener**/
             @Override
             public void onResponse(String response) {
                 try {
                     JSONArray jsonArray = new JSONArray(response);
-                    ArrayList<String> course_names = new ArrayList<>();
-                    ArrayList<String> course_code = new ArrayList<>();
-                    ArrayList<String> teacher_name = new ArrayList<>();
-                    ViewsClass.get_information_on_JSON(context, user_number, courses_list, jsonArray, teacher_name, course_code, course_names);
+                    if(jsonArray.length() != 0 ) {
+                        display.setVisibility(display.GONE);
+                        ArrayList<String> course_names = new ArrayList<>();
+                        ArrayList<String> course_code = new ArrayList<>();
+                        ArrayList<String> teacher_name = new ArrayList<>();
+                        ViewsClass.get_information_on_JSON(context, user_number, courses_list, jsonArray, teacher_name, course_code, course_names);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         },
-         /** Error listener**/
-          new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
-            }
-        }){ /** Request parameters**/
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-                data.put("teacher_number", user_number);
-                return data;
-            }
+                /** Error listener**/
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }){ /** Request parameters**/
+        @Override
+        protected Map<String, String> getParams() throws AuthFailureError {
+            Map<String, String> data = new HashMap<>();
+            data.put("teacher_number", user_number);
+            return data;
+        }
         };
         /**Create a request queue and add the string request to it**/
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
 
-<<<<<<< HEAD
-
-=======
-//Retrieves information about courses made by teacher
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
+    //Retrieves information about courses made by teacher
     public static void get_all_courses(Context context, String user_number, LinearLayout courses_list, String newText) {
         String url = ip +"/courses.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -138,13 +139,6 @@ public class DataBase{
                         e.printStackTrace();
                     }
                 }
-                else{
-                    TextView empty = new TextView(context);
-                    empty.setText("No Courses enrolled, check the available Courses");
-                    empty.setTextColor(white);
-                    courses_list.addView(empty);
-//                    Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
-                }
 
             }
         }, new Response.ErrorListener() {
@@ -164,144 +158,7 @@ public class DataBase{
         requestQueue.add(stringRequest);
     }
 
-<<<<<<< HEAD
-//     public static void nav_student_courses(Context context, String user_number, LinearLayout courses_list) {
-//         String url = ip + "/enrolled_course.php";
-//         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//             @SuppressLint("ResourceAsColor")
-//             @Override
-//             public void onResponse(String response) {
-//                 if(!response.isEmpty()){
-//                     try {
-//                         JSONArray jsonArray = new JSONArray(response);
-//                         ArrayList<String> course_names = new ArrayList<>();
-//                         ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number);
-//                     } catch (JSONException e) {
-//                         e.printStackTrace();
-//                     }
-//                 }
-//                 else{
-//                     TextView empty = new TextView(context);
-//                     empty.setText("No Courses enrolled, check the available Courses");
-//                     empty.setTextColor(white);
-//                     courses_list.addView(empty);
-// //                    Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
-//                 }
-=======
 
-//Retrieves enrolled course information for a student from a server 
-    public static void nav_student_courses(Context context, String user_number, LinearLayout courses_list) {
-        String url = ip + "/enrolled_course.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onResponse(String response) {
-                if(!response.isEmpty()){
-                    try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        ArrayList<String> course_names = new ArrayList<>();
-                        ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    TextView empty = new TextView(context);
-                    empty.setText("No Courses enrolled, check the available Courses");
-                    empty.setTextColor(white);
-                    courses_list.addView(empty);
-//                    Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
-                }
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
-
-//             }
-//         }, new Response.ErrorListener() {
-//             @Override
-//             public void onErrorResponse(VolleyError error) {
-//                 Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
-//             }
-//         }){
-//             @Override
-//             protected Map<String, String> getParams() throws AuthFailureError {
-//                 Map<String, String> data = new HashMap<>();
-//                 data.put("student_number", user_number);
-//                 return data;
-//             }
-//         };
-//         RequestQueue requestQueue = Volley.newRequestQueue(context);
-//         requestQueue.add(stringRequest);
-//     }
-
-<<<<<<< HEAD
-//     public static void nav_teacher_courses(Context context, String user_number, LinearLayout courses_list) {
-//         String url = ip + "/enrolled_course.php";
-//         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//             @SuppressLint("ResourceAsColor")
-//             @Override
-//             public void onResponse(String response) {
-//                 if(!response.isEmpty()){
-//                     try {
-//                         JSONArray jsonArray = new JSONArray(response);
-//                         ArrayList<String> course_names = new ArrayList<>();
-//                         ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number);
-//                     } catch (JSONException e) {
-//                         e.printStackTrace();
-//                     }
-//                 }
-//                 else{
-//                     TextView empty = new TextView(context);
-//                     empty.setText("No Courses enrolled, check the available Courses");
-//                     empty.setTextColor(white);
-//                     courses_list.addView(empty);
-// //                    Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
-//                 }
-=======
-
-
-
-//Retrieves course information for a teacher 
-    public static void nav_teacher_courses(Context context, String user_number, LinearLayout courses_list) {
-
-        String url = ip + "/enrolled_course.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onResponse(String response) {
-                if(!response.isEmpty()){
-                    try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        ArrayList<String> course_names = new ArrayList<>();
-                        ViewsClass.get_nav_list_layout(context, courses_list, jsonArray, course_names, user_number);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    TextView empty = new TextView(context);
-                    empty.setText("No Courses enrolled, check the available Courses");
-                    empty.setTextColor(white);
-                    courses_list.addView(empty);
-//                    Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
-                }
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
-
-//             }
-//         }, new Response.ErrorListener() {
-//             @Override
-//             public void onErrorResponse(VolleyError error) {
-//                 Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
-//             }
-//         }){
-//             @Override
-//             protected Map<String, String> getParams() throws AuthFailureError {
-//                 Map<String, String> data = new HashMap<>();
-//                 data.put("student_number", user_number);
-//                 return data;
-//             }
-//         };
-//         RequestQueue requestQueue = Volley.newRequestQueue(context);
-//         requestQueue.add(stringRequest);
-//     }
 
     //check if the user does exist in the current data base
 
@@ -382,7 +239,7 @@ public class DataBase{
         requestQueue.add(stringRequest);
     }
 
-//to retrieve and view the course info on course homepage
+    //to retrieve and view the course info on course homepage
     public static void course(Context context, String course_name, String number){
         String url = ip + "/back_to_menu.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -477,7 +334,7 @@ public class DataBase{
     }
 
 
-//for the teacher to create a course
+    //for the teacher to create a course
     public static void create_course (Context context, Map < String, String > data_to_send){
         String url = ip + "/create_course.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -521,12 +378,12 @@ public class DataBase{
                 return data;
             }
         };
-         //Add the String and folder request to the request queue
+        //Add the String and folder request to the request queue
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
         requestQueue.add(folderRequest);
     }
-//To allow the student to enroll into a course when they have the course password
+    //To allow the student to enroll into a course when they have the course password
     public static void enroll_on(Context context, String course_name, String course_password, String student_number){
         String url = ip + "/enroll.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -553,7 +410,7 @@ public class DataBase{
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
-//get the user's details from the server to the profile page
+    //get the user's details from the server to the profile page
     public static void profile(Context context, String userNumber, TextView name, TextView surname , TextView email,
                                TextView number){
         String url = ip + "/view_profile.php";
@@ -598,7 +455,7 @@ public class DataBase{
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
-//change the profile picture of the user
+    //change the profile picture of the user
     public static void change_profile(Context context, Map<String, String> map){
         String url = ip +"/change_profile.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -630,7 +487,7 @@ public class DataBase{
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
-//upload user's image to the edit profile page
+    //upload user's image to the edit profile page
     public static void upload_image(Context context, String image_intent, String userNumber,ImageView userImage){
         String url = ip +"/upload_image.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -656,7 +513,7 @@ public class DataBase{
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
-//get user's image
+    //get user's image
     public static void get_image(Context context, String userNumber, ImageView imageView){
         Picasso.get()
                 .load(ip + "/profile_photos/" + userNumber + ".jpg")
@@ -799,10 +656,10 @@ public class DataBase{
                         userList.add(new userModel(fullName,email_address,role,R.drawable.profile_icon,R.drawable.ic_baseline_delete_24));
                     }
                     if(userList.size()!=0){
-                          /**If there are users in the course,Create an adapter for the user
-                          list**/
+                        /**If there are users in the course,Create an adapter for the user
+                         list**/
 
-                       view_users_recyclerViewAdapter adapter = new view_users_recyclerViewAdapter(context,userList);
+                        view_users_recyclerViewAdapter adapter = new view_users_recyclerViewAdapter(context,userList);
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(context));
                     }else{
@@ -815,12 +672,12 @@ public class DataBase{
                 }
             }
         },   //Error listener to display an error message
-           new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
-            }
-        }){   //Request parameters
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }){   //Request parameters
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> data = new HashMap<>();

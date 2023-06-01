@@ -27,7 +27,7 @@
             android:layout_marginBottom="80dp">
 
             <LinearLayout
-                android:id="@+id/list_courses"
+                android:id="@+id/list_quizzes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/design_default_color_primary"
-                    android:id="@+id/tooolbar"
+                    android:id="@+id/toolbar"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:popupTheme="@style/Theme.AppCompat.Light"
                     android:elevation="4dp"/>

@@ -1,6 +1,6 @@
 package com.example.wits_academy;
 
-import androidx.annotation.NonNull;
+//import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,7 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,7 +75,7 @@ public class create_course extends AppCompatActivity implements AdapterView.OnIt
         DataBase.get_image(this, userNumber, imageView);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tooolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -90,6 +91,7 @@ public class create_course extends AppCompatActivity implements AdapterView.OnIt
 
     public void create(View view) {
         if (!filled_in()) {
+            Toast.makeText(this,"Please fill in all the spaces or ensure password of length >6.",Toast.LENGTH_SHORT).show();
             return;
         }
         else {
@@ -130,29 +132,33 @@ public class create_course extends AppCompatActivity implements AdapterView.OnIt
 
     public boolean filled_in(){
         if (name.getText().toString().isEmpty()){
-            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         else if (code.getText().toString().isEmpty()){
-            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (school.getText().toString().isEmpty()){
-            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (faculty.getText().toString().isEmpty()){
+//            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (password.getText().toString().length() < 6){
-            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if (c_password.getText().toString().length() < 6){
-            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!password.getText().toString().equals(c_password.getText().toString())){
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Please try again", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Please try again", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -178,7 +184,7 @@ public class create_course extends AppCompatActivity implements AdapterView.OnIt
         }
     }
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
             case R.id.profile:
                 Intent search = new Intent(this, profile.class);

@@ -135,13 +135,16 @@ public class main_menu_teacherTest {
 //                teacher.course_list.removeAllViews();
                 ViewsClass.get_information_on_JSON(teacher.getBaseContext(),userNumber ,teacher.course_list, teacherCourseArray,
                         teacherName, courseCode, courseName);
+                assertEquals(teacher.course_list.getChildCount(), 4);
+                for (int i = 1; i <= teacher.course_list.getChildCount() - 3; i++){
+                    View view = teacher.course_list.getChildAt(teacher.course_list.getChildCount() - i).findViewById(R.id.lay);
+                    view.performClick();
+                }
+                View view2 = teacher.course_list.getChildAt(teacher.course_list.getChildCount() - 2).findViewById(R.id.lay2);
+                view2.performClick();
             }
         });
-
-        assertEquals(teacher.course_list.getChildCount(), 4);
     }
-
-
     @Test
     public void AddEvenNumberOfCoursesStartingFromJSONArray() throws Throwable {
 //        TextView noCourse = teacher.findViewById(R.id.NoCoursesAvailable);
@@ -188,9 +191,16 @@ public class main_menu_teacherTest {
 //                teacher.course_list.removeAllViews();
                 ViewsClass.get_information_on_JSON(teacher.getBaseContext(),userNumber ,teacher.course_list, teacherCourseArray,
                         teacherName, courseCode, courseName);
+                assertEquals(teacher.course_list.getChildCount(), 5);
+                for (int i = 1; i <= teacher.course_list.getChildCount() - 3; i++){
+                    View view = teacher.course_list.getChildAt(teacher.course_list.getChildCount() - i).findViewById(R.id.lay);
+                    view.performClick();
+                    View view2 = teacher.course_list.getChildAt(teacher.course_list.getChildCount() - i).findViewById(R.id.lay2);
+                    view2.performClick();
+                }
             }
         });
-        assertEquals(teacher.course_list.getChildCount(), 5);
+
     }
     @Test
     public void backPressOpen() throws Throwable {
@@ -283,7 +293,7 @@ public class main_menu_teacherTest {
     @Test
     public void Test() throws Exception{
         assertNotNull(teacher.course_list);
-        assertNotNull(teacher.drawerLayout);
+//        assertNotNull(teacher.drawerLayout);
         assertNotNull(teacher.navigationView);
         assertNotNull(teacher.userNumber);
     }

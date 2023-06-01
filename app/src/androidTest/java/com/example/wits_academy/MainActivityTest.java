@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
@@ -46,15 +47,15 @@ public class MainActivityTest {
         Intents.init();
     }
 
-//     @Test
-//     public void everythingIsDisplayed(){
-//         onView(withId(R.id.imageView)).check(matches(isDisplayed()));
-//         onView(withText("User number")).check(matches(isDisplayed()));
-//         onView(withText("Password")).check(matches((isDisplayed())));
-//         onView(withText("Login")).check(matches(isDisplayed()));
-//         onView(withText("Forgot my password?")).check(matches(isDisplayed()));
-//         onView(withText("Register")).check(matches(isDisplayed()));
-//     }
+    @Test
+    public void everythingIsDisplayed(){
+        onView(withId(R.id.imageView)).check(matches(isDisplayed()));
+        onView(withText("User number")).check(matches(isDisplayed()));
+        onView(withText("Password")).check(matches((isDisplayed())));
+        onView(withText("Login")).check(matches(isDisplayed()));
+        onView(withText("Forgot my password?")).check(matches(isDisplayed()));
+        onView(withText("Register")).check(matches(isDisplayed()));
+    }
     @Test
     public void loginButtonClickable(){
         onView(ViewMatchers.withId(R.id.user_number)).perform(ViewActions.typeText("1234567"));
@@ -96,6 +97,17 @@ public class MainActivityTest {
         intending(toPackage(forgot_password.class.getName())).respondWith(result);
         onView(ViewMatchers.withId(R.id.forgot_password)).perform(scrollTo()).perform(ViewActions.click());
 //        intended(hasComponent(forgot_password.class.getName()));
+    }
+    @Test
+    public void functionToRegister(){
+        View view = login.findViewById(R.id.registration_button);
+        login.registration_page(view);
+    }
+
+    @Test
+    public void functionToForgotPassword(){
+        View view = login.findViewById(R.id.forgot_password);
+        login.registration_page(view);
     }
 
     @Test

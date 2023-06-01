@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class forgot_password extends AppCompatActivity {
 
-
+    String string;
     EditText email;
     EditText user_number;
     EditText new_password;
@@ -31,11 +31,13 @@ public class forgot_password extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forgot_password);
 
+
         email = (EditText) findViewById(R.id.f_enter_email);
         user_number = (EditText) findViewById(R.id.f_enter_number);
         new_password = (EditText) findViewById(R.id.f_reset_password);
         confirm_new_password = (EditText) findViewById(R.id.f_enter_corfirm_password);
         role = (TextView) findViewById(R.id.f_user_number);
+
     }
 
     public void after_reset(View view) {
@@ -58,6 +60,18 @@ public class forgot_password extends AppCompatActivity {
 //            Toast.makeText(this, "Please enter user number" , Toast.LENGTH_SHORT).show();
             return false;
         }
+        else if (new_password.getText().toString().length() < 6){
+//            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (confirm_new_password.getText().toString().length() < 6) {
+//            Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (email.getText().toString().isEmpty()){
+//            Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         else if (!isEmailValid()){
 //            Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
             return false;
@@ -70,10 +84,6 @@ public class forgot_password extends AppCompatActivity {
         startActivity(intent);
     }
 
-    boolean isEmailValid() {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches();
-    }
-
 
     //it creates a map which consists of all the user info and call a save function in the DataBase class to save on the database
 
@@ -84,5 +94,8 @@ public class forgot_password extends AppCompatActivity {
         map.put("password", new_password.getText().toString());
 
         DataBase.change_password(this, map);
+    }
+    boolean isEmailValid() {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches();
     }
 }

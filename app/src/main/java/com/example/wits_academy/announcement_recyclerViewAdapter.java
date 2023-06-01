@@ -35,14 +35,12 @@ public class announcement_recyclerViewAdapter extends RecyclerView.Adapter<annou
 
     @Override
     public void onBindViewHolder(announcement_recyclerViewAdapter.MyViewHolder holder, int position) {
-
         // Assigning values as views come into line of vision
 //        holder.announcement_subject.setText(announcementModels.get(position).header);
         holder.announcement_body.setText(announcementModels.get(position).AnnouncementText);
         holder.date.setText(announcementModels.get(position).date);
         holder.imageView.setImageResource(R.drawable.read_more);
         holder.deleteButton.setImageResource(R.drawable.ic_baseline_delete_24);
-
         if(role.equals("Teacher")) holder.deleteButton.setVisibility(View.VISIBLE);
 
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {

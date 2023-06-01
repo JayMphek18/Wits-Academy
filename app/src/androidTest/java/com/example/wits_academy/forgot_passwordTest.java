@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
@@ -37,15 +38,15 @@ public class forgot_passwordTest {
         Intents.init();
     }
 
-//     @Test
-//     public void everythingIsDisplayed(){
-//         onView(withText("Email Address")).check(matches(isDisplayed()));
-//         onView(withText("User number")).check(matches((isDisplayed())));
-//         onView(withText("Confirm new password")).check(matches(isDisplayed()));
-//         onView(withText("New password")).check(matches(isDisplayed()));
-//         onView(withText("Reset Password")).check(matches(isDisplayed()));
-//         onView(withText("Back to login")).check(matches(isDisplayed()));
-//     }
+//    @Test
+//    public void everythingIsDisplayed(){
+//        onView(withText("Email Address")).check(matches(isDisplayed()));
+//        onView(withText("User number")).check(matches((isDisplayed())));
+//        onView(withText("Confirm new password")).check(matches(isDisplayed()));
+//        onView(withText("New password")).check(matches(isDisplayed()));
+//        onView(withText("Reset Password")).check(matches(isDisplayed()));
+//        onView(withText("Back to login")).check(matches(isDisplayed()));
+//    }
 
     @Test
     public void ResetButtonClickable(){
@@ -108,6 +109,21 @@ public class forgot_passwordTest {
     }
 
     @Test
+    public void shortPasswordEntered(){
+        onView(ViewMatchers.withId(R.id.f_enter_email)).perform(ViewActions.typeText("hlub@gmail.com"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.f_enter_number)).perform(ViewActions.typeText("1234567"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.f_reset_password)).perform(ViewActions.typeText("1234"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.f_enter_corfirm_password)).perform(ViewActions.typeText("1233"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.reset_button)).perform(scrollTo()).perform(ViewActions.click());
+
+        assertFalse(forgot_password.validate_password());
+    }
+
+    @Test
     public void goBackBackToLogin(){
         Intent new_intent = new Intent();
         Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
@@ -140,6 +156,12 @@ public class forgot_passwordTest {
         intending(toPackage(MainActivity.class.getName())).respondWith(result);
         onView(ViewMatchers.withId(R.id.reset_button)).perform(scrollTo()).perform(ViewActions.click());
 //        intended(hasComponent(forgot_password.class.getName()));
+    }
+
+    @Test
+    public void goingBackToLoginFunction(){
+        View view = forgot_password.findViewById(R.id.login_button_f);
+        forgot_password.back_to_login(view);
     }
 
     @After
