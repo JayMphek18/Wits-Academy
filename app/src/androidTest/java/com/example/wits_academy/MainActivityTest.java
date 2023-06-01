@@ -47,6 +47,7 @@ public class MainActivityTest {
         Intents.init();
     }
 
+
 //    @Test
 //    public void everythingIsDisplayed(){
 //        onView(withId(R.id.imageView)).check(matches(isDisplayed()));
@@ -56,6 +57,7 @@ public class MainActivityTest {
 //        onView(withText("Forgot my password?")).check(matches(isDisplayed()));
 //        onView(withText("Register")).check(matches(isDisplayed()));
 //    }
+
     @Test
     public void loginButtonClickable(){
         onView(ViewMatchers.withId(R.id.user_number)).perform(ViewActions.typeText("1234567"));
