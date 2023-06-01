@@ -1,26 +1,18 @@
 package com.example.wits_academy;
 
-import static com.example.wits_academy.R.color.black;
-import static com.example.wits_academy.R.color.white;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.renderscript.Sampler;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,7 +32,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -390,7 +381,9 @@ public class DataBase{
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, response.trim()+ " in " + course_name, Toast.LENGTH_SHORT).show();
-                course(context,course_name,student_number);
+                if(response.trim().equals("Successfully enrolled"))
+                    course(context,course_name,student_number);
+                else back_to_menu(context,student_number);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -690,6 +683,81 @@ public class DataBase{
     }
 
     /**
+     * @param context
+     * @param courseName
+     * @param content This is the title of the PDF
+     */
+    private static void download(Context context, String courseName, TextView content,String type) {
+        String url = ip+ "/downloadFile.php?"+"courseName="+courseName+"&file="+content.getText().toString().trim()+"&type="+type;
+        String mUrl= url;
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, mUrl,
+                new Response.Listener<byte[]>() {
+                    @Override
+                    public void onResponse(byte[] response) {
+                        //  handle the response
+                        try {
+                            if (response!=null) {
+                                File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                                File file = new File(downloadsDir, content.getText().toString());
+
+                                FileOutputStream outputStream = new FileOutputStream(file);
+
+                                String name=content.getText().toString().trim();
+//                                outputStream = context.openFileOutput(name, Context.MODE_PRIVATE);
+                                outputStream.write(response);
+                                outputStream.close();
+                                Toast.makeText(context, "Your Download is Complete.", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                            e.printStackTrace();
+                        }
+                    }
+                } ,new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO handle the error
+                error.printStackTrace();
+            }
+        },null);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context.getApplicationContext(), new HurlStack());
+        mRequestQueue.add(request);
+    }
+
+    // Method to delete file upon request
+    static void delete(TextView DocTitle,Context view,String courseName,String userNumber) {
+        String url = ip + "/delete_file.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String a = DocTitle.getText().toString().trim();
+                Toast.makeText(view,response,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view,main_menu_teacher.class);
+                intent.putExtra("courseName",courseName);
+                intent.putExtra("userNumber",userNumber);
+                view.startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> data = new HashMap<>();
+                data.put("file_name",DocTitle.getText().toString().trim());
+                data.put("course_name",courseName);
+                return data;
+            }
+        };
+
+        RequestQueue requestQueue  = Volley.newRequestQueue(view);
+        requestQueue.add(stringRequest);
+    }
+    /**
      * Parameters for method are belo
      * @param context
      * @param titles
@@ -700,7 +768,7 @@ public class DataBase{
      *
      * Method is used to get names of All Documents for a specific Course
      */
-    public static void get_Documents(Context context,ArrayList<String> titles, String courseName,String role,String userNumber,DocumentFragment fragment) {
+    public static void get_files(Context context,ArrayList<String> titles, String courseName,String role,String userNumber,DocumentFragment fragment,String type) {
         String url = ip+"/get_file_names.php";
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -740,7 +808,7 @@ public class DataBase{
                         downloadButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                downloadPDF(view.getContext(),courseName,content);
+                                download(view.getContext(),courseName,content,"Documents");
                             }
                         });
 
@@ -765,7 +833,7 @@ public class DataBase{
                         downloadButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                downloadPDF(view.getContext(),courseName,content);
+                                download(view.getContext(),courseName,content,"Documents");
                             }
                         });
                     }
@@ -782,6 +850,7 @@ public class DataBase{
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
                 data.put("courseName",courseName);
+                data.put("type",type);
                 return data;
             }
         };
@@ -789,76 +858,99 @@ public class DataBase{
         requestQueue.add(request);
     }
 
-    /**
-     * @param context
-     * @param courseName
-     * @param content This is the title of the PDF
-     */
-    private static void downloadPDF(Context context, String courseName, TextView content) {
-        String url = ip+ "/downloadFile.php?"+"courseName="+courseName+"&file="+content.getText().toString().trim();
-        String mUrl= url;
-        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, mUrl,
-                new Response.Listener<byte[]>() {
-                    @Override
-                    public void onResponse(byte[] response) {
-                        //  handle the response
-                        try {
-                            if (response!=null) {
-
-                                FileOutputStream outputStream;
-                                String name=content.getText().toString().trim();
-                                outputStream = context.openFileOutput(name, Context.MODE_PRIVATE);
-                                outputStream.write(response);
-                                outputStream.close();
-                                Toast.makeText(context, "Your Download is Complete.", Toast.LENGTH_LONG).show();
-                            }
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
-                            e.printStackTrace();
-                        }
-                    }
-                } ,new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO handle the error
-                error.printStackTrace();
-            }
-        },null);
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context.getApplicationContext(), new HurlStack());
-        mRequestQueue.add(request);
-    }
-    // Method to delete file upon request
-    static void delete(TextView DocTitle,Context view,String courseName,String userNumber) {
-        String url = ip + "/delete_file.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+    public static void get_files(Context context,ArrayList<String> titles, String courseName,String role,String userNumber,VideoFragment fragment,String type) {
+        String url = ip+"/get_file_names.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                String a = DocTitle.getText().toString().trim();
-                Toast.makeText(view,response,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view,main_menu_teacher.class);
-                intent.putExtra("courseName",courseName);
-                intent.putExtra("userNumber",userNumber);
-                view.startActivity(intent);
+                String n=null;
+                try {
+                    JSONArray array = new JSONArray(response);
+                    for(int i=0;i < array.length(); i ++){
+                        String title = array.getString(i);
+                        titles.add(title);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                // Display them
+                for(int i =0; i < titles.size();i++) {
+                    LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View view;
+                    TextView content;
+                    TextView title;
+                    ImageView downloadButton;
+                    ImageView Image;
+                    ImageView deleteBtn;
+                    LinearLayout Docs = fragment.getVidsLL();
+                    if(role.equals("teacher")) {
+                        view = layoutInflater.inflate(R.layout.document_view, null);
+                        content = view.findViewById(R.id.titleContent);
+                        // Set Properties and Content for a card then add to LL
+                        title = view.findViewById(R.id.title);
+                        title.setText("Video Title");
+                        Image = view.findViewById(R.id.imageView11);
+                        Image.setImageResource(R.mipmap.pages);
+                        downloadButton = view.findViewById(R.id.downloadBtn);
+                        downloadButton.setImageResource(R.drawable.ic_baseline_arrow_downward_24);
+                        deleteBtn = view.findViewById(R.id.deleteBtn);
+                        deleteBtn.setImageResource(R.drawable.ic_baseline_delete_24);
+                        content.setText(titles.get(i));
+                        Docs.addView(view);
+
+                        downloadButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                download(view.getContext(),courseName,content,"Videos");
+                            }
+                        });
+
+                        view.findViewById(R.id.deleteBtn).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                delete(content,view.getContext(),courseName,userNumber);
+                            }
+                        });
+
+                    }else{
+                        view = layoutInflater.inflate(R.layout.document_view_student, null);
+                        content = view.findViewById(R.id.titleContent);
+                        title = view.findViewById(R.id.title);
+                        title.setText("Video Title");
+                        content.setText(titles.get(i));
+                        downloadButton = view.findViewById(R.id.downloadBtn);
+                        downloadButton.setImageResource(R.drawable.ic_baseline_arrow_downward_24);
+                        Image = view.findViewById(R.id.imageView11);
+                        Image.setImageResource(R.mipmap.pages);
+                        // Set Properties and Content for a card then add to LL
+                        Docs.addView(view);
+
+                        downloadButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                download(view.getContext(),courseName,content,"Videos");
+                            }
+                        });
+                    }
+
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                error.printStackTrace();
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> data = new HashMap<>();
-                data.put("file_name",DocTitle.getText().toString().trim());
-                data.put("course_name",courseName);
+                data.put("courseName",courseName);
+                data.put("type",type);
                 return data;
             }
         };
-
-        RequestQueue requestQueue  = Volley.newRequestQueue(view);
-        requestQueue.add(stringRequest);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
     }
 }
 

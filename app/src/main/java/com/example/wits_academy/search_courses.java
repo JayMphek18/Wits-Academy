@@ -152,7 +152,7 @@ public class search_courses extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View v) {
                 if (password.getText().toString().isEmpty()){
-                    massage.setText("Please enter the password provided by the techer before you can continue");
+                    massage.setText("Please enter the password provided by the teacher before you can continue");
                 }
                 else{
                     DataBase.enroll_on(context, course_name, password.getText().toString(), student_number);

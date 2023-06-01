@@ -205,7 +205,6 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                     new Response.Listener<NetworkResponse>() {
                         @Override
                         public void onResponse(NetworkResponse response) {
-                            String hello = new String(response.data);
                             Log.d("ressssssoo",new String(response.data));
                             rQueue.getCache().clear();
                             try {
@@ -224,6 +223,13 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            String res =new  String(response.data);
+                            if(res.indexOf("successfully")==-1) {
+                                Toast.makeText(context,"File upload failed", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context,"File upload successful", Toast.LENGTH_SHORT).show();
+                            }
+
                             context.startActivity(getIntent());
                         }
 
@@ -322,6 +328,7 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                 intent2.putExtra("courseName",courseName);
                 intent2.putExtra("type","Videos");
                 intent2.putExtra("userNumber",userNumber);
+                startActivity(intent2);
                 return true;
             case R.id.quiz:
                 Intent create_quiz = new Intent(this,create_quiz.class);

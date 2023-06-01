@@ -89,4 +89,5 @@ public class DocumentFragment extends Fragment {
     public LinearLayout getDocsLL() {
         return DocsLL;
     }
+
 }

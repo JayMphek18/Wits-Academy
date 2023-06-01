@@ -147,6 +147,7 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
                 intent2.putExtra("courseName",courseName);
                 intent2.putExtra("type","Videos");
                 intent2.putExtra("userNumber",userNumber);
+                startActivity(intent2);
                 return true;
             case R.id.quiz:
                 return true;

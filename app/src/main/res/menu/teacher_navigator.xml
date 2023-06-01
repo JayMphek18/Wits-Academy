@@ -9,7 +9,7 @@
         <item android:id="@+id/Announcement"
             android:title="Announcements"/>
         <item android:id="@+id/other_quizzes"
-            android:title="Created Quizzes"/>
+            android:title="Past Quizzes"/>
         <item android:id="@+id/back"
             android:title="Back to menu"/>
         <item android:id="@+id/logout"
@@ -21,9 +21,9 @@
     <item android:title="Content">
         <menu>
             <item android:id="@+id/course_slides"
-                android:title="Upload slides"/>
+                android:title="Upload Documents"/>
             <item android:id="@+id/videos"
-                android:title="Upload Lectures"/>
+                android:title="Upload Videos"/>
             <item android:id="@+id/quiz"
                 android:title="Create Quiz"/>
 

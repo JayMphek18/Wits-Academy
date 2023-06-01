@@ -72,7 +72,7 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="36dp"
                 android:text="TextView"
-                android:textSize="12dp"
+                android:textSize="13dp"
                 android:textStyle="italic"
                 app:layout_constraintStart_toEndOf="@+id/imageView11"
                 app:layout_constraintTop_toBottomOf="@+id/title" />

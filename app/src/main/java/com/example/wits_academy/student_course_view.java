@@ -51,6 +51,7 @@ public class student_course_view extends AppCompatActivity implements Navigation
     LinearLayout course_list;
     private DrawerLayout drawerLayout;
     private LinearLayout Docs;
+    private  LinearLayout Vids;
     String courseName;
     String role;
     NavigationView navigationView;
@@ -112,10 +113,14 @@ public class student_course_view extends AppCompatActivity implements Navigation
                         DocumentFragment fragment = new DocumentFragment();
                         replaceFragement(fragment);
                         Docs = fragment.getDocsLL();
-                        DataBase.get_Documents(getApplicationContext(),titles,courseName,"student",userNumber,fragment);
+                        DataBase.get_files(getApplicationContext(),titles,courseName,"student",userNumber,fragment,"Documents");
                         break;
                     case R.id.courseVideos:
-                        replaceFragement(new VideoFragment());
+                        titles.clear();
+                        VideoFragment Vidfragment = new VideoFragment();
+                        replaceFragement(Vidfragment);
+                        Vids = Vidfragment.getVidsLL();
+                        DataBase.get_files(getApplicationContext(),titles,courseName,"student",userNumber,Vidfragment,"Videos");
                         break;
                 }
                 return true;

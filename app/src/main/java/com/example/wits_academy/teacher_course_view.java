@@ -59,6 +59,7 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
     Bitmap bitmap;
     ImageView imageView;
     private LinearLayout Docs;
+    private LinearLayout Vids;
     // List Of all Documents in the class
     static ArrayList<String> titles;
     private final int GALLERY_REQ_CODE = 1000;
@@ -94,13 +95,19 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
                         replaceFragement(new HomeFragment());
                         break;
                     case R.id.courseDocument:
+                        titles.clear();
                         DocumentFragment fragment = new DocumentFragment();
                         replaceFragement(fragment);
+
                         Docs = fragment.getDocsLL();
-                        DataBase.get_Documents(getApplicationContext(),titles,courseName,"teacher",userNumber,fragment);
+                        DataBase.get_files(getApplicationContext(),titles,courseName,"teacher",userNumber,fragment,"Documents");
                         break;
                     case R.id.courseVideos:
-                        replaceFragement(new VideoFragment());
+                        titles.clear();
+                        VideoFragment Vidfragment = new VideoFragment();
+                        replaceFragement(Vidfragment);
+                        Vids = Vidfragment.getVidsLL();
+                        DataBase.get_files(getApplicationContext(),titles,courseName,"teacher",userNumber,Vidfragment,"Videos");
                         break;
                 }
                 return true;

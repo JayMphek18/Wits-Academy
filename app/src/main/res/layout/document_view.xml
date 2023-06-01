@@ -81,7 +81,7 @@
                 android:layout_width="199dp"
                 android:layout_height="35dp"
                 android:text="TextView"
-                android:textSize="10dp"
+                android:textSize="13dp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
                 app:layout_constraintHorizontal_bias="0.295"

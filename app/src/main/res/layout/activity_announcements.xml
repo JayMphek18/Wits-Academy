@@ -11,24 +11,24 @@
     tools:context=".Announcements"
     tools:openDrawer="start">
 
-<!--    <androidx.drawerlayout.widget.DrawerLayout-->
-<!--        android:id="@+id/draw_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="671dp"-->
-<!--        android:background="@drawable/page_background"-->
-<!--        android:fitsSystemWindows="true"-->
-<!--        tools:openDrawer="start">-->
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/draw_layout"
+        android:layout_width="match_parent"
+        android:layout_height="671dp"
+        android:background="@drawable/page_background"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
 
-<!--        <TextView-->
-<!--            android:id="@+id/NoAnnouncement_tv"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="121dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="No Announcement Currently, check in later."-->
-<!--            android:textColor="@color/gold"-->
-<!--            android:textSize="15dp"-->
-<!--            android:textStyle="italic"-->
-<!--            android:visibility="visible" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/NoAnnouncement_tv"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="121dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:text="No Announcement Currently, check in later."-->
+        <!--            android:textColor="@color/gold"-->
+        <!--            android:textSize="15dp"-->
+        <!--            android:textStyle="italic"-->
+        <!--            android:visibility="visible" />-->
 
         <ScrollView
             android:id="@+id/t_sroll"
@@ -69,17 +69,17 @@
             </LinearLayout>
         </ScrollView>
 
-                                <com.google.android.material.navigation.NavigationView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="?attr/actionBarSize"
-                            android:layout_gravity="start"
-                            android:id="@+id/nav"
-                            app:headerLayout="@layout/navigator"
-                            app:menu="@menu/teacher_navigator" />
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_gravity="start"
+            android:id="@+id/nav"
+            app:headerLayout="@layout/navigator"
+            app:menu="@menu/teacher_navigator" />
 
 
-<!--    </androidx.drawerlayout.widget.DrawerLayout>-->
+    </androidx.drawerlayout.widget.DrawerLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

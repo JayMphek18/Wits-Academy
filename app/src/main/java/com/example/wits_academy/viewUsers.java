@@ -98,8 +98,20 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(intent1);
                 return true;
             case R.id.course_slides:
+                Intent intent2 = new Intent(this,upload_file.class);
+                intent2.putExtra("courseName",courseName);
+                intent2.putExtra("type","Documents");
+                intent2.putExtra("userNumber",userNumber);
+                intent2.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent2);
                 return true;
             case R.id.videos:
+                Intent intent3 = new Intent(this,upload_file.class);
+                intent3.putExtra("courseName",courseName);
+                intent3.putExtra("type","Videos");
+                intent3.putExtra("userNumber",userNumber);
+                intent3.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent3);
                 return true;
             case R.id.quiz:
                 return true;
