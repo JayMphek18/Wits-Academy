@@ -101,7 +101,7 @@ public class forgot_passwordTest {
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.f_reset_password)).perform(ViewActions.typeText("1234567"));
         closeSoftKeyboard();
-        onView(ViewMatchers.withId(R.id.f_enter_corfirm_password)).perform(ViewActions.typeText("1233567"));
+        onView(ViewMatchers.withId(R.id.f_enter_corfirm_password)).perform(ViewActions.typeText("12367"));
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.reset_button)).perform(scrollTo()).perform(ViewActions.click());
 
