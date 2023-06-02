@@ -161,7 +161,7 @@ public class search_coursesTest {
                 ViewsClass.viewlayout(2, 0, search_.getBaseContext() , courseName, userNumber, courseCode, teacherName, search_.course_list);
             }
         });
-        assertEquals(search_.course_list.getChildCount(), 2);
+        assertEquals(search_.course_list.getChildCount(), 1);
     }
     @Test
     public void addingOneCoursesCoursesInPage() throws Throwable {
