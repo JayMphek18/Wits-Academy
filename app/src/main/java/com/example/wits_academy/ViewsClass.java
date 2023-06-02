@@ -251,6 +251,7 @@ public class ViewsClass {
                     write.putExtra("userNumber", userNumber);
                     write.putExtra("courseName", courseName);
                     write.putExtra("quizName", quizName.get(index));
+                    write.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(write);
                 }
             });
@@ -293,6 +294,7 @@ public class ViewsClass {
                     write.putExtra("userNumber", userNumber);
                     write.putExtra("courseName", courseName);
                     write.putExtra("quizName", quizName.get(index));
+                    write.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(write);
                 }
             });
