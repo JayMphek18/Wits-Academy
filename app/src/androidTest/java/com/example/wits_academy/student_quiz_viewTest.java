@@ -70,6 +70,19 @@ public class student_quiz_viewTest {
             assertNotNull(menuItem);
         }
     }
+    
+    @Test
+    public void backPressOpen() throws Throwable {
+        onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                student_quiz.onBackPressed();
+            }
+        });
+        assertFalse(navigationView.isActivated());
+    }
+    
     @Test
     public void menuItemOneTest(){
         MenuItem menuItem = menu.getItem(0);
