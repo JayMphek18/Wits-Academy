@@ -50,7 +50,7 @@
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/courseCode"
+                        android:id="@+id/quiz1_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/courseName"
@@ -63,8 +63,8 @@
                         android:id="@+id/teacherName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/courseCode"
-                        android:layout_alignStart="@+id/courseCode"
+                        android:layout_below="@+id/quiz1_name"
+                        android:layout_alignStart="@+id/quiz1_name"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="8dp"
                         android:text="TextView" />
@@ -132,7 +132,7 @@
                     android:background="@color/dark_green">
 
                     <TextView
-                        android:id="@+id/courseName2"
+                        android:id="@+id/quiz2_name"
                         android:layout_width="132dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
@@ -144,11 +144,11 @@
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/courseCode2"
+                        android:id="@+id/quiz2_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/courseName2"
-                        android:layout_alignStart="@+id/courseName2"
+                        android:layout_below="@+id/quiz2_name"
+                        android:layout_alignStart="@+id/quiz2_name"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="8dp"
                         android:text="TextView" />
@@ -157,8 +157,8 @@
                         android:id="@+id/teacherName2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/courseCode2"
-                        android:layout_alignStart="@+id/courseCode2"
+                        android:layout_below="@+id/quiz2_details"
+                        android:layout_alignStart="@+id/quiz2_details"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="8dp"
                         android:text="TextView" />

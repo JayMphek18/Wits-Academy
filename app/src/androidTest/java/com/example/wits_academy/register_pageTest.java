@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -46,17 +47,23 @@ public class register_pageTest {
         Intents.init();
     }
 
-//     @Test
-//     public void allTextVisible(){
-//         onView(withText("Email Address")).check(matches(isDisplayed()));
-//         onView(withText("Student number")).check(matches((isDisplayed())));
-//         onView(withText("First Name")).check(matches(isDisplayed()));
-//         onView(withText("Last Name")).check(matches(isDisplayed()));
-//         onView(withText("Password")).check(matches(isDisplayed()));
-//         onView(withText("Confirm Password")).check(matches(isDisplayed()));
-//         onView(withText("Register")).check(matches(isDisplayed()));
-//         onView(withText("Back to login")).check(matches(isDisplayed()));
-//     }
+    @Test
+    public void backToLoginFunction(){
+        View view = register_page.findViewById(R.id.login_button);
+        register_page.login(view);
+    }
+
+    @Test
+    public void allTextVisible(){
+        onView(withText("Email Address")).check(matches(isDisplayed()));
+        onView(withText("Student number")).check(matches((isDisplayed())));
+        onView(withText("First Name")).check(matches(isDisplayed()));
+        onView(withText("Last Name")).check(matches(isDisplayed()));
+        onView(withText("Password")).check(matches(isDisplayed()));
+        onView(withText("Confirm Password")).check(matches(isDisplayed()));
+        onView(withText("Register")).check(matches(isDisplayed()));
+        onView(withText("Back to login")).check(matches(isDisplayed()));
+    }
 
     @Test
     public void allfilledIn(){
@@ -81,14 +88,14 @@ public class register_pageTest {
     @Test
     public void spinnerDisplay(){
         onView(withId(R.id.spinner)).perform(click());
-        onData(anything()).atPosition(0).perform(click());
-        onView(withId(R.id.spinner)).check(matches(withSpinnerText(containsString("Student"))));
-        onView(withText("Student number")).check(matches(isDisplayed()));
-        closeSoftKeyboard();
-        onView(withId(R.id.spinner)).perform(click());
         onData(anything()).atPosition(1).perform(click());
         onView(withId(R.id.spinner)).check(matches(withSpinnerText(containsString("Teacher"))));
         onView(withText("Employee number")).check(matches(isDisplayed()));
+        closeSoftKeyboard();
+        onView(withId(R.id.spinner)).perform(click());
+        onData(anything()).atPosition(0).perform(click());
+        onView(withId(R.id.spinner)).check(matches(withSpinnerText(containsString("Student"))));
+        onView(withText("Student number")).check(matches(isDisplayed()));
         closeSoftKeyboard();
     }
 
@@ -191,7 +198,45 @@ public class register_pageTest {
         assertFalse(register_page.filled_in());
         assertTrue(register_page.isEmailValid());
     }
+    @Test
+    public void ShortUserPassword(){
+        onView(ViewMatchers.withId(R.id.user_email)).perform(ViewActions.typeText("hlubi@gmail.com"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.user_r_number)).perform(ViewActions.typeText("1234567"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.first_name)).perform(ViewActions.typeText("Zenzele"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.last_name)).perform(ViewActions.typeText("Hlubi"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.create_password)).perform(ViewActions.typeText("1234"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.confirm_password)).perform(ViewActions.typeText("1234"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.register_button)).perform(scrollTo()).perform(click());
 
+        assertFalse(register_page.filled_in());
+        assertTrue(register_page.isEmailValid());
+    }
+
+
+    public void ShortUserConfirmPassword(){
+        onView(ViewMatchers.withId(R.id.user_email)).perform(ViewActions.typeText("hlubi@gmail.com"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.user_r_number)).perform(ViewActions.typeText("1234567"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.first_name)).perform(ViewActions.typeText("Zenzele"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.last_name)).perform(ViewActions.typeText("Hlubi"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.create_password)).perform(ViewActions.typeText("1234567"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.confirm_password)).perform(ViewActions.typeText("1234"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.register_button)).perform(scrollTo()).perform(click());
+
+        assertFalse(register_page.filled_in());
+        assertTrue(register_page.isEmailValid());
+    }
     @Test
     public void goBackBackToLogin(){
         Intent new_intent = new Intent();

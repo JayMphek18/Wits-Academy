@@ -15,17 +15,15 @@
         android:contentDescription="@string/title_activity_login">
 
         <LinearLayout
+            android:id="@+id/Fragment_DocsLL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:padding="5dp"
+            android:orientation="vertical"></LinearLayout>
+
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/Fragment_DocsLL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical"></LinearLayout>
+
 
 
 </FrameLayout>

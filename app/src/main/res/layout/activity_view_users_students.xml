@@ -14,7 +14,7 @@
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/draw_layout"
         android:layout_width="match_parent"
-        android:layout_height="671dp"
+        android:layout_height="match_parent"
         android:background="@drawable/page_background"
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
@@ -60,11 +60,11 @@
         </ScrollView>
 
         <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
             android:layout_gravity="start"
-            android:id="@+id/nav"
+            android:layout_marginTop="?attr/actionBarSize"
             app:headerLayout="@layout/navigator"
             app:menu="@menu/student_navigator" />
 

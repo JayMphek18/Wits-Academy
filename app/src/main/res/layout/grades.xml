@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/page_background"
+    android:layout_height="match_parent"
+    android:id="@+id/liner"
+    android:fitsSystemWindows="true"
+    tools:context=".grades"
+    tools:openDrawer="start">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/page_background"
+        android:layout_height="match_parent"
+        android:id="@+id/draw_layout"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/design_default_color_primary"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:popupTheme="@style/Theme.AppCompat.Light" />
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="10dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="4dp">
+
+                <LinearLayout
+                    android:id="@+id/quiz_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!--                    <FrameLayout-->
+                    <!--                        android:id="@+id/frame_layout"-->
+                    <!--                        android:layout_width="379dp"-->
+                    <!--                        android:layout_height="wrap_content" />-->
+
+
+                    <TextView
+                        android:id="@+id/quiz_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/light_blue"
+                        android:textSize="20dp"
+                        android:text="name" />
+                </LinearLayout>
+            </ScrollView>
+
+
+
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_t"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:headerLayout="@layout/navigator"
+            app:menu="@menu/teacher_navigator"
+            tools:visibility="visible" />
+        <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+        <!--            android:id="@+id/bottomNavigationView"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@color/light_blue"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:menu="@menu/quiz_nav_menu"/>-->
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</LinearLayout>

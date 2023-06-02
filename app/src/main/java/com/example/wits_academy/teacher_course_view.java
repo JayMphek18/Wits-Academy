@@ -1,37 +1,30 @@
 package com.example.wits_academy;
 
 
-<<<<<<< HEAD
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.content.Context;
-=======
 
 import static com.example.wits_academy.R.id.Fragment_DocsLL;
 
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
+
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-<<<<<<< HEAD
-=======
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -42,22 +35,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
 import com.google.android.material.navigation.NavigationView;
 
-import com.squareup.picasso.Picasso;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-<<<<<<< HEAD
-import java.io.InputStream;
-import java.util.ArrayList;
-=======
 import java.util.ArrayList;
 
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
 
 public class teacher_course_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -73,6 +59,7 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
     Bitmap bitmap;
     ImageView imageView;
     private LinearLayout Docs;
+    private LinearLayout Vids;
     // List Of all Documents in the class
     static ArrayList<String> titles;
     private final int GALLERY_REQ_CODE = 1000;
@@ -92,16 +79,8 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
 //        Make sure that Home Fragment is always set as default
         replaceFragement(new HomeFragment());
 
-<<<<<<< HEAD
-        imageView = view.findViewById(R.id.imageView9);
-        DataBase.get_course_image(this, courseName, imageView);
-        drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tooolbar);
-        setSupportActionBar(toolbar);
-=======
         // This is the method for creating the side navigation Br
         setSideNavigationBar();
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
 
         // Get Course Content and Display it
         Boolean wait = false;
@@ -116,13 +95,19 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
                         replaceFragement(new HomeFragment());
                         break;
                     case R.id.courseDocument:
+                        titles.clear();
                         DocumentFragment fragment = new DocumentFragment();
                         replaceFragement(fragment);
+
                         Docs = fragment.getDocsLL();
-                        DataBase.get_Documents(getApplicationContext(),titles,courseName,"teacher",userNumber,fragment);
+                        DataBase.get_files(getApplicationContext(),titles,courseName,"teacher",userNumber,fragment,"Documents");
                         break;
                     case R.id.courseVideos:
-                        replaceFragement(new VideoFragment());
+                        titles.clear();
+                        VideoFragment Vidfragment = new VideoFragment();
+                        replaceFragement(Vidfragment);
+                        Vids = Vidfragment.getVidsLL();
+                        DataBase.get_files(getApplicationContext(),titles,courseName,"teacher",userNumber,Vidfragment,"Videos");
                         break;
                 }
                 return true;
@@ -179,9 +164,19 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
     @Override
     public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
+
+            case R.id.other_quizzes:
+                Intent quiz1 = new Intent(this,teacher_quiz_view.class);
+                quiz1.putExtra("userNumber",userNumber);
+                quiz1.putExtra("courseName",courseName);
+                this.startActivity(quiz1);
                 return true;
-            case R.id.announcements:
+            case R.id.Announcement:
+                Intent A = new Intent(this , Announcements.class);
+                A.putExtra("userNumber",userNumber);
+                A.putExtra("courseName",courseName);
+                A.putExtra("Role","Teacher");
+                startActivity(A);
                 return true;
             case R.id.course_slides:
                 Intent intent1 = new Intent(this,upload_file.class);
@@ -196,12 +191,14 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
                 intent2.putExtra("courseName",courseName);
                 intent2.putExtra("type","Videos");
                 intent2.putExtra("userNumber",userNumber);
+                intent2.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent2);
                 return true;
             case R.id.quiz:
-                return true;
-            case R.id.assignment:
-                return true;
-            case R.id.grades:
+                Intent quiz = new Intent(this,create_quiz.class);
+                quiz.putExtra("userNumber",userNumber);
+                quiz.putExtra("courseName",courseName);
+                this.startActivity(quiz);
                 return true;
             case R.id.back:
                 DataBase.back_to_menu(this,userNumber);
@@ -250,13 +247,30 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActivityResultLauncher<Intent> resultLauncher =  registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == RESULT_OK){
+                                try {
+                                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getData().getData());
+                                    imageView.setImageBitmap(bitmap);
+                                    add_image();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                        }
+
+                    }
+                });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent access_gallary = new Intent(Intent.ACTION_PICK);
                 access_gallary.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(access_gallary, GALLERY_REQ_CODE);
+                resultLauncher.launch(access_gallary);
             }
         });
 

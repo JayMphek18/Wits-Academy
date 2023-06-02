@@ -7,13 +7,23 @@
     tools:context=".VideoFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="169dp"
-        android:layout_height="64dp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:textSize="26dp"
-        android:text="Video Fragment" />
+
+    <ScrollView
+        android:id="@+id/docsScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/title_activity_login">
+
+        <LinearLayout
+            android:id="@+id/Fragment_VidsLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="vertical"></LinearLayout>
+
+    </ScrollView>
+
+
 
 
 </FrameLayout>

@@ -15,8 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    static EditText user_id;
-    static EditText user_password;
+    EditText user_id;
+    EditText user_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean validate_input(){
         if (user_id.getText().toString().isEmpty()){
-
+//            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(user_password.getText().toString().isEmpty()){
@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public void main_page(View view) {
         if (validate_input()){
             DataBase.exists(this,user_password.getText().toString(), user_id.getText().toString());
-        }else{
-            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
         }
     }
 }

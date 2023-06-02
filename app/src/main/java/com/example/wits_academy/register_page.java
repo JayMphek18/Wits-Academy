@@ -29,12 +29,12 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
     EditText create_password;
     EditText confirm_password;
     String string;
-    TextView role;
+    TextView role ;
 
-    @Override
+            @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_page);
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.register_page);
 
 
         user_number = (EditText) findViewById(R.id.user_r_number);
@@ -44,7 +44,6 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         create_password = (EditText) findViewById(R.id.create_password);
         confirm_password = (EditText) findViewById(R.id.confirm_password);
         role = (TextView) findViewById(R.id.user_r_id);
-        string = new String();
 
         // spinner is for the dropdown menu
 
@@ -53,7 +52,7 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-    }
+            }
 
     public void login(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -62,8 +61,7 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
 
     public void main_menu(View view) {
         if (!filled_in()) {
-            Toast.makeText(this, "Please fill in all the spaces and make sure password is the same", Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
         }
         else {
             adding_to_databasa();
@@ -97,6 +95,7 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
 
     public boolean filled_in(){
         if (user_number.getText().toString().isEmpty()){
+//            Toast.makeText(this, "Please fill in all the spaces", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -149,4 +148,8 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         return android.util.Patterns.EMAIL_ADDRESS.matcher(user_email.getText().toString()).matches();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

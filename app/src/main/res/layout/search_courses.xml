@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/design_default_color_primary"
-                    android:id="@+id/tooolbar"
+                    android:id="@+id/toolbar"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:popupTheme="@style/Theme.AppCompat.Light"
                     android:elevation="4dp"/>
@@ -41,7 +41,7 @@
                     android:id="@+id/frame_layout"/>
 
                 <LinearLayout
-                    android:id="@+id/search"
+                    android:id="@+id/search_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -60,11 +60,7 @@
             android:layout_gravity="start"
             android:id="@+id/nav"
             app:headerLayout="@layout/navigator"
-            app:menu="@menu/teacher_toolbox"/>
-
-
-
-
+            app:menu="@menu/student_toolbox"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 
 

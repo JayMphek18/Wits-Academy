@@ -1,43 +1,11 @@
 package com.example.wits_academy;
 
 
-<<<<<<< HEAD
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.provider.OpenableColumns;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import java.io.ByteArrayInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-public class upload_file extends AppCompatActivity {
-
-
-    private final int REQ = 1;
-    private Uri pdfdata;
-    String pdfName;
-    TextView pdfTextView;
-    EditText pdfTitle;
-    Bitmap bitmap;
-=======
 import static android.media.MediaRecorder.MetricsConstants.HEIGHT;
 
 import static java.awt.font.TextAttribute.WIDTH;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -56,9 +24,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ComponentActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -82,6 +56,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ContentHandler;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,7 +70,7 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
     private ImageView select_btn;
     private TextView tv;
     //this is the url to connect to the database using phpfiles
-    private String upload_URL = "http://10.0.2.2/php_app/uploadFile.php?";
+    private String upload_URL = "http://10.100.15.104/wits_academy/uploadFile.php?";
     private RequestQueue rQueue;
     String type;
     String courseName;
@@ -111,73 +86,14 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
     private String displayName = null;
     private Uri uri;
 
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload_file);
-<<<<<<< HEAD
-        pdfTextView = findViewById(R.id.textView);
-        pdfTitle = findViewById(R.id.pdfTitle);
-    }
 
-    public void upload(View view) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("pdf/mp4");
-        intent.setData(MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"select pdf"),REQ);
-
-
-    }
-
-    @SuppressLint("Range")
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ && resultCode == RESULT_OK ){
-            pdfdata = data.getData();
-            if (pdfdata.toString().startsWith("content://")){
-                Cursor cursor = null;
-                try {
-                    cursor = upload_file.this.getContentResolver().query(pdfdata,null, null,null,null,null);
-                    if (cursor != null && cursor.moveToFirst()){
-                        pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-            else if (pdfdata.toString().startsWith("file://")){
-                pdfName = new File(pdfdata.toString()).getName();
-            }
-            pdfTextView.setText(pdfName);
-        }
-    }
-
-    public void upload_file(View view) {
-        String title = pdfTitle.getText().toString();
-        if (title.isEmpty()){
-            pdfTitle.setError("Empty");
-            pdfTitle.requestFocus();
-        }
-        else if (pdfdata == null){
-
-        }
-        else{
-
-        }
-    }
-
-    private void uploadPdf() {
-
-    }
-}
-=======
-
-
+        courseName = getIntent().getStringExtra("courseName");
+        userNumber = getIntent().getStringExtra("userNumber");
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -186,6 +102,12 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
         navigationView = (NavigationView) findViewById(R.id.nav_t);
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
+
+        TextView userName = view.findViewById(R.id.name);
+        userName.setText(courseName);
+
+        ImageView imageView = view.findViewById(R.id.imageView9);
+        DataBase.get_course_image(this, courseName, imageView);
 
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
                 R.string.navigator_open,R.string.navigator_close);
@@ -209,10 +131,47 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
         select_btn = findViewById(R.id.selectFile);
         view_btn = findViewById(R.id.view_btn);
         tv = findViewById(R.id.fileName);
-        courseName = getIntent().getStringExtra("courseName");
 
-        userNumber = getIntent().getStringExtra("userNumber");
 
+
+
+        //Handles the result of an activity for selecting a file and it sets the display name in a TextView ('tv'
+        //it directly retrieves the display name from the file and assigns it to 'displayName'.
+        ActivityResultLauncher<Intent> resultLauncher =  registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+
+                        if (result.getResultCode() == RESULT_OK) {
+                            // Get the Uri of the selected file
+                            uri = result.getData().getData();
+                            String uriString = uri.toString();
+                            File myFile = new File(uriString);
+                            String path = myFile.getAbsolutePath();
+                            displayName = null;
+
+                            if (uriString.startsWith("content://")) {
+                                Cursor cursor = null;
+                                try {
+                                    cursor = getContentResolver().query(uri, null, null, null, null);
+                                    if (cursor != null && cursor.moveToFirst()) {
+                                        displayName = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME));
+                                        tv.setText(displayName);
+                                        Log.d("nameeeee>>>>  ",displayName);
+                                    }
+                                } finally {
+                                    cursor.close();
+                                }
+                            } else if (uriString.startsWith("file://")) {
+                                displayName = myFile.getName();
+                                Log.d("nameeeee>>>>  ",displayName);
+                            }
+                        }else{
+                            Log.d(String.valueOf(result.getResultCode()),"Bad error");
+                        }
+
+                    }
+                });
         // Open File Explorer to select the file
         select_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,7 +179,7 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
-                startActivity(intent);
+                resultLauncher.launch(intent);
             }
         });
 
@@ -232,49 +191,15 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                 if(displayName == null){
                     Toast.makeText(upload_file.this,"Please select a file",Toast.LENGTH_LONG).show();
                 }else {
-                    uploadPDF(displayName, uri);
+                    uploadPDF(displayName, uri,v.getContext());
                 }
             }
         });
     }
-    //Handles the result of an activity for selecting a file and it sets the display name in a TextView ('tv'
-    //it directly retrieves the display name from the file and assigns it to 'displayName'.
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            // Get the Uri of the selected file
-            uri = data.getData();
-            String uriString = uri.toString();
-            File myFile = new File(uriString);
-            String path = myFile.getAbsolutePath();
-            displayName = null;
 
-            if (uriString.startsWith("content://")) {
-                Cursor cursor = null;
-                try {
-                    cursor = this.getContentResolver().query(uri, null, null, null, null);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        displayName = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME));
-                        tv.setText(displayName);
-                        Log.d("nameeeee>>>>  ",displayName);
-                    }
-                } finally {
-                    cursor.close();
-                }
-            } else if (uriString.startsWith("file://")) {
-                displayName = myFile.getName();
-                Log.d("nameeeee>>>>  ",displayName);
-            }
-        }else{
-            Log.d(String.valueOf(resultCode),"Bad error");
-        }
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
-/**Handles the process of uploading a PDF file to a server using Volley library and processes the response from the server,
-and displays a toast message and parses the received data as JSON.**/
-    private void uploadPDF(final String pdfname, Uri pdffile){
+    /**Handles the process of uploading a PDF file to a server using Volley library and processes the response from the server,
+     and displays a toast message and parses the received data as JSON.**/
+    private void uploadPDF(final String pdfname, Uri pdffile, Context context){
 
         InputStream iStream = null;
         try {
@@ -304,7 +229,18 @@ and displays a toast message and parses the received data as JSON.**/
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            String res =new  String(response.data);
+                            if(res.indexOf("successfully")==-1) {
+                                Toast.makeText(context,"File upload failed", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context,"File upload successful", Toast.LENGTH_SHORT).show();
+                            }
+
+                            context.startActivity(getIntent());
                         }
+
+
+
                     },
                     new Response.ErrorListener() {
                         @Override
@@ -312,7 +248,7 @@ and displays a toast message and parses the received data as JSON.**/
                             Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }) {
-                
+
                 /**The method is responsible for providing the parameters that will be sent along with the request to the database **/
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
@@ -349,7 +285,7 @@ and displays a toast message and parses the received data as JSON.**/
 
 
     }
-    
+
 
     public byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
@@ -362,8 +298,8 @@ and displays a toast message and parses the received data as JSON.**/
         }
         return byteBuffer.toByteArray();
     }
-/**allows the back button to close the navigation drawer if it is open, and otherwise, 
-it performs the default back button behavior.**/
+    /**allows the back button to close the navigation drawer if it is open, and otherwise,
+     it performs the default back button behavior.**/
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -372,13 +308,11 @@ it performs the default back button behavior.**/
             super.onBackPressed();
         }
     }
-/** This code is for the navigation bar and allows the user to be able to navigate to another
-    page depending on which section they clicked on the navigation bar **/
+    /** This code is for the navigation bar and allows the user to be able to navigate to another
+     page depending on which section they clicked on the navigation bar **/
     @Override
     public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
-                return true;
             case R.id.Announcement:
                 Intent A = new Intent(this , Announcements.class);
                 A.putExtra("userNumber",userNumber);
@@ -398,12 +332,19 @@ it performs the default back button behavior.**/
                 intent2.putExtra("courseName",courseName);
                 intent2.putExtra("type","Videos");
                 intent2.putExtra("userNumber",userNumber);
+                startActivity(intent2);
                 return true;
             case R.id.quiz:
+                Intent create_quiz = new Intent(this,create_quiz.class);
+                create_quiz.putExtra("courseName",courseName);
+                create_quiz.putExtra("userNumber",userNumber);
+                startActivity(create_quiz);
                 return true;
-            case R.id.assignment:
-                return true;
-            case R.id.grades:
+            case R.id.other_quizzes:
+                Intent quiz = new Intent(this,teacher_quiz_view.class);
+                quiz.putExtra("courseName",courseName);
+                quiz.putExtra("userNumber",userNumber);
+                startActivity(quiz);
                 return true;
             case R.id.back:
                 DataBase.back_to_menu(this,userNumber);
@@ -412,10 +353,10 @@ it performs the default back button behavior.**/
                 Intent intent = new Intent(this , MainActivity.class);
                 startActivity(intent);
                 return true;
+
         }
         //Close navigation bar after the selection is made
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }
->>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360

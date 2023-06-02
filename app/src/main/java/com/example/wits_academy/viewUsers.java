@@ -36,10 +36,12 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
         super.onCreate(savedInstanceState);
         // Set Content Based on whether user is a Teacher or a student TODO
         role = getIntent().getStringExtra("Role");
+        courseName = getIntent().getStringExtra("courseName");
         userNumber = getIntent().getStringExtra("userNumber");
         if(role.equals("Teacher"))
-        setContentView(R.layout.activity_view_users);
+            setContentView(R.layout.activity_view_users);
         else setContentView(R.layout.activity_view_users_students);
+
 
         /**Initialise variables**/
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
@@ -51,48 +53,31 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
         ImageView imageView = view.findViewById(R.id.imageView9);
+
         TextView userName = view.findViewById(R.id.name);
-        userName.setText(userNumber);
+        userName.setText(courseName);
 
         /**Call the get image method from the class get image for the profile pic of the user**/
-        DataBase.get_image(this, userNumber, imageView);
-        
+        DataBase.get_image(this, courseName, imageView);
+
         /**Enable the user to open and close the navigation drawer using the icon on the toolbar**/
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
                 R.string.navigator_open,R.string.navigator_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        courseName = getIntent().getStringExtra("courseName");
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-<<<<<<<< HEAD:app/src/main/java/com/example/wits_academy/Announcements.java
-        getSupportActionBar().setTitle("Announcements");
-
-        // Get Extra Information From Previous Activity
-        userNumber = getIntent().getStringExtra("userNumber");
-        courseName = getIntent().getStringExtra("courseName");
-
-
-        // Get And Display Announcements If Any
-        announcementsList = new ArrayList<announcementModel>();
-        RecyclerView recyclerView = findViewById(R.id.mRecyclerView);
-        TextView NoAnnounced =new TextView(this);
-//        DataBase.get_announcements(this,courseName,announcementsList,recyclerView,NoAnnounced);
-
-
-========
         getSupportActionBar().setTitle("Participants");
->>>>>>>> 24838f0a76c329a96400e8e81b3a2c4af4151360:app/src/main/java/com/example/wits_academy/viewUsers.java
 
         // Get List of all People in Course and display them
         userList = new ArrayList<userModel>();
         RecyclerView recyclerView = findViewById(R.id.viewUsersRecyclerView);
         DataBase.get_users(this,courseName,userList,recyclerView);
     }
-   /**Allows the back button to close the navigation drawer if it is open, and otherwise, 
-    it performs the default back button behavior.**/
-     @Override
+    /**Allows the back button to close the navigation drawer if it is open, and otherwise,
+     it performs the default back button behavior.**/
+    @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -100,13 +85,11 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
             super.onBackPressed();
         }
     }
-     /** This code is for the navigation bar and allows the user to be able to navigate to another
-    page depending on which section they clicked on the navigation bar **/
+    /** This code is for the navigation bar and allows the user to be able to navigate to another
+     page depending on which section they clicked on the navigation bar **/
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.questions:
-                return true;
             case R.id.announcements:
                 Intent intent1 = new Intent(this,Announcements.class);
                 intent1.putExtra("userNumber",userNumber);
@@ -115,14 +98,32 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(intent1);
                 return true;
             case R.id.course_slides:
+                Intent intent2 = new Intent(this,upload_file.class);
+                intent2.putExtra("courseName",courseName);
+                intent2.putExtra("type","Documents");
+                intent2.putExtra("userNumber",userNumber);
+                intent2.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent2);
                 return true;
             case R.id.videos:
+                Intent intent3 = new Intent(this,upload_file.class);
+                intent3.putExtra("courseName",courseName);
+                intent3.putExtra("type","Videos");
+                intent3.putExtra("userNumber",userNumber);
+                intent3.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent3);
                 return true;
             case R.id.quiz:
+                Intent create_quiz = new Intent(this,create_quiz.class);
+                create_quiz.putExtra("courseName",courseName);
+                create_quiz.putExtra("userNumber",userNumber);
+                startActivity(create_quiz);
                 return true;
-            case R.id.assignment:
-                return true;
-            case R.id.grades:
+            case R.id.other_quizzes:
+                Intent quiz = new Intent(this,teacher_quiz_view.class);
+                quiz.putExtra("courseName",courseName);
+                quiz.putExtra("userNumber",userNumber);
+                startActivity(quiz);
                 return true;
             case R.id.back:
                 DataBase.back_to_menu(this,userNumber);
@@ -137,6 +138,11 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
                 intent.putExtra("courseName",courseName);
                 intent.putExtra("userNumber",userNumber);
                 startActivity(intent);
+            case R.id.courseHomeActivity:
+                Intent intent5 = new Intent(this,viewUsers.class);
+                intent5.putExtra("courseName",courseName);
+                intent5.putExtra("userNumber",userNumber);
+                startActivity(intent5);
         }
         return true;
     }

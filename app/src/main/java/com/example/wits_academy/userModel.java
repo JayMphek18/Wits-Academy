@@ -1,6 +1,9 @@
 package com.example.wits_academy;
 
 
+import android.graphics.ImageDecoder;
+import android.widget.ImageView;
+
 public class userModel {
     String full_name;
     String email_address;

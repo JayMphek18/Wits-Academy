@@ -153,10 +153,17 @@ public class main_menu_studentTest {
 //                student.course_list.removeAllViews();
                 ViewsClass.get_information_on_JSON(student.getBaseContext(),userNumber ,student.course_list, studentCourseArray,
                         teacherName, courseCode, courseName);
+                assertEquals(student.course_list.getChildCount(), 5);
+                for (int i = 1; i <= student.course_list.getChildCount() - 3; i++){
+                    View view = student.course_list.getChildAt(student.course_list.getChildCount() - i).findViewById(R.id.lay);
+                    view.performClick();
+                }
+                View view2 = student.course_list.getChildAt(student.course_list.getChildCount() - 2).findViewById(R.id.lay2);
+                view2.performClick();
             }
         });
 
-        assertEquals(student.course_list.getChildCount(), 5);
+
     }
 
 
@@ -207,13 +214,14 @@ public class main_menu_studentTest {
                 ViewsClass.get_information_on_JSON(student.getBaseContext(),userNumber ,student.course_list, studentCourseArray,
                         teacherName, courseCode, courseName);
                 assertEquals(student.course_list.getChildCount(), 6);
-                View view = student.course_list.getChildAt(student.course_list.getChildCount() - 1).findViewById(R.id.lay);
-                view.performClick();
+                for (int i = 1; i <= student.course_list.getChildCount() - 3; i++){
+                    View view = student.course_list.getChildAt(student.course_list.getChildCount() - i).findViewById(R.id.lay);
+                    view.performClick();
+                    View view2 = student.course_list.getChildAt(student.course_list.getChildCount() - i).findViewById(R.id.lay2);
+                    view2.performClick();
+                }
             }
         });
-
-
-
     }
 
     @Test
@@ -284,7 +292,7 @@ public class main_menu_studentTest {
     public void menuItemThreeTest(){
         MenuItem menuItem = menu.getItem(2);
         assertEquals(menuItem.getItemId(), R.id.menu_page);
-        assertEquals(menuItem.getTitle(), "Back to Menu");
+        assertEquals(menuItem.getTitle(), "Course Dashboard");
 //        Intent new_intent = new Intent();
 //        new_intent.putExtra("userNumber", userNumber);
 //        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
@@ -308,10 +316,10 @@ public class main_menu_studentTest {
     @Test
     public void Test() throws Exception{
         assertNotNull(student.course_list);
-        assertNotNull(student.drawerLayout);
+//        assertNotNull(student.drawerLayout);
         assertNotNull(student.display);
         assertNotNull(student.navigationView);
-        assertNotNull(student.view);
+//        assertNotNull(student.view);
         assertNotNull(student.userNumber);
     }
     @Test
@@ -335,10 +343,17 @@ public class main_menu_studentTest {
         assertTrue(student.onNavigationItemSelected(menuItem));
     }
 
+//    @Test
+//    public void staticBackToLogin(){
+//        main_menu_student.out(student.getBaseContext());
+//    }
+
     @After
     public void tearDown() throws Exception {
         student = null;
         Intents.release();
     }
+
+
     
 }

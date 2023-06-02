@@ -4,12 +4,12 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/questions"
-            android:title="Question Forum"/>
-        <item android:id="@+id/announcements"
-            android:title="Send an announcements"/>
+        <item android:id="@+id/Announcement"
+            android:title="Announcements"/>
+        <item android:id="@+id/other_quizzes"
+            android:title="Past Quizzes"/>
         <item android:id="@+id/back"
-            android:title="Back to menu"/>
+            android:title="Course Dashboard"/>
         <item android:id="@+id/logout"
             android:title="Logout"/>
         <item android:id="@+id/ViewUsers"
@@ -19,15 +19,12 @@
     <item android:title="Content">
         <menu>
             <item android:id="@+id/course_slides"
-                android:title="Upload slides"/>
+                android:title="Upload Documents"/>
             <item android:id="@+id/videos"
-                android:title="Upload Lectures"/>
+                android:title="Upload Videos"/>
             <item android:id="@+id/quiz"
-                android:title="Make Quiz"/>
-            <item android:id="@+id/assignment"
-                android:title="Upload assignment"/>
-            <item android:id="@+id/grades_quiz_and_assigments"
-                android:title="Mark quizzes and assignments"/>
+                android:title="Create Quiz"/>
+
 
         </menu>
     </item>

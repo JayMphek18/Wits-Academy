@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/button_background_2"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/enter_question"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Enter Question"
+        android:inputType="textMultiLine"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="50dp" />
+
+    <TextView
+        android:id="@+id/A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/optionA"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="A."
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/optionB"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="B."
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/C"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/B"
+        android:layout_alignTop="@+id/optionC"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="C."
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/D"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/C"
+        android:layout_alignTop="@+id/optionD"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="D."
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/optionA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enter_question"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Enter Option"
+        android:inputType="textPersonName"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/optionB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/optionA"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Enter Option"
+        android:inputType="textPersonName"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/optionC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_below="@+id/optionB"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Enter Option"
+        android:inputType="textPersonName"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/optionD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/optionC"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="55dp"
+        android:ems="10"
+        android:hint="Enter Option"
+        android:inputType="textPersonName"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/correct_option"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/optionD"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Enter correct letter"
+        android:inputType="textPersonName"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/m_marks"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/correct_option"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/correct_option"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Mark allocation"
+        android:inputType="number"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/save_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/m_marks"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/m_marks"
+        android:text="Save"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/save_question"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/save_question"
+        android:textStyle="bold"
+        android:text="Cancel"
+        android:textSize="15dp" />
+
+
+</RelativeLayout>
