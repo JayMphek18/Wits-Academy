@@ -56,15 +56,6 @@ public class grades extends AppCompatActivity implements NavigationView.OnNaviga
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent access_gallary = new Intent(Intent.ACTION_PICK);
-//                access_gallary.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(access_gallary, GALLERY_REQ_CODE);
-//            }
-//        });
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigator_open, R.string.navigator_close);
         drawerLayout.addDrawerListener(toggle);
@@ -73,9 +64,10 @@ public class grades extends AppCompatActivity implements NavigationView.OnNaviga
         //changing background and title on toolbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle("Grades");
-        ViewsClass.grades(this, course_list, "1234567","zenzele", "5");
-        ViewsClass.grades(this, course_list, "1234567","zenzele", "5");
-        ViewsClass.grades(this, course_list, "1234567","zenzele", "5");
+        DataBase.get_grades(this,  courseName,course_list, quizName);
+//        ViewsClass.grades(this, course_list, "1234567","zenzele", "50%");
+//        ViewsClass.grades(this, course_list, "1234567","Zandile", "50%");
+//        ViewsClass.grades(this, course_list, "1234567","Zandile", "50%");
     }
 
     @Override
@@ -90,8 +82,7 @@ public class grades extends AppCompatActivity implements NavigationView.OnNaviga
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
-                return true;
+
             case R.id.Announcement:
                 Intent A = new Intent(this , Announcements.class);
                 A.putExtra("userNumber",userNumber);

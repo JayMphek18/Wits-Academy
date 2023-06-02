@@ -92,7 +92,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload_file);
 
-
+        courseName = getIntent().getStringExtra("courseName");
+        userNumber = getIntent().getStringExtra("userNumber");
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,6 +102,12 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
         navigationView = (NavigationView) findViewById(R.id.nav_t);
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
+
+        TextView userName = view.findViewById(R.id.name);
+        userName.setText(courseName);
+
+        ImageView imageView = view.findViewById(R.id.imageView9);
+        DataBase.get_course_image(this, courseName, imageView);
 
         ActionBarDrawerToggle toggle =  new ActionBarDrawerToggle(this, drawerLayout,toolbar,
                 R.string.navigator_open,R.string.navigator_close);
@@ -124,9 +131,8 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
         select_btn = findViewById(R.id.selectFile);
         view_btn = findViewById(R.id.view_btn);
         tv = findViewById(R.id.fileName);
-        courseName = getIntent().getStringExtra("courseName");
 
-        userNumber = getIntent().getStringExtra("userNumber");
+
 
 
         //Handles the result of an activity for selecting a file and it sets the display name in a TextView ('tv'
@@ -307,8 +313,6 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
     @Override
     public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
-                return true;
             case R.id.Announcement:
                 Intent A = new Intent(this , Announcements.class);
                 A.putExtra("userNumber",userNumber);
@@ -349,6 +353,7 @@ public class upload_file extends AppCompatActivity implements NavigationView.OnN
                 Intent intent = new Intent(this , MainActivity.class);
                 startActivity(intent);
                 return true;
+
         }
         //Close navigation bar after the selection is made
         drawerLayout.closeDrawer(GravityCompat.START);

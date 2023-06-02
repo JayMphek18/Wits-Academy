@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
@@ -82,38 +83,10 @@ public class teacher_quiz_view extends AppCompatActivity implements NavigationVi
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle("Quizzes");
 
-        ArrayList<String> quiz_name = new ArrayList<>();
-        ArrayList <String> avarage_marks= new ArrayList<>();
-//        quiz_name.add(0,"quiz1");
-//        avarage_marks.add(0, "56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        ViewsClass.quizzes(this, course_list, quiz_name, avarage_marks, userNumber, courseName);
-        //call it after you havee add every other quiz on the view
-        setDelete();
+        DataBase.get_all_quiz(this, courseName, course_list, userNumber);
 
     }
 
-//    private void add_image(){
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//        if (bitmap != null){
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-//            byte[] bytes = byteArrayOutputStream.toByteArray();
-//            final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-//            DataBase.upload_image(this, base64Image, courseName);
-////            DataBase.get_course_image(this, courseName,imageView);
-//
-////            userNumber.setText(base64Image);
-//        }
-//    }
 
     @Override
     public void onBackPressed() {
@@ -123,28 +96,11 @@ public class teacher_quiz_view extends AppCompatActivity implements NavigationVi
             super.onBackPressed();
         }
     }
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (resultCode == RESULT_OK){
-//            if (requestCode == GALLERY_REQ_CODE){
-//                try {
-//                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-//                    imageView.setImageBitmap(bitmap);
-//                    add_image();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
-                return true;
+
             case R.id.Announcement:
                 Intent A = new Intent(this , Announcements.class);
                 A.putExtra("userNumber",userNumber);
@@ -192,31 +148,32 @@ public class teacher_quiz_view extends AppCompatActivity implements NavigationVi
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void setDelete(){
+    public static void setDelete(Context context, LinearLayout course_list, String courseName, String userNumber){
         for (int i = 1; i < course_list.getChildCount(); i++){
             View quiz = course_list.getChildAt(i);
             ImageView delete = quiz.findViewById(R.id.imageView10);
             ImageView review_grades = quiz.findViewById(R.id.grades);
+
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     course_list.removeView(quiz);
-                    //delete the quiz from the dataBase by using the quiz name below
                     TextView quizName = quiz.findViewById(R.id.quiz_name);
-                    // run function from Database to remove the quiz
+                    DataBase.delete_quiz(context, courseName, quizName.getText().toString());
                 }
             });
             review_grades.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     TextView quizName = quiz.findViewById(R.id.quiz_name);
-                    Intent create_quiz = new Intent(teacher_quiz_view.this, grades.class);
+                    Intent create_quiz = new Intent(context, grades.class);
                     create_quiz.putExtra("courseName",courseName);
                     create_quiz.putExtra("userNumber",userNumber);
                     create_quiz.putExtra("quizName", quizName.getText().toString());
-                    startActivity(create_quiz);
+                    context.startActivity(create_quiz);
                 }
             });
         }
     }
+
 }

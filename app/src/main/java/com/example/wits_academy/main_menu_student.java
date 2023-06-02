@@ -75,6 +75,7 @@ public class main_menu_student extends AppCompatActivity implements NavigationVi
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
         }else{
+
             super.onBackPressed();
         }
     }
@@ -100,6 +101,7 @@ public class main_menu_student extends AppCompatActivity implements NavigationVi
             case R.id.menu_page:
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
+
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

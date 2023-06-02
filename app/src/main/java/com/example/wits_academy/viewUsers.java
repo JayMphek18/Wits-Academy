@@ -37,9 +37,11 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
         // Set Content Based on whether user is a Teacher or a student TODO
         role = getIntent().getStringExtra("Role");
         courseName = getIntent().getStringExtra("courseName");
+        userNumber = getIntent().getStringExtra("userNumber");
         if(role.equals("Teacher"))
             setContentView(R.layout.activity_view_users);
         else setContentView(R.layout.activity_view_users_students);
+
 
         /**Initialise variables**/
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
@@ -88,8 +90,6 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.questions:
-                return true;
             case R.id.announcements:
                 Intent intent1 = new Intent(this,Announcements.class);
                 intent1.putExtra("userNumber",userNumber);
@@ -114,8 +114,16 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(intent3);
                 return true;
             case R.id.quiz:
+                Intent create_quiz = new Intent(this,create_quiz.class);
+                create_quiz.putExtra("courseName",courseName);
+                create_quiz.putExtra("userNumber",userNumber);
+                startActivity(create_quiz);
                 return true;
-            case R.id.grades:
+            case R.id.other_quizzes:
+                Intent quiz = new Intent(this,teacher_quiz_view.class);
+                quiz.putExtra("courseName",courseName);
+                quiz.putExtra("userNumber",userNumber);
+                startActivity(quiz);
                 return true;
             case R.id.back:
                 DataBase.back_to_menu(this,userNumber);
@@ -130,6 +138,11 @@ public class viewUsers extends AppCompatActivity implements NavigationView.OnNav
                 intent.putExtra("courseName",courseName);
                 intent.putExtra("userNumber",userNumber);
                 startActivity(intent);
+            case R.id.courseHomeActivity:
+                Intent intent5 = new Intent(this,viewUsers.class);
+                intent5.putExtra("courseName",courseName);
+                intent5.putExtra("userNumber",userNumber);
+                startActivity(intent5);
         }
         return true;
     }

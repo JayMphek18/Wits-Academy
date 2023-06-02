@@ -292,7 +292,7 @@ public class main_menu_studentTest {
     public void menuItemThreeTest(){
         MenuItem menuItem = menu.getItem(2);
         assertEquals(menuItem.getItemId(), R.id.menu_page);
-        assertEquals(menuItem.getTitle(), "Back to Menu");
+        assertEquals(menuItem.getTitle(), "Course Dashboard");
 //        Intent new_intent = new Intent();
 //        new_intent.putExtra("userNumber", userNumber);
 //        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);

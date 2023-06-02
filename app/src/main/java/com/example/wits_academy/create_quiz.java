@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
@@ -25,6 +26,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.Nullable;
@@ -36,8 +39,7 @@ public class create_quiz extends AppCompatActivity implements NavigationView.OnN
 
     LinearLayout quetions;
     int question_num = 1;
-    Button done;
-
+    String q_name;
     String userNumber;
     LinearLayout course_list;
     private DrawerLayout drawerLayout;
@@ -46,6 +48,7 @@ public class create_quiz extends AppCompatActivity implements NavigationView.OnN
     NavigationView navigationView;
     Bitmap bitmap;
     ImageView imageView;
+    Integer total_marks = 0;
 
     private final int GALLERY_REQ_CODE = 1000;
 
@@ -89,23 +92,19 @@ public class create_quiz extends AppCompatActivity implements NavigationView.OnN
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle(courseName);
 
-
-
-
-        done = findViewById(R.id.finised);
         Button button = findViewById(R.id.add_input_question);
         Button m_button = findViewById(R.id.add_multiple_choice);
         quetions =(LinearLayout) findViewById(R.id.quiz_questions);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                question_input( "2000000", "sdfjbsdiu");
+                question_input();
             }
         });
         m_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                question_choice("7jdfjnsfdsf", "jhdjhwk");
+                question_choice();
             }
         });
 
@@ -152,8 +151,7 @@ public class create_quiz extends AppCompatActivity implements NavigationView.OnN
     @Override
     public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
-                return true;
+
             case R.id.Announcement:
                 Intent A = new Intent(this , Announcements.class);
                 A.putExtra("userNumber",userNumber);
@@ -201,7 +199,7 @@ public class create_quiz extends AppCompatActivity implements NavigationView.OnN
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void question_input(String course_name, String student_number){
+    public void question_input(){
 
         View origin = View.inflate(this, R.layout.create_quiz, null);
 
@@ -232,18 +230,23 @@ public class create_quiz extends AppCompatActivity implements NavigationView.OnN
                     TextView view_question = add_question.findViewById(R.id.view_question);
                     TextView view_marks = add_question.findViewById(R.id.allocated_marks);
                     TextView question_number = add_question.findViewById(R.id.question_number);
+                    EditText answer_q = add_question.findViewById(R.id.enter_answer);
 
                     view_question.setText(input_question.getText().toString());
                     view_marks.setText("Marks: " + marks.getText().toString());
-                    question_number.setText("Question " + String.valueOf(question_num)+ "\t\t Delete Question");
+                    question_number.setText("Question " + String.valueOf(question_num)+ "       Delete Question");
+                    answer_q.setText(answer.getText().toString());
 
                     quetions.addView(add_question);
                     pop.dismiss();
+                    total_marks = total_marks + Integer.parseInt(marks.getText().toString());
                     question_num++;
                     question_number.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             quetions.removeView(add_question);
+                            total_marks = total_marks - Integer.parseInt(marks.getText().toString());
+                            delete_question();
                             // also remove it on the database
                         }
                     });
@@ -270,7 +273,7 @@ public class create_quiz extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    public void question_choice(String course_name, String student_number){
+    public void question_choice(){
 
         View origin = View.inflate(this, R.layout.create_quiz, null);
 
@@ -317,17 +320,45 @@ public class create_quiz extends AppCompatActivity implements NavigationView.OnN
                     choiceC.setText(optionC.getText().toString());
                     choiceD.setText(optionD.getText().toString());
 
+                    if (correct_option.getText().toString().equals("A")){
+                        choiceA.setChecked(true);
+                        choiceB.setChecked(false);
+                        choiceC.setChecked(false);
+                        choiceD.setChecked(false);
+                    }
+                    else if (correct_option.getText().toString().equals("B")){
+                        choiceA.setChecked(false);
+                        choiceB.setChecked(true);
+                        choiceC.setChecked(false);
+                        choiceD.setChecked(false);
+                    }
+                    else if (correct_option.getText().toString().equals("C")){
+                        choiceA.setChecked(false);
+                        choiceB.setChecked(false);
+                        choiceC.setChecked(true);
+                        choiceD.setChecked(false);
+                    }
+                    else if (correct_option.getText().toString().equals("D")){
+                        choiceA.setChecked(false);
+                        choiceB.setChecked(false);
+                        choiceC.setChecked(false);
+                        choiceD.setChecked(true);
+                    }
+
                     view_question.setText(input_question.getText().toString());
                     view_marks.setText("Marks: " + marks.getText().toString());
-                    question_number.setText("Question " + String.valueOf(question_num) + "           Delete Question");
+                    question_number.setText("Question " + String.valueOf(question_num) + "      Delete Question");
 
                     quetions.addView(add_question);
                     pop.dismiss();
+                    total_marks = total_marks + Integer.parseInt(marks.getText().toString());
                     question_num++;
                     question_number.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             quetions.removeView(add_question);
+                            total_marks = total_marks - Integer.parseInt(marks.getText().toString());
+                            delete_question();
                             // also remove it on the database
                         }
                     });
@@ -365,9 +396,123 @@ public class create_quiz extends AppCompatActivity implements NavigationView.OnN
             return true;
         }
     }
-    public void done(View view) {
-//        after you are done creating the quiz
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
+    public static void save(Context context, LinearLayout course_list, String q_name, String courseName, String userNumber){
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        for (int i = 3; i < course_list.getChildCount(); i++){
+            TextView number = course_list.getChildAt(i).findViewById(R.id.question_number);
+            String q_number = number.getText().toString();
+            String right_n = "";
+            int question_number;
+            for (int j = "Question ".length(); j < (q_number.length()); j++){
+                if (q_number.charAt(j) == ' '){
+                    break;
+                }
+                right_n = right_n + q_number.charAt(j);
+            }
+            question_number = Integer.parseInt(right_n);
+            // after getting the answers fo each question isolate the them into an arrayList and for every index we check if the answer found
+            // at index + 1 is the same as the one provide
+            EditText answer = course_list.getChildAt(i).findViewById(R.id.enter_answer);
+            String question_answer = null;
+            if (answer == null){
+                RadioButton choiceA = course_list.getChildAt(i).findViewById(R.id.optionA);
+                RadioButton choiceB = course_list.getChildAt(i).findViewById(R.id.optionB);
+                RadioButton choiceC = course_list.getChildAt(i).findViewById(R.id.optionC);
+                RadioButton choiceD = course_list.getChildAt(i).findViewById(R.id.optionD);
+                if(choiceA.isChecked()){
+                    question_answer = choiceA.getText().toString();
+                }
+                else if(choiceB.isChecked()){
+                    question_answer = choiceB.getText().toString();
+                }
+                else if(choiceC.isChecked()){
+                    question_answer = choiceC.getText().toString();
+                }
+                else if(choiceD.isChecked()){
+                    question_answer = choiceD.getText().toString();
+                }
+                TextView get_marks = course_list.getChildAt(i).findViewById(R.id.marks);
+                String marks = "";
+                for (int j = "Marks: ".length(); j < get_marks.getText().toString().length(); j++){
+                    if (get_marks.getText().toString().charAt(j) == ' '){
+                        break;
+                    }
+                    marks = marks + get_marks.getText().toString().charAt(j);
+                }
+                TextView question = course_list.getChildAt(i).findViewById(R.id.question);
+                String finalMarks = marks;
+                String finalQuestion_answer1 = question_answer;
+                DataBase.add_multiple_choice(context, courseName, String.valueOf(question_number), q_name,
+                                question.getText().toString(), finalMarks, finalQuestion_answer1, choiceA.getText().toString(),
+                                choiceB.getText().toString(), choiceC.getText().toString(), choiceD.getText().toString(),requestQueue);
+            }
+            else{
+                question_answer = answer.getText().toString();
+                TextView question = course_list.getChildAt(i).findViewById(R.id.view_question);
+                TextView get_marks = course_list.getChildAt(i).findViewById(R.id.allocated_marks);
+                String marks = "";
+                for (int j = "Marks: ".length(); j < get_marks.getText().toString().length(); j++){
+                    if (get_marks.getText().toString().charAt(j) == ' '){
+                        break;
+                    }
+                    marks = marks + get_marks.getText().toString().charAt(j);
+                }
+                String finalQuestion_answer = question_answer;
+                String finalMarks = marks;
+
+                DataBase.add_input_question(context, courseName, String.valueOf(question_number), q_name,
+                        question.getText().toString(), finalMarks, finalQuestion_answer,requestQueue);
+            }
+        }
+        Intent quiz = new Intent(context, teacher_quiz_view.class);
+        quiz.putExtra("userNumber", userNumber);
+        quiz.putExtra("courseName", courseName);
+        context.startActivity(quiz);
+    }
+    public void done(View view){
+        View origin = View.inflate(this, R.layout.quiz_name, null);
+        View pop_question = View.inflate(this , R.layout.quiz_name, null);
+        final PopupWindow pop = new PopupWindow(pop_question,1000,300, true);
+        pop.showAtLocation(origin, Gravity.CENTER,0,0);
+
+        EditText quiz_name = pop_question.findViewById(R.id.quiz_name);
+        TextView cancel = pop_question.findViewById(R.id.cancel_quiz);
+        TextView save = pop_question.findViewById(R.id.save_quiz);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pop.dismiss();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!quiz_name.getText().toString().isEmpty()){
+                    //send to DataBase
+                    q_name = quiz_name.getText().toString();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            DataBase.create_quiz(create_quiz.this, courseName, String.valueOf(total_marks), q_name, course_list, userNumber);
+                        }
+                    });
+                }
+                else{
+                    pop.dismiss();
+                    Toast.makeText(create_quiz.this, "Please enter all spaces",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    public void delete_question(){
+        question_num = 1;
+        for (int i = 3; i < course_list.getChildCount(); i++){
+            TextView number = course_list.getChildAt(i).findViewById(R.id.question_number);
+            number.setText("Question " + String.valueOf(question_num) + "       Delete Question");
+            question_num++;
+        }
     }
 }

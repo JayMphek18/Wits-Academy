@@ -283,7 +283,7 @@ public class ViewsClass {
             TextView write_quiz = layout.findViewById(R.id.review_quiz);
 
             quiz.setText(quizName.get(i));
-            marks.setText(quizMark.get(i));
+            marks.setText(quizMark.get(i) + " %");
 
             final int index = i;
             layout.setOnClickListener(new View.OnClickListener() {
@@ -365,7 +365,7 @@ public class ViewsClass {
 
         name.setText(student_name);
         stu_number.setText(student_number);
-        stu_mark.setText(marks + " marks");
+        stu_mark.setText(marks + " %");
 
         grades.addView(layout);
     }

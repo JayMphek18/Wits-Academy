@@ -23,23 +23,32 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:padding="10dp"
         android:layout_height="wrap_content">
-
         <LinearLayout
-            android:id="@+id/quiz"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/quiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="submit_answer"
+                android:text="submit" />
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="submit_answer"
-        android:text="submit" />
+
 
 
 </LinearLayout>

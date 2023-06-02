@@ -4,14 +4,12 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/questions"
-            android:title="Question Forum"/>
         <item android:id="@+id/Announcement"
             android:title="Announcements"/>
         <item android:id="@+id/other_quizzes"
             android:title="Past Quizzes"/>
         <item android:id="@+id/back"
-            android:title="Back to menu"/>
+            android:title="Course Dashboard"/>
         <item android:id="@+id/logout"
             android:title="Logout"/>
         <item android:id="@+id/ViewUsers"

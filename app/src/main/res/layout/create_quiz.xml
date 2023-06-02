@@ -23,11 +23,11 @@
 
             <ScrollView
                 android:id="@+id/scrollView2"
-                android:layout_width="405dp"
-                android:layout_height="593dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -47,23 +47,24 @@
                     <Button
                         android:id="@+id/add_multiple_choice"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="4dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:background="@drawable/button_background_2"
                         android:text="Multiple Choice Question" />
+
                     <Button
                         android:id="@+id/finised"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="4dp"
                         android:layout_height="wrap_content"
-                        android:onClick="done"
+                        android:layout_marginTop="4dp"
                         android:background="@drawable/button_background_2"
+                        android:onClick="done"
                         android:text="Quiz Done" />
 
-<!--                    <FrameLayout-->
-<!--                        android:id="@+id/frame_layout"-->
-<!--                        android:layout_width="379dp"-->
-<!--                        android:layout_height="wrap_content" />-->
+                    <!--                    <FrameLayout-->
+                    <!--                        android:id="@+id/frame_layout"-->
+                    <!--                        android:layout_width="379dp"-->
+                    <!--                        android:layout_height="wrap_content" />-->
 
 
                 </LinearLayout>

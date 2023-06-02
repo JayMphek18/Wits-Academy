@@ -148,4 +148,8 @@ public class register_page extends AppCompatActivity implements AdapterView.OnIt
         return android.util.Patterns.EMAIL_ADDRESS.matcher(user_email.getText().toString()).matches();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

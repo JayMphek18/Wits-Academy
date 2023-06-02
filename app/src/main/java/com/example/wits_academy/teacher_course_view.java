@@ -164,7 +164,12 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
     @Override
     public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
+
+            case R.id.other_quizzes:
+                Intent quiz1 = new Intent(this,teacher_quiz_view.class);
+                quiz1.putExtra("userNumber",userNumber);
+                quiz1.putExtra("courseName",courseName);
+                this.startActivity(quiz1);
                 return true;
             case R.id.Announcement:
                 Intent A = new Intent(this , Announcements.class);
@@ -190,7 +195,7 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
                 startActivity(intent2);
                 return true;
             case R.id.quiz:
-                Intent quiz = new Intent(this,teacher_quiz_view.class);
+                Intent quiz = new Intent(this,create_quiz.class);
                 quiz.putExtra("userNumber",userNumber);
                 quiz.putExtra("courseName",courseName);
                 this.startActivity(quiz);

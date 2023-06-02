@@ -18,7 +18,6 @@
         android:layout_marginEnd="0dp"
         android:background="@color/white"
         android:ems="10"
-        android:gravity="start|top"
         android:hint="Enter Question"
         android:inputType="textMultiLine"
         android:paddingHorizontal="15dp"

@@ -110,6 +110,7 @@ public class student_course_view extends AppCompatActivity implements Navigation
                         replaceFragement(new HomeFragment());
                         break;
                     case R.id.courseDocument:
+                        titles.clear();
                         DocumentFragment fragment = new DocumentFragment();
                         replaceFragement(fragment);
                         Docs = fragment.getDocsLL();
@@ -143,8 +144,7 @@ public class student_course_view extends AppCompatActivity implements Navigation
     @Override
     public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
-                return true;
+
             case R.id.announcements:
                 Intent intent1 = new Intent(this,Announcements.class);
                 intent1.putExtra("userNumber",userNumber);
@@ -152,9 +152,14 @@ public class student_course_view extends AppCompatActivity implements Navigation
                 intent1.putExtra("Role","Student");
                 startActivity(intent1);
                 return true;
+            case R.id.courseHomeActivity:
+                Intent intent = new Intent(this, student_course_view.class);
+                intent.putExtra("courseName" , courseName);
+                intent.putExtra("userNumber", userNumber);
+                startActivity(intent);
             case R.id.quiz:
                 Intent quiz = new Intent(this,student_quiz_view.class);
-                quiz.putExtra("information",userNumber);
+                quiz.putExtra("userNumber",userNumber);
                 quiz.putExtra("courseName",courseName);
                 startActivity(quiz);
                 return true;
@@ -162,14 +167,28 @@ public class student_course_view extends AppCompatActivity implements Navigation
                 DataBase.back_to_menu(this,userNumber);
                 return true;
             case R.id.logout:
-                Intent intent = new Intent(this , MainActivity.class);
-                startActivity(intent);
+                Intent intentLog = new Intent(this , MainActivity.class);
+                startActivity(intentLog);
                 return true;
             case R.id.ViewUsers:
                 intent = new Intent(this,viewUsers.class);
                 intent.putExtra("courseName",courseName);
                 intent.putExtra("Role","Student");
                 startActivity(intent);
+            case R.id.course_slides:
+                Intent intent3 = new Intent(this,upload_file.class);
+                intent3.putExtra("courseName",courseName);
+                intent3.putExtra("type","Documents");
+                intent3.putExtra("userNumber",userNumber);
+                startActivity(intent3);
+                return true;
+            case R.id.videos:
+                Intent intent2 = new Intent(this,upload_file.class);
+                intent2.putExtra("courseName",courseName);
+                intent2.putExtra("type","Videos");
+                intent2.putExtra("userNumber",userNumber);
+                startActivity(intent2);
+                return true;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

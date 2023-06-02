@@ -126,8 +126,6 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onNavigationItemSelected(@Nullable MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
-                return true;
             case R.id.Announcement:
                 Intent A = new Intent(this , Announcements.class);
                 A.putExtra("userNumber",userNumber);
@@ -150,9 +148,18 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
                 startActivity(intent2);
                 return true;
             case R.id.quiz:
+                Intent quiz = new Intent(this,create_quiz.class);
+                quiz.putExtra("userNumber",userNumber);
+                quiz.putExtra("courseName",courseName);
+                this.startActivity(quiz);
                 return true;
-            case R.id.grades:
+            case R.id.other_quizzes:
+                Intent quiz1 = new Intent(this,teacher_quiz_view.class);
+                quiz1.putExtra("userNumber",userNumber);
+                quiz1.putExtra("courseName",courseName);
+                this.startActivity(quiz1);
                 return true;
+
             case R.id.back:
                 DataBase.back_to_menu(this,userNumber);
                 return true;
@@ -166,6 +173,11 @@ public class Announcements extends AppCompatActivity implements NavigationView.O
                 intent.putExtra("userNumber",userNumber);
                 intent.putExtra("Role",role);
                 startActivity(intent);
+            case R.id.courseHomeActivity:
+                Intent intent5 = new Intent(this,viewUsers.class);
+                intent5.putExtra("courseName",courseName);
+                intent5.putExtra("userNumber",userNumber);
+                startActivity(intent5);
         }
         //Close navigation bar after the selection is made
         drawerLayout.closeDrawer(GravityCompat.START);

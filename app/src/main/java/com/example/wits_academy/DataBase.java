@@ -24,6 +24,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -39,7 +41,7 @@ import java.util.Map;
 public class DataBase{
     /**This string is for the IP address of our server/xampp where the PHP application is hosted**/
     final static String ip  = "http://10.100.15.104/wits_academy";
-
+    public static boolean finishedForUpload  = false;
     /** Method to retrieve the courses taught by a teacher**/
     public static void teacher_courses(Context context, String user_number, LinearLayout courses_list,TextView display) {
         String url = ip + "/teaching_courses.php";
@@ -246,6 +248,7 @@ public class DataBase{
                     Intent intent = new Intent(context, student_course_view.class);
                     intent.putExtra("courseName" , course_name);
                     intent.putExtra("userNumber", number);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
                 else{
@@ -481,6 +484,31 @@ public class DataBase{
         requestQueue.add(stringRequest);
     }
     //upload user's image to the edit profile page
+    public static void upload_image(Context context, String image_intent, String userNumber,ImageView userImage,ImageView imageView){
+        String url = ip +"/upload_image.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, response.trim(), Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("userNumber", userNumber);
+                data.put("imageURL", image_intent);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
     public static void upload_image(Context context, String image_intent, String userNumber,ImageView userImage){
         String url = ip +"/upload_image.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -510,6 +538,8 @@ public class DataBase{
     public static void get_image(Context context, String userNumber, ImageView imageView){
         Picasso.get()
                 .load(ip + "/profile_photos/" + userNumber + ".jpg")
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
                 .error(R.drawable.course_pic_1)
                 .placeholder(R.drawable.profile_icon)
                 .fit()
@@ -645,6 +675,7 @@ public class DataBase{
                         String fullName = jsonObject.getString("first_name") +" "+ jsonObject.getString("last_name");
                         String email_address = jsonObject.getString("email_address");
                         String role = jsonObject.getString("user_role");
+
                         // Do Stuff
                         userList.add(new userModel(fullName,email_address,role,R.drawable.profile_icon,R.drawable.ic_baseline_delete_24));
                     }
@@ -734,7 +765,7 @@ public class DataBase{
             public void onResponse(String response) {
                 String a = DocTitle.getText().toString().trim();
                 Toast.makeText(view,response,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view,main_menu_teacher.class);
+                Intent intent = new Intent(view,teacher_course_view.class);
                 intent.putExtra("courseName",courseName);
                 intent.putExtra("userNumber",userNumber);
                 view.startActivity(intent);
@@ -952,6 +983,450 @@ public class DataBase{
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(request);
     }
+
+
+    public static void create_quiz(Context context, String courseName, String totalMarks, String quizName, LinearLayout course_list, String userNumber) {
+        String url = ip + "/create_quiz.php";
+        final int[] quiz_id = new int[1];
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                create_quiz.save(context, course_list, quizName, courseName, userNumber);
+                Toast.makeText(context, "Quiz successfully created!", Toast.LENGTH_SHORT).show();
+
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                data.put("total_marks", totalMarks);
+                data.put("quiz_name", quizName);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+//        return quiz_id[0];
+    }
+
+
+    public static void add_input_question(Context context, String courseName, String question_number, String quizName,
+                                          String question, String marks, String answer, RequestQueue requestQueue) {
+        String url = ip + "/enter_question.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                String m  = response;
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                data.put("question_num", question_number);
+                data.put("quiz_name", quizName);
+                data.put("answer", answer);
+                data.put("mark", marks);
+                data.put("question", question);
+                return data;
+            }
+        };
+
+        requestQueue.add(stringRequest);
+//        return quiz_id[0];
+    }
+
+
+    public static void add_multiple_choice(Context context, String courseName, String question_number, String quizName,
+                                           String question, String marks, String answer, String optionA, String optionB,
+                                           String optionC, String optionD,RequestQueue requestQueue) {
+        String url = ip + "/multiple_choice.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                String m  = response;
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                data.put("question_num", question_number);
+                data.put("quiz_name", quizName);
+                data.put("answer", answer);
+                data.put("mark", marks);
+                data.put("question", question);
+                data.put("optionA", optionA);
+                data.put("optionB", optionB);
+                data.put("optionC", optionC);
+                data.put("optionD", optionD);
+                return data;
+            }
+        };
+        requestQueue.add(stringRequest);
+//        return quiz_id[0];
+    }
+
+    public static void grade(Context context,String courseName,String quizName ,HashMap<String,Integer> studentAnswers,String userNumber){
+        // Get All the correct answers for the quiz
+
+        String url = ip + "/answer_quiz2.php?quiz_name="+quizName+"&course_name="+courseName;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            int total_mark =0;
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    int i =0;
+                    for(String key : studentAnswers.keySet()){
+                        if( key.equals(jsonArray.getString(i)) ){
+                            total_mark += studentAnswers.get(key);
+                        }
+                    }
+                    // Push Grades to the server
+                    DataBase.send_grade(context,courseName,quizName,userNumber ,total_mark);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String r = error.toString();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    // Sends Grades for a student to the database for a quiz with QuizName
+    private static void send_grade(Context context,String courseName, String quizName, String userNumber, int total_mark) {
+        String url = ip + "/send_grades.php?quizName="+quizName+"&userNumber="+userNumber+"&mark="+Integer.toString(total_mark)+"&courseName="+courseName;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            int total_mark =0;
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context,response,Toast.LENGTH_LONG).show();
+
+                Intent quiz = new Intent(context,student_quiz_view.class);
+                quiz.putExtra("userNumber",userNumber);
+                quiz.putExtra("courseName",courseName);
+                context.startActivity(quiz);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    public static void get_all_quiz(Context context, String courseName, LinearLayout course_list, String userNumber) {
+        String url = ip + "/all_quiz.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                try {
+                    ArrayList<String> quiz_name = new ArrayList<>();
+                    ArrayList <String> avarage_marks = new ArrayList<>();
+                    JSONArray array = new JSONArray(response);
+                    for (int i = 0; i < array.length(); i++){
+                        JSONObject new_quiz = array.getJSONObject(i);
+                        String quizName = new_quiz.getString("quiz_name");
+                        String total_marks = new_quiz.getString("total_marks");
+                        quiz_name.add(quizName);
+                        avarage_marks.add(total_marks);
+                    }
+                    ViewsClass.quizzes(context, course_list, quiz_name, avarage_marks, userNumber, courseName);
+                    teacher_quiz_view.setDelete(context, course_list, courseName, userNumber);
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    public static void delete_quiz(Context context, String courseName, String quizName) {
+        String url = ip + "/delete_quiz.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                String n = response;
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                data.put("quiz_name", quizName);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+    public static void get_grades(Context context, String courseName, LinearLayout course_list, String quizName) {
+        String url = ip + "/get_marks.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray array = new JSONArray(response);
+                    for (int i = 0; i < array.length(); i++){
+                        JSONObject new_quiz = array.getJSONObject(i);
+                        String studentNumber = new_quiz.getString("quiz_id");
+                        String marks = new_quiz.getString("marks");
+                        String student = new_quiz.getString("student_id");
+                        ViewsClass.grades(context, course_list, studentNumber,student, marks);
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                data.put("quiz_name", quizName);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+    public static void written_quiz(Context context, String courseName, LinearLayout available, LinearLayout past, String userNumber) {
+        String url = ip + "/student_quiz.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                try {
+                    ArrayList<String> available_quizName = new ArrayList<>();
+                    ArrayList <String> available_marks= new ArrayList<>();
+                    ArrayList<String> past_quizName = new ArrayList<>();
+                    ArrayList <String> past_marks= new ArrayList<>();
+                    JSONArray array = new JSONArray(response);
+                    for (int i = 0; i < array.length(); i++){
+                        JSONObject new_quiz = array.getJSONObject(i);
+                        String quizName = new_quiz.getString("quiz_name");
+                        String written = new_quiz.getString("course_id");
+                        String marks = new_quiz.getString("total_marks");
+                        if (written.equals("written")){
+                            past_quizName.add(quizName);
+                            past_marks.add(marks);
+                        }
+                        else{
+                            available_quizName.add(quizName);
+                            available_marks.add(marks);
+                        }
+                    }
+                    ViewsClass.available_quizzes(context, available, available_quizName, available_marks,userNumber, courseName);
+                    ViewsClass.past_quizzes(context, past, past_quizName, past_marks,userNumber, courseName);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                data.put("student_number", userNumber);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    public static void get_questions(Context context, LinearLayout layout,String courseName,String quizName) {
+        String url = ip + "/get_question.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if (!jsonObject.has("optionA")){
+                            ViewsClass.add_input_question(context,layout,jsonObject.getString("question"),
+                                    jsonObject.getString("marks"),
+                                    jsonObject.getString("question_number"));
+                        }else{
+                            ViewsClass.add_multiple_choice(context,layout,jsonObject.getString("question"),
+                                    jsonObject.getString("marks"),
+                                    jsonObject.getString("question_number"),
+                                    jsonObject.getString("optionA"),
+                                    jsonObject.getString("optionB"),
+                                    jsonObject.getString("optionC"),
+                                    jsonObject.getString("optionD"));
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                data.put("quiz_name", quizName);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    public static void review_quiz(Context context, String courseName, LinearLayout review, String userNumber, String quizName) {
+        String url = ip + "/review_quiz.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray array = new JSONArray(response);
+                    for (int i = 0; i < array.length(); i++){
+                        JSONObject new_quiz = array.getJSONObject(i);
+                        String question = new_quiz.getString("question");
+                        String question_number = new_quiz.getString("question_number");
+                        String correct_answer = new_quiz.getString("correct_answer");
+                        String user_answer = new_quiz.getString("user_answer");
+                        String marks = new_quiz.getString("marks");
+                        ViewsClass.review(context, review,question_number, question, user_answer, correct_answer, marks);
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                data.put("student_number", userNumber);
+                data.put("quiz_name", quizName);
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+    public static void save_answer(Context context, String courseName, String userNumber, String quizName, String quuestion_num, String answer) {
+        String url = ip + "/answer_quiz.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            //Response listener
+            @Override
+            public void onResponse(String response) {
+                String n = response;
+
+            }
+        },   //Error listener to display an error message
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {   //Request parameters
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("course_name", courseName);
+                data.put("student_number", userNumber);
+                data.put("quiz_name", quizName);
+                data.put("question_number", quuestion_num);
+                data.put("answer" , answer);
+                data.put("mark" , "0");
+
+                return data;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
 }
 
 

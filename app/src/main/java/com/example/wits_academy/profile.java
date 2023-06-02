@@ -63,6 +63,11 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         email = findViewById(R.id.profile_email);
         userNumber = findViewById(R.id.profile_number);
         userImage = (ImageView)findViewById(R.id.profile_image);
+        navigationView = (NavigationView) findViewById(R.id.nav);
+        navigationView.setNavigationItemSelectedListener(this);
+        View view = navigationView.getHeaderView(0);
+        imageView = view.findViewById(R.id.imageView9);
+
 
         ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -76,6 +81,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
                             try {
                                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getData().getData());
                                 userImage.setImageBitmap(bitmap);
+                                imageView.setImageBitmap(bitmap);
                                 add_image();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -86,6 +92,7 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
                 });
 
         DataBase.get_image(this, user, userImage);
+        DataBase.get_image(this, user, imageView);
 
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,14 +104,6 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
             }
         });
 
-        navigationView = (NavigationView) findViewById(R.id.nav);
-        navigationView.setNavigationItemSelectedListener(this);
-        View view = navigationView.getHeaderView(0);
-
-        TextView userName = view.findViewById(R.id.name);
-        userName.setText(courseName);
-        imageView = view.findViewById(R.id.imageView9);
-        DataBase.get_image(this,courseName,imageView);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -133,16 +132,6 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         getSupportActionBar().setTitle("Profile");
     }
 
-//    public void editprofile(View view) {
-//        Intent intent = new Intent(this, edit_profile.class);
-//        intent.putExtra("userNumber", user);
-//        intent.putExtra("email", email.getText().toString());
-//        intent.putExtra("surname", surname.getText().toString());
-//        intent.putExtra("name", name.getText().toString());
-//        intent.putExtra("image", Image);
-//        intent.putExtra("has_image", has);
-//        startActivity(intent);
-//    }
 
     public void back_to_login(View view) {
         DataBase.back_to_menu(this, user);
@@ -150,16 +139,13 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
 
     private void add_image(){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        if (bitmap != null){
+        if (bitmap != null) {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
             byte[] bytes = byteArrayOutputStream.toByteArray();
             final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-            DataBase.upload_image(this, base64Image, user,userImage);
-            DataBase.get_image(this, user, userImage);
-            DataBase.get_image(this, user, imageView);
+            DataBase.upload_image(this, base64Image, user, userImage,imageView);
 
 
-//            userNumber.setText(base64Image);
         }
     }
 
@@ -202,3 +188,4 @@ public class profile extends AppCompatActivity implements NavigationView.OnNavig
         return true;
     }
 }
+

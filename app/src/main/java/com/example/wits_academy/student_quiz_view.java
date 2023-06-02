@@ -29,6 +29,7 @@ public class student_quiz_view extends AppCompatActivity implements NavigationVi
     DrawerLayout drawerLayout;
     String courseName;
     TextView logout;
+//    int quiz_id;
     String role;
     NavigationView navigationView;
 
@@ -67,23 +68,7 @@ public class student_quiz_view extends AppCompatActivity implements NavigationVi
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle("Quizzes");
 
-        ArrayList<String> quiz_name = new ArrayList<>();
-        ArrayList <String> avarage_marks= new ArrayList<>();
-//        quiz_name.add(0,"quiz1");
-//        avarage_marks.add(0, "56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        quiz_name.add("Quiz1");
-        avarage_marks.add("56");
-        ViewsClass.available_quizzes(this, available_quizzes, quiz_name, avarage_marks,userNumber, courseName);
-        ViewsClass.past_quizzes(this, past_quizzes, quiz_name, avarage_marks,userNumber, courseName);
-
+        DataBase.written_quiz(this, courseName, available_quizzes, past_quizzes, userNumber);
     }
 
     @Override
@@ -98,8 +83,7 @@ public class student_quiz_view extends AppCompatActivity implements NavigationVi
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
-                return true;
+
             case R.id.announcements:
                 Intent intent1 = new Intent(this,Announcements.class);
                 intent1.putExtra("userNumber",userNumber);
@@ -108,13 +92,21 @@ public class student_quiz_view extends AppCompatActivity implements NavigationVi
                 startActivity(intent1);
                 return true;
             case R.id.course_slides:
+                Intent intent3 = new Intent(this,upload_file.class);
+                intent3.putExtra("courseName",courseName);
+                intent3.putExtra("type","Documents");
+                intent3.putExtra("userNumber",userNumber);
+                startActivity(intent3);
                 return true;
             case R.id.videos:
+                Intent intent2 = new Intent(this,upload_file.class);
+                intent2.putExtra("courseName",courseName);
+                intent2.putExtra("type","Videos");
+                intent2.putExtra("userNumber",userNumber);
+                startActivity(intent2);
                 return true;
             case R.id.quiz:
                 drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            case R.id.grades:
                 return true;
             case R.id.back:
                 DataBase.back_to_menu(this,userNumber);
@@ -128,6 +120,13 @@ public class student_quiz_view extends AppCompatActivity implements NavigationVi
                 intent.putExtra("courseName",courseName);
                 intent.putExtra("Role","Student");
                 startActivity(intent);
+            case R.id.courseHomeActivity:
+                Intent intent5 = new Intent(this,viewUsers.class);
+                intent5.putExtra("courseName",courseName);
+                intent5.putExtra("userNumber",userNumber);
+                startActivity(intent5);
+
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

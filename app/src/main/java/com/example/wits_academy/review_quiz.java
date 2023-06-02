@@ -40,6 +40,7 @@ public class review_quiz extends AppCompatActivity implements NavigationView.OnN
         userNumber = user_number.getStringExtra("userNumber");
         courseName = user_number.getStringExtra("courseName");
         quizName = user_number.getStringExtra("quizName");
+
         quiz_review = (LinearLayout) findViewById(R.id.contents);
         TextView title = findViewById(R.id.quiz_name);
         title.setText(quizName);
@@ -68,24 +69,7 @@ public class review_quiz extends AppCompatActivity implements NavigationView.OnN
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         getSupportActionBar().setTitle("Review Quiz");
 
-//        ArrayList<String> quiz_name = new ArrayList<>();
-//        ArrayList <String> avarage_marks= new ArrayList<>();
-////        quiz_name.add(0,"quiz1");
-////        avarage_marks.add(0, "56");
-//        quiz_name.add("Quiz1");
-//        avarage_marks.add("56");
-//        quiz_name.add("Quiz1");
-//        avarage_marks.add("56");
-//        quiz_name.add("Quiz1");
-//        avarage_marks.add("56");
-//        quiz_name.add("Quiz1");
-//        avarage_marks.add("56");
-//        quiz_name.add("Quiz1");
-//        avarage_marks.add("56");
-////        ViewsClass.available_quizzes(this, available_quizzes, quiz_name, avarage_marks,userNumber, courseName);
-//        ViewsClass.past_quizzes(this, past_quizzes, quiz_name, avarage_marks,userNumber, courseName);
-        ViewsClass.review(this, quiz_review,"1","what my name", "ezekiel", "fuck you", "5");
-        ViewsClass.review(this, quiz_review,"2","what my name", "Tony", "fuck you", "5");
+        DataBase.review_quiz(this, courseName, quiz_review, userNumber, quizName);
 
     }
 
@@ -102,8 +86,7 @@ public class review_quiz extends AppCompatActivity implements NavigationView.OnN
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.questions:
-                return true;
+
             case R.id.announcements:
                 Intent intent1 = new Intent(this,Announcements.class);
                 intent1.putExtra("userNumber",userNumber);
@@ -112,8 +95,18 @@ public class review_quiz extends AppCompatActivity implements NavigationView.OnN
                 startActivity(intent1);
                 return true;
             case R.id.course_slides:
+                Intent intent3 = new Intent(this,upload_file.class);
+                intent3.putExtra("courseName",courseName);
+                intent3.putExtra("type","Documents");
+                intent3.putExtra("userNumber",userNumber);
+                startActivity(intent3);
                 return true;
             case R.id.videos:
+                Intent intent2 = new Intent(this,upload_file.class);
+                intent2.putExtra("courseName",courseName);
+                intent2.putExtra("type","Videos");
+                intent2.putExtra("userNumber",userNumber);
+                startActivity(intent2);
                 return true;
             case R.id.quiz:
                 Intent quiz = new Intent(this, student_quiz_view.class);
@@ -121,8 +114,7 @@ public class review_quiz extends AppCompatActivity implements NavigationView.OnN
                 quiz.putExtra("courseName",courseName);
                 startActivity(quiz);
                 return true;
-            case R.id.grades:
-                return true;
+
             case R.id.back:
                 DataBase.back_to_menu(this,userNumber);
                 return true;

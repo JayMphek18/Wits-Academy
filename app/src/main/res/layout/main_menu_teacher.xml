@@ -42,14 +42,18 @@
 
                 <TextView
                     android:id="@+id/NoCoursesAvailableTeacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:onClick="create"
+                    android:layout_marginTop="300dp"
+                    android:gravity="center"
+                    android:text="You have not created any courses click on this text to create a new course"
                     android:textColor="@color/white"
                     android:textSize="17dp"
-                    android:layout_marginTop="300dp"
                     android:textStyle="bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="You have not created any courses click on this text to create a new course"
-                    android:onClick="create"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/frame_layout"
+                    app:layout_constraintStart_toStartOf="@+id/frame_layout" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
