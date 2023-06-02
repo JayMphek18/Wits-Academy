@@ -9,10 +9,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
 
+import android.provider.SyncStateContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.view.menu.MenuBuilder;
@@ -177,7 +179,7 @@ public class search_coursesTest {
                 ViewsClass.viewlayout(1, 0, search_.getBaseContext() , courseName, userNumber, courseCode, teacherName, search_.course_list);
             }
         });
-        assertEquals(search_.course_list.getChildCount(), 1);
+        assertEquals(search_.course_list.getChildCount(), 2);
     }
 
     @Test
@@ -213,10 +215,15 @@ public class search_coursesTest {
                 for (int i = 1; i <= search_.course_list.getChildCount() - 3; i++){
                     View view = search_.course_list.getChildAt(search_.course_list.getChildCount() - i).findViewById(R.id.enroll_botton);
                     view.performClick();
-
+                    View pop_password = View.inflate(search_.getApplicationContext() , R.layout.enrrollment_password, null);
+                    TextView enroll = pop_password.findViewById(R.id.cancel);
+                    enroll.performClick();
                 }
                 View view2 = search_.course_list.getChildAt(search_.course_list.getChildCount() - 1).findViewById(R.id.enroll_botton2);
                 view2.performClick();
+                View pop_password = View.inflate(search_.getApplicationContext() , R.layout.enrrollment_password, null);
+                TextView enroll = pop_password.findViewById(R.id.cancel);
+                enroll.performClick();
             }
         });
 
@@ -270,8 +277,17 @@ public class search_coursesTest {
                 for (int i = 1; i <= search_.course_list.getChildCount() - 3; i++){
                     View view = search_.course_list.getChildAt(search_.course_list.getChildCount() - i).findViewById(R.id.enroll_botton);
                     view.performClick();
+                    View pop_password = View.inflate(search_.getApplicationContext() , R.layout.enrrollment_password, null);
+                    TextView enroll = pop_password.findViewById(R.id.enroll);
+                    TextView massage = pop_password.findViewById(R.id.error);
+                    enroll.performClick();
+                    assertEquals("Please enter the password provided by the teacher before you can continue", massage.getText().toString());
                     View view2 = search_.course_list.getChildAt(search_.course_list.getChildCount() - i).findViewById(R.id.enroll_botton2);
                     view2.performClick();
+                    View pop_password2 = View.inflate(search_.getApplicationContext() , R.layout.enrrollment_password, null);
+                    TextView massage2 = pop_password2.findViewById(R.id.error);
+                    assertEquals("Please Enter the password that was provided by the teacher", massage.getText().toString());
+
                 }
             }
         });
@@ -387,4 +403,5 @@ public class search_coursesTest {
         search_ = null;
         Intents.release();
     }
+    
 }
