@@ -196,15 +196,19 @@ public class write_quizTest {
         RadioButton choiceC = add_question.findViewById(R.id.optionC);
         RadioButton choiceD = add_question.findViewById(R.id.optionD);
 
-        choiceA.setChecked(false);
-        choiceB.setChecked(false);
-        choiceC.setChecked(false);
-        choiceD.setChecked(true);
+
 
         Button button = write.findViewById(R.id.button);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                choiceA.setChecked(false);
+
+        choiceB.setChecked(false);
+
+        choiceC.setChecked(false);
+
+        choiceD.setChecked(true);
                 button.performClick();
             }
         });
