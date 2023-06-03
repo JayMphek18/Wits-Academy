@@ -1,0 +1,50 @@
+.body {
+    background-color: #bed2e2;
+    font-family: 'Droid Sans', sans-serif;
+}
+
+.section {
+    background-color: #1a2852;
+    justify-content: flex-start;
+    display: flex;
+  }
+
+.head1 {
+    color: #c4d1db;
+    font-family: Droid Sans, sans-serif;
+    font-weight: 700;
+    position: relative;
+    bottom: -24px;
+    left: 30px;
+}
+
+.link {
+    color: #c4d1db;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    top: 50px;
+    left: 494px;
+    right: 0;
+  }
+  .container {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+.profile{
+  border-radius: 100px;
+  position: static;
+  left: 402px;
+}
+.text {
+  color: #131618;
+  position: static;
+  left: 433px;
+}
+.head4 {
+  color: #020202;
+  display: inline-block;
+}

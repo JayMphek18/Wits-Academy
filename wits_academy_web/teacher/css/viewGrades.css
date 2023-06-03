@@ -1,0 +1,123 @@
+.body {
+    background-color: #bed2e2;
+    font-family: 'Droid Sans', sans-serif;
+}
+
+.section2{
+    max-width: 100px;
+    min-height: 1000px;
+    min-width: 250px;
+    text-align: center;
+    background-color: #1a2852;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: Droid Sans, sans-serif;
+    font-weight: 700;
+    display: flex;
+    position: fixed;
+    top: 101px;
+}
+
+.container {
+    position: relative;
+    top: 49px;
+    }
+.section1 {
+    background-color: #1a2852;
+    justify-content: flex-start;
+    display: flex;
+    position: fixed;
+    top: 0%;
+    bottom: auto;
+    left: 0%;
+    right: 0%;
+}
+.head1{
+    color: #c4d1db;
+    font-family: Droid Sans, sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    position: relative;
+    bottom: -24px;
+    left: 26px;
+}
+.link {
+color: #c4d1db;
+font-family: Montserrat, sans-serif;
+font-size: 25px;
+font-weight: 700;
+text-decoration: none;
+position: relative;
+top: 50px;
+left: 494px;
+right: 0;
+}
+
+.ul li{
+   list-style: none;
+}
+.ul li a{
+   font-family: 'Droid Sans', sans-serif;
+   font-weight: 500px;
+   padding: 5px 0;
+   display: block;
+   text-decoration: none;
+   transition: 0.2s ease-out;
+   color: #c4d1db;
+}
+.ul li:hover a{
+   color: #1a2852;
+   background-color: #c4d1db;
+}
+.ul li i{
+   width: 40px;
+   text-align: justify;
+}
+
+.section-9 {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    display: flex;
+    position: relative;
+    top: 111px;
+    left: 262px;
+  }
+  .text-block-17 {
+    background-color: #f4fcff;
+    padding-top: 0;
+    padding-bottom: 9px;
+    font-size: 20px;
+    box-shadow: 10px 0 5px rgba(0, 0, 0, .2);
+  }
+
+  .list-9 {
+    list-style-type: none;
+    position: relative;
+    top: 14px;
+    left: -1px;
+    box-shadow: 8px 8px 5px rgba(0, 0, 0, .2);
+  }
+  .list-item-7 {
+    justify-content: flex-start;
+    padding-top: 0;
+    padding-bottom: 22px;
+    font-size: 20px;
+    display: flex;
+  }
+  .text-block-13 {
+    padding-top: 0;
+    position: relative;
+  }
+  .div-block-10 {
+    font-weight: 800;
+    position: relative;
+    left: 306px;
+  }
+  .text-block-15 {
+    position: relative;
+    left: -71px;
+  }

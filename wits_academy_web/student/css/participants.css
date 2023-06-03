@@ -1,0 +1,29 @@
+.body {
+    background-color: #bed2e2;
+    font-family: 'Droid Serif', serif;
+}
+.container {
+   position: relative;
+   top: 49px;
+   }
+   .section1 {
+   background-color: #1a2852;
+   justify-content: flex-start;
+   display: flex;
+   position: fixed;
+   top: 0%;
+   bottom: auto;
+   left: 0%;
+   right: 0%;
+   }
+ .link-3 {
+   color: #c4d1db;
+   font-family: Droid Sans, sans-serif;
+   font-size: 20px;
+   font-weight: 700;
+   text-decoration: none;
+ }
+
+
+
+

@@ -1,0 +1,79 @@
+.body {
+    background-color: #bed2e2;
+    font-family: 'Droid Sans', sans-serif;
+}
+
+.section {
+    background-color: #1a2852;
+    justify-content: flex-start;
+    display: flex;
+  }
+
+.head1 {
+    color: #c4d1db;
+    font-family: Droid Sans, sans-serif;
+    font-weight: 700;
+    position: relative;
+    bottom: -24px;
+    left: 30px;
+}
+
+.link {
+    color: #c4d1db;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    top: 50px;
+    left: 494px;
+    right: 0;
+  }
+
+.head2 {
+    float: none;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 800;
+    text-decoration: none;
+    position: static;
+}
+.container {
+    position: relative;
+    top: 49px;
+}
+
+.form-block {
+    position: relative;
+    top: 34px;
+  }
+
+.form {
+    text-align: left;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    display: flex;
+    position: relative;
+    top: -30px;
+}
+
+.password{
+    border-radius: 18px;
+  }
+
+.text-block1{
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 11px;
+}
+
+.enroll{
+    background-color: #1a2852;
+    border-radius: 18px;
+    color: #c4d1db ;
+    font-family: Droid Sans, sans-serif;
+  }

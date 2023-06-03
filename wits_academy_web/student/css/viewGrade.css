@@ -1,0 +1,127 @@
+.body {
+    background-color: #bed2e2;
+    font-family: 'Droid Sans', sans-serif;
+}
+
+.section2{
+    max-width: 100px;
+    min-height: 1000px;
+    min-width: 250px;
+    text-align: center;
+    background-color: #1a2852;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: Droid Sans, sans-serif;
+    font-weight: 700;
+    display: flex;
+    position: fixed;
+    top: 101px;
+}
+
+.container {
+    position: relative;
+    top: 49px;
+    }
+.section1 {
+    background-color: #1a2852;
+    justify-content: flex-start;
+    display: flex;
+    position: fixed;
+    top: 0%;
+    bottom: auto;
+    left: 0%;
+    right: 0%;
+}
+.head1{
+    color: #c4d1db;
+    font-family: Droid Sans, sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    position: relative;
+    bottom: -24px;
+    left: 26px;
+}
+.link {
+color: #c4d1db;
+font-family: Montserrat, sans-serif;
+font-size: 25px;
+font-weight: 700;
+text-decoration: none;
+position: relative;
+top: 50px;
+left: 494px;
+right: 0;
+}
+
+.ul li{
+   list-style: none;
+}
+.ul li a{
+   font-family: 'Droid Sans', sans-serif;
+   font-weight: 500px;
+   padding: 5px 0;
+   display: block;
+   text-decoration: none;
+   transition: 0.2s ease-out;
+   color: #c4d1db;
+}
+.ul li:hover a{
+   color: #1a2852;
+   background-color: #c4d1db;
+}
+.ul li i{
+   width: 40px;
+   text-align: justify;
+}
+
+.section3 {
+    position: relative;
+    top: 95px;
+    left: 300px;
+}
+
+.heading {
+    font-family: Droid Sans, sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 800;
+    text-decoration: none;
+    position: relative;
+    left: -38.01px;
+}
+
+.form-block {
+    position: relative;
+    left: -35px;
+  }
+
+.form {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    font-family: Exo, sans-serif;
+    display: flex;
+  }
+
+  .submit {
+    background-color: #223a78;
+    border-radius: 18px;
+  }
+
+.list {
+    list-style-type: lower-alpha;
+    display: inline;
+  }
+
+.text-block-1 {
+    text-transform: none;
+    background-color: #86e5a6;
+    border: 1px solid #f1f1f1;
+    font-weight: 500;
+  }
+  
+.text-block-2 {
+    background-color: #fcabab;
+    border: 1px solid #fff;
+  }
