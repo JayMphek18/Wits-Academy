@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context=".Announcements"
+    tools:openDrawer="start">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/draw_layout"
+        android:layout_width="match_parent"
+        android:layout_height="671dp"
+        android:background="@drawable/page_background"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/NoAnnouncement_tv"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="121dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:text="No Announcement Currently, check in later."-->
+        <!--            android:textColor="@color/gold"-->
+        <!--            android:textSize="15dp"-->
+        <!--            android:textStyle="italic"-->
+        <!--            android:visibility="visible" />-->
+
+        <ScrollView
+            android:id="@+id/t_sroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="80dp">
+
+            <LinearLayout
+                android:id="@+id/t_courses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/design_default_color_primary"
+                    android:elevation="4dp"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:popupTheme="@style/Theme.AppCompat.Light" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <FrameLayout
+                    android:id="@+id/frame_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_gravity="start"
+            android:id="@+id/nav"
+            app:headerLayout="@layout/navigator"
+            app:menu="@menu/teacher_navigator" />
+
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_blue_A200">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton3"
+            android:layout_width="61dp"
+            android:layout_height="55dp"
+            android:background="@drawable/page_background"
+            android:contentDescription="Button to open popup for creating anannouncement"
+            android:clickable="true"
+            android:onClick="go_to_CreateAnnounce"
+            android:paddingRight="40dp"
+            app:backgroundTint="#5362B6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/add_icon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

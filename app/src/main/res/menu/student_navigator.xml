@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/announcements"
+            android:title="Announcements"/>
+        <item android:id="@+id/back"
+            android:title="Course Dashboard"/>
+        <item android:id="@+id/logout"
+            android:title="Logout"/>
+        <item android:id="@+id/ViewUsers"
+            android:title="View participants"/>
+    </group>
+
+    <item android:title="Content">
+        <menu>
+            <item android:id="@+id/courseHomeActivity"
+                android:title="Course Homepage"/>
+            <item android:id="@+id/quiz"
+                android:title="Quizzes"/>
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e1371eae-5781-42f2-a596-9e81fa1b9727" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/create_quiz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/grades.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/review_quiz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/student_quiz_view.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/teacher_quiz_view.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/write_quiz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/create_quiz.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/delete_quiz.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/grades.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/input_layout_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/input_question_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/multiple_choice_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/multiple_choice_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/quiz_details.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/quiz_review.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/quiz_start.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/review_quiz.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/student_grade.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/student_quiz_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/teacher_quiz_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/write_quiz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/androidTestResultsUserPreferences.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/androidTestResultsUserPreferences.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/MainActivityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/MainActivityTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/forgot_passwordTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/forgot_passwordTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/main_menu_studentTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/main_menu_studentTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/main_menu_teacherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/main_menu_teacherTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/register_pageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/register_pageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/search_coursesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/androidTest/java/com/example/wits_academy/search_coursesTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/Announcements.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/Announcements.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/DataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/DataBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/ViewsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/ViewsClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/announcement_recyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/announcement_recyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/create_announcement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/create_announcement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/create_course.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/create_course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/edit_profile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/enrollment_password.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/enrollment_password.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/forgot_password.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/forgot_password.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/main_menu_student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/main_menu_student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/main_menu_teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/main_menu_teacher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/own_course.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/register_page.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/register_page.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/search_courses.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/search_courses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/student_course_view.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/student_course_view.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/teacher_course_view.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/teacher_course_view.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/upload_file.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/java/com/example/wits_academy/upload_file.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/activity_announcements.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/activity_announcements.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/activity_create_announcement.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/activity_create_announcement.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/course_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/course_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/create_course.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/create_course.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/edit_profile.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/forgot_password.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/forgot_password.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/list_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/list_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/login_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/login_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/m_recycler_announcement.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/m_recycler_announcement.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/main_menu_student.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/main_menu_student.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/main_menu_teacher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/main_menu_teacher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/nav_course_list.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/nav_course_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/own_course.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/search_courses.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/search_courses.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/student_course_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/student_course_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/teacher_course_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/teacher_course_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/layout/upload_file.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/layout/upload_file.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/menu/search_bar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/menu/search_bar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/menu/student_navigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/menu/student_navigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/menu/student_toolbox.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/menu/student_toolbox.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/menu/teacher_navigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/menu/teacher_navigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/menu/teacher_toolbox.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/menu/teacher_toolbox.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../app/src/main/res/values/strings.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2QZ5CKKn8l4KFgeIwFjBCFKdijm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e1371eae-5781-42f2-a596-9e81fa1b9727" name="Default Changelist" comment="" />
+      <created>1685548137623</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685548137623</updated>
+    </task>
+    <servers />
+  </component>
+</project>
