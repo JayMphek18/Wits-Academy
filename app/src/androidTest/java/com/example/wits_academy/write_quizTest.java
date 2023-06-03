@@ -88,15 +88,19 @@ public class write_quizTest {
         RadioButton choiceC = add_question.findViewById(R.id.optionC);
         RadioButton choiceD = add_question.findViewById(R.id.optionD);
 
-        choiceA.setChecked(true);
-        choiceB.setChecked(false);
-        choiceC.setChecked(false);
-        choiceD.setChecked(false);
+        
 
         Button button = write.findViewById(R.id.button);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                choiceA.setChecked(true);
+
+        choiceB.setChecked(false);
+
+        choiceC.setChecked(false);
+
+        choiceD.setChecked(false);
                 button.performClick();
             }
         });
@@ -124,15 +128,19 @@ public class write_quizTest {
         RadioButton choiceC = add_question.findViewById(R.id.optionC);
         RadioButton choiceD = add_question.findViewById(R.id.optionD);
 
-        choiceA.setChecked(false);
-        choiceB.setChecked(true);
-        choiceC.setChecked(false);
-        choiceD.setChecked(false);
+        
 
         Button button = write.findViewById(R.id.button);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                choiceA.setChecked(false);
+
+        choiceB.setChecked(true);
+
+        choiceC.setChecked(false);
+
+        choiceD.setChecked(false);
                 button.performClick();
             }
         });    }
@@ -159,15 +167,20 @@ public class write_quizTest {
         RadioButton choiceC = add_question.findViewById(R.id.optionC);
         RadioButton choiceD = add_question.findViewById(R.id.optionD);
 
-        choiceA.setChecked(false);
-        choiceB.setChecked(false);
-        choiceC.setChecked(true);
-        choiceD.setChecked(false);
+        
 
         Button button = write.findViewById(R.id.button);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                
+                choiceA.setChecked(false);
+
+        choiceB.setChecked(false);
+
+        choiceC.setChecked(true);
+
+        choiceD.setChecked(false);
                 button.performClick();
             }
         });
