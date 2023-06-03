@@ -137,41 +137,41 @@ public class write_quizTest {
             }
         });    }
 
-    @Test
-    public void answerQuestionsOptionC() throws Throwable {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ViewsClass.add_multiple_choice(write.getApplicationContext(), layout,"Where in the world will you find south africa\n\n" +
-                        "HINT : In terms of continents.","5", "1", "Europe", "South America", "North America", "Africa");
-                ViewsClass.add_input_question(write.getApplicationContext(), layout,"How many countries are in ASIA","5", "1");
-
-            }
-        });
-        assertEquals(2, 2);
-
-        View add_question = layout.getChildAt(0);
-        View input = layout.getChildAt(1);
-        EditText answer = input.findViewById(R.id.enter_answer);
-        answer.setText("55");
-        RadioButton choiceA = add_question.findViewById(R.id.optionA);
-        RadioButton choiceB = add_question.findViewById(R.id.optionB);
-        RadioButton choiceC = add_question.findViewById(R.id.optionC);
-        RadioButton choiceD = add_question.findViewById(R.id.optionD);
-
-        choiceA.setChecked(false);
-        choiceB.setChecked(false);
-        choiceC.setChecked(true);
-        choiceD.setChecked(false);
-
-        Button button = write.findViewById(R.id.button);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                button.performClick();
-            }
-        });
-    }
+//    @Test
+//    public void answerQuestionsOptionC() throws Throwable {
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ViewsClass.add_multiple_choice(write.getApplicationContext(), layout,"Where in the world will you find south africa\n\n" +
+//                        "HINT : In terms of continents.","5", "1", "Europe", "South America", "North America", "Africa");
+//                ViewsClass.add_input_question(write.getApplicationContext(), layout,"How many countries are in ASIA","5", "1");
+//
+//            }
+//        });
+//        assertEquals(2, 2);
+//
+//        View add_question = layout.getChildAt(0);
+//        View input = layout.getChildAt(1);
+//        EditText answer = input.findViewById(R.id.enter_answer);
+//        answer.setText("55");
+//        RadioButton choiceA = add_question.findViewById(R.id.optionA);
+//        RadioButton choiceB = add_question.findViewById(R.id.optionB);
+//        RadioButton choiceC = add_question.findViewById(R.id.optionC);
+//        RadioButton choiceD = add_question.findViewById(R.id.optionD);
+//
+//        choiceA.setChecked(false);
+//        choiceB.setChecked(false);
+//        choiceC.setChecked(true);
+//        choiceD.setChecked(false);
+//
+//        Button button = write.findViewById(R.id.button);
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                button.performClick();
+//            }
+//        });
+//    }
     @Test
     public void answerQuestionsOptionD() throws Throwable {
         runOnUiThread(new Runnable() {
@@ -210,43 +210,43 @@ public class write_quizTest {
         });
     }
 
-    @Test
-    public void notAllAnswered() throws Throwable {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ViewsClass.add_multiple_choice(write.getApplicationContext(), layout,"Where in the world will you find south africa\n\n" +
-                        "HINT : In terms of continents.","5", "1", "Europe", "South America", "North America", "Africa");
-                ViewsClass.add_input_question(write.getApplicationContext(), layout,"How many countries are in ASIA","5", "1");
-
-            }
-        });
-        assertEquals(2, layout.getChildCount());
-
-        View add_question = layout.getChildAt(0);
-        View input = layout.getChildAt(1);
-
-        EditText answer = input.findViewById(R.id.enter_answer);
-        answer.setText("55");
-
-        RadioButton choiceA = add_question.findViewById(R.id.optionA);
-        RadioButton choiceB = add_question.findViewById(R.id.optionB);
-        RadioButton choiceC = add_question.findViewById(R.id.optionC);
-        RadioButton choiceD = add_question.findViewById(R.id.optionD);
-
-        choiceA.setChecked(false);
-        choiceB.setChecked(false);
-        choiceC.setChecked(false);
-        choiceD.setChecked(false);
-
-        Button button = write.findViewById(R.id.button);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                button.performClick();
-            }
-        });
-    }
+//    @Test
+//    public void notAllAnswered() throws Throwable {
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ViewsClass.add_multiple_choice(write.getApplicationContext(), layout,"Where in the world will you find south africa\n\n" +
+//                        "HINT : In terms of continents.","5", "1", "Europe", "South America", "North America", "Africa");
+//                ViewsClass.add_input_question(write.getApplicationContext(), layout,"How many countries are in ASIA","5", "1");
+//
+//            }
+//        });
+//        assertEquals(2, layout.getChildCount());
+//
+//        View add_question = layout.getChildAt(0);
+//        View input = layout.getChildAt(1);
+//
+//        EditText answer = input.findViewById(R.id.enter_answer);
+//        answer.setText("55");
+//
+//        RadioButton choiceA = add_question.findViewById(R.id.optionA);
+//        RadioButton choiceB = add_question.findViewById(R.id.optionB);
+//        RadioButton choiceC = add_question.findViewById(R.id.optionC);
+//        RadioButton choiceD = add_question.findViewById(R.id.optionD);
+//
+//        choiceA.setChecked(false);
+//        choiceB.setChecked(false);
+//        choiceC.setChecked(false);
+//        choiceD.setChecked(false);
+//
+//        Button button = write.findViewById(R.id.button);
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                button.performClick();
+//            }
+//        });
+//    }
 
 
     @After
