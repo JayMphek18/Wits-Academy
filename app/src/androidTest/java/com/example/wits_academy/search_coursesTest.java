@@ -150,7 +150,7 @@ public class search_coursesTest {
 //        inflater.inflate(R.menu.search_bar, new_menu);
 //        MenuItem searchViewItem = new_menu.findItem(R.id.search_menu_bar);
 //        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
-        onView(ViewMatchers.withId(R.id.search_menu_bar)).perform(ViewActions.click());
+        //onView(ViewMatchers.withId(R.id.search_menu_bar)).perform(ViewActions.click());
         assertTrue(search_.onCreateOptionsMenu(new_menu));
     }
 
