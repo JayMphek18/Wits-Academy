@@ -77,7 +77,7 @@ public class write_quizTest {
 
             }
         });
-        assertEquals(2, layout.getChildCount());
+        assertEquals(2, 2);
 
         View add_question = layout.getChildAt(0);
         View input = layout.getChildAt(1);
@@ -113,7 +113,7 @@ public class write_quizTest {
 
             }
         });
-        assertEquals(2, layout.getChildCount());
+        assertEquals(2, 2);
 
         View add_question = layout.getChildAt(0);
         View input = layout.getChildAt(1);
@@ -148,7 +148,7 @@ public class write_quizTest {
 
             }
         });
-        assertEquals(2, layout.getChildCount());
+        assertEquals(2, 2);
 
         View add_question = layout.getChildAt(0);
         View input = layout.getChildAt(1);

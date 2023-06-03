@@ -213,6 +213,7 @@ public class teacher_course_view extends AppCompatActivity implements Navigation
                 intent.putExtra("userNumber",userNumber);
                 intent.putExtra("Role","Teacher");
                 startActivity(intent);
+                return true;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

@@ -120,12 +120,13 @@ public class student_quiz_view extends AppCompatActivity implements NavigationVi
                 intent.putExtra("courseName",courseName);
                 intent.putExtra("Role","Student");
                 startActivity(intent);
+                return true;
             case R.id.courseHomeActivity:
                 Intent intent5 = new Intent(this,viewUsers.class);
                 intent5.putExtra("courseName",courseName);
                 intent5.putExtra("userNumber",userNumber);
                 startActivity(intent5);
-
+                return true;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);
