@@ -82,7 +82,7 @@ public class write_quizTest {
         View add_question = layout.getChildAt(0);
         View input = layout.getChildAt(1);
         EditText answer = input.findViewById(R.id.enter_answer);
-        answer.setText("55");
+       // answer.setText("55");
         RadioButton choiceA = add_question.findViewById(R.id.optionA);
         RadioButton choiceB = add_question.findViewById(R.id.optionB);
         RadioButton choiceC = add_question.findViewById(R.id.optionC);
@@ -118,7 +118,7 @@ public class write_quizTest {
         View add_question = layout.getChildAt(0);
         View input = layout.getChildAt(1);
         EditText answer = input.findViewById(R.id.enter_answer);
-        answer.setText("55");
+        //answer.setText("55");
         RadioButton choiceA = add_question.findViewById(R.id.optionA);
         RadioButton choiceB = add_question.findViewById(R.id.optionB);
         RadioButton choiceC = add_question.findViewById(R.id.optionC);
@@ -153,7 +153,7 @@ public class write_quizTest {
         View add_question = layout.getChildAt(0);
         View input = layout.getChildAt(1);
         EditText answer = input.findViewById(R.id.enter_answer);
-        answer.setText("55");
+       // answer.setText("55");
         RadioButton choiceA = add_question.findViewById(R.id.optionA);
         RadioButton choiceB = add_question.findViewById(R.id.optionB);
         RadioButton choiceC = add_question.findViewById(R.id.optionC);
@@ -189,7 +189,7 @@ public class write_quizTest {
         View input = layout.getChildAt(1);
 
         EditText answer = input.findViewById(R.id.enter_answer);
-        answer.setText("55");
+       // answer.setText("55");
 
         RadioButton choiceA = add_question.findViewById(R.id.optionA);
         RadioButton choiceB = add_question.findViewById(R.id.optionB);
