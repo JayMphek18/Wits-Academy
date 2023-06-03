@@ -2,6 +2,7 @@ package com.example.wits_academy;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intending;
@@ -9,6 +10,7 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
 
 import android.app.Activity;
@@ -49,7 +51,7 @@ public class forgot_passwordTest {
 //    }
 
     @Test
-    public void ResetButtonClickable(){
+    public void ResetButtonClickable() throws Throwable {
         onView(ViewMatchers.withId(R.id.f_enter_email)).perform(scrollTo()).perform(ViewActions.typeText("hlubi@gmail.com"));
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.f_enter_number)).perform(scrollTo()).perform(ViewActions.typeText("1234567"));
@@ -58,13 +60,12 @@ public class forgot_passwordTest {
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.f_enter_corfirm_password)).perform(scrollTo()).perform(ViewActions.typeText("1234567"));
         closeSoftKeyboard();
-//        onView(ViewMatchers.withId(R.id.reset_button)).perform(scrollTo()).perform(ViewActions.click());
-
+                onView(ViewMatchers.withId(R.id.reset_button)).perform(scrollTo()).perform(click());
         assertTrue(forgot_password.validate_password());
     }
 
     @Test
-    public void InvalidEmailEntered(){
+    public void InvalidEmailEntered() throws Throwable {
         onView(ViewMatchers.withId(R.id.f_enter_email)).perform(scrollTo()).perform(ViewActions.typeText("hlubgmail.com"));
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.f_enter_number)).perform(scrollTo()).perform(ViewActions.typeText("1234567"));
@@ -73,7 +74,8 @@ public class forgot_passwordTest {
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.f_enter_corfirm_password)).perform(scrollTo()).perform(ViewActions.typeText("1234567"));
         closeSoftKeyboard();
-//        onView(ViewMatchers.withId(R.id.reset_button)).perform(scrollTo()).perform(ViewActions.click());
+
+                onView(ViewMatchers.withId(R.id.reset_button)).perform(scrollTo()).perform(click());
 
         assertFalse(forgot_password.validate_password());
     }
@@ -109,12 +111,27 @@ public class forgot_passwordTest {
     }
 
     @Test
+    public void noMAILEntered(){
+        onView(ViewMatchers.withId(R.id.f_enter_email)).perform(scrollTo()).perform(ViewActions.typeText(""));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.f_enter_number)).perform(scrollTo()).perform(ViewActions.typeText("1234567"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.f_reset_password)).perform(scrollTo()).perform(ViewActions.typeText("1234567"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.f_enter_corfirm_password)).perform(scrollTo()).perform(ViewActions.typeText("12367"));
+        closeSoftKeyboard();
+//        onView(ViewMatchers.withId(R.id.reset_button)).perform(scrollTo()).perform(ViewActions.click());
+
+        assertFalse(forgot_password.validate_password());
+    }
+
+    @Test
     public void shortPasswordEntered(){
         onView(ViewMatchers.withId(R.id.f_enter_email)).perform(scrollTo()).perform(ViewActions.typeText("hlub@gmail.com"));
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.f_enter_number)).perform(scrollTo()).perform(ViewActions.typeText("1234567"));
         closeSoftKeyboard();
-        onView(ViewMatchers.withId(R.id.f_reset_password)).perform(scrollTo()).perform(ViewActions.typeText("1234"));
+        onView(ViewMatchers.withId(R.id.f_reset_password)).perform(scrollTo()).perform(ViewActions.typeText("1233"));
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.f_enter_corfirm_password)).perform(scrollTo()).perform(ViewActions.typeText("1233"));
         closeSoftKeyboard();
@@ -123,6 +140,20 @@ public class forgot_passwordTest {
         assertFalse(forgot_password.validate_password());
     }
 
+    @Test
+    public void cshortPasswordEntered(){
+        onView(ViewMatchers.withId(R.id.f_enter_email)).perform(scrollTo()).perform(ViewActions.typeText("hlub@gmail.com"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.f_enter_number)).perform(scrollTo()).perform(ViewActions.typeText("1234567"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.f_reset_password)).perform(scrollTo()).perform(ViewActions.typeText("1233456"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.f_enter_corfirm_password)).perform(scrollTo()).perform(ViewActions.typeText("1233"));
+        closeSoftKeyboard();
+//        onView(ViewMatchers.withId(R.id.reset_button)).perform(scrollTo()).perform(ViewActions.click());
+
+        assertFalse(forgot_password.validate_password());
+    }
 //    @Test
 //    public void goBackBackToLogin(){
 //        Intent new_intent = new Intent();

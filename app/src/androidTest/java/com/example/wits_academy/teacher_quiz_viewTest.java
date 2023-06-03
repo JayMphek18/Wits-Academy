@@ -3,17 +3,14 @@ package com.example.wits_academy;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.contrib.DrawerActions.open;
-import static androidx.test.espresso.intent.Intents.getIntents;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
 
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.core.view.GravityCompat;
@@ -32,41 +29,39 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class student_quiz_viewTest {
+public class teacher_quiz_viewTest {
+
     @Rule
-    public ActivityTestRule<student_quiz_view> mActivityRule = new ActivityTestRule(student_quiz_view.class);
-    private student_quiz_view student_quiz;
+    public ActivityTestRule<teacher_quiz_view> mActivityRule = new ActivityTestRule(teacher_quiz_view.class);
+    private teacher_quiz_view teacher_quiz;
     private String courseName;
-    private String userNumber ;
-    String Role = "Student";
+    private String userNumber;
     private DrawerLayout drawerLayout;
+    LinearLayout course_list;
     private NavigationView navigationView;
     private Menu menu;
-    LinearLayout available_quizzes;
-    LinearLayout past_quizzes;
 
     @Before
     public void setUp() throws Exception {
-        student_quiz = mActivityRule.getActivity();
+        teacher_quiz = mActivityRule.getActivity();
 //        final NavigationViewActivity activity = mActivityRule.getActivity();
-        drawerLayout = student_quiz.findViewById(R.id.draw_layout);
-        navigationView = drawerLayout.findViewById(R.id.nav_s);
-        available_quizzes = student_quiz.findViewById(R.id.available);
-        past_quizzes = student_quiz.findViewById(R.id.past);
+        drawerLayout = teacher_quiz.findViewById(R.id.draw_layout);
+        navigationView = drawerLayout.findViewById(R.id.nav_t);
         menu = navigationView.getMenu();
-        userNumber = student_quiz.userNumber = "1234567";
-        courseName = student_quiz.courseName = "Advance Analysis";
-        Intents.init();
+        userNumber = teacher_quiz.userNumber = "1234567";
+        course_list = teacher_quiz.findViewById(R.id.quiz_view);
+        courseName = teacher_quiz.courseName = "Advance Analysis";
     }
 
     @Test
     public void testMenuItems(){
-        for (int i = 0 ; i < 5; i++){
+        for (int i = 0 ; i < 6; i++){
             MenuItem menuItem = menu.getItem(i);
-            if (i == 4){
+            if (i == 5){
                 SubMenu subMenu = menuItem.getSubMenu();
                 assertNotNull(subMenu.getItem(0));
                 assertNotNull(subMenu.getItem(1));
+                assertNotNull(subMenu.getItem(2));
             }
             assertNotNull(menuItem);
         }
@@ -74,37 +69,48 @@ public class student_quiz_viewTest {
     @Test
     public void clickedMenuItem3(){
         MenuItem menuItem = menu.getItem(3);
-        assertTrue(student_quiz.onNavigationItemSelected(menuItem));
+        assertTrue(teacher_quiz.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedSubMenuItem3(){
+        MenuItem menuItem = menu.getItem(5).getSubMenu().getItem(2);
+        assertTrue(teacher_quiz.onNavigationItemSelected(menuItem));
     }
     @Test
     public void clickedMenuItem2(){
         MenuItem menuItem = menu.getItem(2);
-        assertTrue(student_quiz.onNavigationItemSelected(menuItem));
+        assertTrue(teacher_quiz.onNavigationItemSelected(menuItem));
     }
     @Test
     public void clickedMenuItem1(){
         MenuItem menuItem = menu.getItem(1);
-        assertTrue(student_quiz.onNavigationItemSelected(menuItem));
+        assertTrue(teacher_quiz.onNavigationItemSelected(menuItem));
     }
     @Test
     public void clickedSubMenuItem0(){
-        MenuItem menuItem = menu.getItem(4).getSubMenu().getItem(0);
-        assertTrue(student_quiz.onNavigationItemSelected(menuItem));
+        MenuItem menuItem = menu.getItem(5).getSubMenu().getItem(0);
+        assertTrue(teacher_quiz.onNavigationItemSelected(menuItem));
     }
     @Test
     public void clickedSubMenuItem1(){
-        MenuItem menuItem = menu.getItem(4).getSubMenu().getItem(1);
-        assertTrue(student_quiz.onNavigationItemSelected(menuItem));
+        MenuItem menuItem = menu.getItem(5).getSubMenu().getItem(1);
+        assertTrue(teacher_quiz.onNavigationItemSelected(menuItem));
     }
     @Test
     public void clickedMenuItem0(){
         MenuItem menuItem = menu.getItem(0);
-        assertTrue(student_quiz.onNavigationItemSelected(menuItem));
+        assertTrue(teacher_quiz.onNavigationItemSelected(menuItem));
     }
+    @Test
+    public void clickedMenuItem4(){
+        MenuItem menuItem = menu.getItem(4);
+        assertTrue(teacher_quiz.onNavigationItemSelected(menuItem));
+    }
+
     @Test
     public void menuItemOneTest() throws Throwable {
         MenuItem menuItem = menu.getItem(0);
-        assertEquals(menuItem.getItemId(), R.id.announcements);
+        assertEquals(menuItem.getItemId(), R.id.Announcement);
         assertEquals(menuItem.getTitle(), "Announcements");
 //        Intent new_intent = new Intent(mActivityRule.getActivity(), profile.class);
 //        new_intent.putExtra("userNumber", userNumber);
@@ -113,13 +119,29 @@ public class student_quiz_viewTest {
 //        intending(toPackage(profile.class.getPackage().getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
 
-//                onView(ViewMatchers.withId(R.id.announcements)).perform(scrollTo()).perform(ViewActions.click());
+//        onView(ViewMatchers.withId(R.id.Announcement)).perform(scrollTo()).perform(ViewActions.click());
 
 //
     }
     @Test
     public void menuItemTwoTest() throws Throwable {
         MenuItem menuItem = menu.getItem(1);
+        assertEquals(menuItem.getItemId(), R.id.other_quizzes);
+        assertEquals(menuItem.getTitle(), "Past Quizzes");
+//        Intent new_intent = new Intent(mActivityRule.getActivity(), profile.class);
+//        new_intent.putExtra("userNumber", userNumber);
+//        new_intent.putExtra("has_image", "");
+//        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
+//        intending(toPackage(profile.class.getPackage().getName())).respondWith(result);
+        onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
+
+//        onView(ViewMatchers.withId(R.id.other_quizzes)).perform(scrollTo()).perform(ViewActions.click());
+
+//
+    }
+    @Test
+    public void menuItemThreeTest() throws Throwable {
+        MenuItem menuItem = menu.getItem(2);
         assertEquals(menuItem.getItemId(), R.id.back);
         assertEquals(menuItem.getTitle(), "Course Dashboard");
 //        Intent new_intent = new Intent(mActivityRule.getActivity(), profile.class);
@@ -129,13 +151,13 @@ public class student_quiz_viewTest {
 //        intending(toPackage(profile.class.getPackage().getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
 
-//                onView(ViewMatchers.withId(R.id.back)).perform(scrollTo()).perform(ViewActions.click());
+//        onView(ViewMatchers.withId(R.id.back)).perform(scrollTo()).perform(ViewActions.click());
 
 //
     }
     @Test
-    public void menuItemThreeTest() throws Throwable {
-        MenuItem menuItem = menu.getItem(2);
+    public void menuItemFourTest() throws Throwable {
+        MenuItem menuItem = menu.getItem(3);
         assertEquals(menuItem.getItemId(), R.id.logout);
         assertEquals(menuItem.getTitle(), "Logout");
 //        Intent new_intent = new Intent(mActivityRule.getActivity(), profile.class);
@@ -145,15 +167,16 @@ public class student_quiz_viewTest {
 //        intending(toPackage(profile.class.getPackage().getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
 
-//                onView(ViewMatchers.withId(R.id.logout)).perform(scrollTo()).perform(ViewActions.click());
+//        onView(ViewMatchers.withId(R.id.logout)).perform(scrollTo()).perform(ViewActions.click());
 
 //
     }
+
     @Test
-    public void menuItemFourTest() throws Throwable {
-        MenuItem menuItem = menu.getItem(3);
+    public void menuItemFiveTest() throws Throwable {
+        MenuItem menuItem = menu.getItem(4);
         assertEquals(menuItem.getItemId(), R.id.ViewUsers);
-        assertEquals(menuItem.getTitle(), "View participants");
+        assertEquals(menuItem.getTitle(), "View participants ");
 //        Intent new_intent = new Intent(mActivityRule.getActivity(), profile.class);
 //        new_intent.putExtra("userNumber", userNumber);
 //        new_intent.putExtra("has_image", "");
@@ -161,16 +184,18 @@ public class student_quiz_viewTest {
 //        intending(toPackage(profile.class.getPackage().getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
 
-//                onView(ViewMatchers.withId(R.id.ViewUsers)).perform(scrollTo()).perform(ViewActions.click());
+//        onView(ViewMatchers.withId(R.id.ViewUsers)).perform(scrollTo()).perform(ViewActions.click());
 
 //
     }
+
+
 
     @Test
     public void subMenuItemOneTest() throws Throwable {
-        MenuItem menuItem = menu.getItem(4).getSubMenu().getItem(0);
-        assertEquals(menuItem.getItemId(), R.id.courseHomeActivity);
-        assertEquals(menuItem.getTitle(), "Course Homepage");
+        MenuItem menuItem = menu.getItem(5).getSubMenu().getItem(0);
+        assertEquals(menuItem.getItemId(), R.id.course_slides);
+        assertEquals(menuItem.getTitle(), "Upload Documents");
 //        Intent new_intent = new Intent(mActivityRule.getActivity(), profile.class);
 //        new_intent.putExtra("userNumber", userNumber);
 //        new_intent.putExtra("has_image", "");
@@ -178,15 +203,32 @@ public class student_quiz_viewTest {
 //        intending(toPackage(profile.class.getPackage().getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
 
-//                onView(ViewMatchers.withId(R.id.courseHomeActivity)).perform(scrollTo()).perform(ViewActions.click());
+//        onView(ViewMatchers.withId(R.id.course_slides)).perform(scrollTo()).perform(ViewActions.click());
+
+//
+    }
+
+    @Test
+    public void subMenuItemTwoTest() throws Throwable {
+        MenuItem menuItem = menu.getItem(5).getSubMenu().getItem(1);
+        assertEquals(menuItem.getItemId(), R.id.videos);
+        assertEquals(menuItem.getTitle(), "Upload Videos");
+//        Intent new_intent = new Intent(mActivityRule.getActivity(), profile.class);
+//        new_intent.putExtra("userNumber", userNumber);
+//        new_intent.putExtra("has_image", "");
+//        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
+//        intending(toPackage(profile.class.getPackage().getName())).respondWith(result);
+        onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
+
+//        onView(ViewMatchers.withId(R.id.videos)).perform(scrollTo()).perform(ViewActions.click());
 
 //
     }
     @Test
-    public void subMenuItemTwoTest() throws Throwable {
-        MenuItem menuItem = menu.getItem(4).getSubMenu().getItem(1);
+    public void subMenuItemThreeTest() throws Throwable {
+        MenuItem menuItem = menu.getItem(5).getSubMenu().getItem(2);
         assertEquals(menuItem.getItemId(), R.id.quiz);
-        assertEquals(menuItem.getTitle(), "Quizzes");
+        assertEquals(menuItem.getTitle(), "Create Quiz");
 //        Intent new_intent = new Intent(mActivityRule.getActivity(), profile.class);
 //        new_intent.putExtra("userNumber", userNumber);
 //        new_intent.putExtra("has_image", "");
@@ -194,7 +236,7 @@ public class student_quiz_viewTest {
 //        intending(toPackage(profile.class.getPackage().getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
 
-//                onView(ViewMatchers.withId(R.id.quiz)).perform(scrollTo()).perform(ViewActions.click());
+//        onView(ViewMatchers.withId(R.id.quiz)).perform(scrollTo()).perform(ViewActions.click());
 
 //
     }
@@ -205,7 +247,7 @@ public class student_quiz_viewTest {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                student_quiz.onBackPressed();
+                teacher_quiz.onBackPressed();
             }
         });
         assertFalse(navigationView.isActivated());
@@ -216,14 +258,14 @@ public class student_quiz_viewTest {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                student_quiz.onBackPressed();
+                teacher_quiz.onBackPressed();
             }
         });
         assertFalse(navigationView.isActivated());
     }
 
     @Test
-    public void addAvailableQuiz() throws Throwable {
+    public void addViewGrades() throws Throwable {
         ArrayList<String> quizName = new ArrayList<>();
         ArrayList<String> marks = new ArrayList<>();
         quizName.add("Quiz 1");
@@ -237,51 +279,38 @@ public class student_quiz_viewTest {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ViewsClass.available_quizzes(student_quiz.getApplicationContext(), available_quizzes,
-                        quizName, marks,userNumber,courseName);
-                for (int i = 1; i < available_quizzes.getChildCount(); i++){
-                    View view = available_quizzes.getChildAt(i).findViewById(R.id.review_quiz);
-                    assertTrue(view.hasOnClickListeners());
-//                    Button back = student_quiz.findViewById(R.id.button);
-//                    back.performClick();
-                }
+                ViewsClass.quizzes(teacher_quiz.getApplicationContext(), course_list, quizName,marks,userNumber,courseName);
+                View view  = course_list.getChildAt(1);
+                View image = view.findViewById(R.id.grades);
+                image.performClick();
             }
         });
-        assertEquals(student_quiz.available_quizzes.getChildCount(), 5);
+        assertEquals(course_list.getChildCount(), 5);
     }
-
     @Test
-    public void addPastQuiz() throws Throwable {
+    public void deleteQuiz() throws Throwable {
         ArrayList<String> quizName = new ArrayList<>();
         ArrayList<String> marks = new ArrayList<>();
+        quizName.add("Quiz 1");
+        marks.add("100");
+        quizName.add("Quiz 2");
+        marks.add("100");
+        quizName.add("Quiz 3");
+        marks.add("100");
         quizName.add("Quiz 4");
-        marks.add("24");
-        quizName.add("Quiz 5");
-        marks.add("66");
-        quizName.add("Quiz 6");
-        marks.add("59");
-        quizName.add("Quiz 7");
-        marks.add("88");
-        quizName.add("Quiz 8");
-        marks.add("78");
+        marks.add("100");
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ViewsClass.past_quizzes(student_quiz.getApplicationContext(), past_quizzes,
-                        quizName, marks,userNumber,courseName);
-                for (int i = 1; i < past_quizzes.getChildCount(); i++){
-                    View view = past_quizzes.getChildAt(i).findViewById(R.id.review_quiz);
-                    view.performClick();
-
-                }
+                ViewsClass.quizzes(teacher_quiz.getApplicationContext(), course_list, quizName,marks,userNumber,courseName);
+                View view  = course_list.getChildAt(1);
+                View image = view.findViewById(R.id.imageView10);
+                image.performClick();
             }
         });
-        assertEquals(student_quiz.past_quizzes.getChildCount(), 6);
+        assertEquals(course_list.getChildCount(), 5);
     }
-
     @After
     public void tearDown() throws Exception {
-        student_quiz = null;
-        Intents.release();
     }
 }

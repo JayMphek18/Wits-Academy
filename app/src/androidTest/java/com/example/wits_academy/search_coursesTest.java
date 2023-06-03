@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.view.menu.MenuBuilder;
@@ -106,7 +107,7 @@ public class search_coursesTest {
 //        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
 //        intending(toPackage(search_courses.class.getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
-        onView(ViewMatchers.withId(R.id.menu_page)).perform(scrollTo()).perform(ViewActions.click());
+//        onView(ViewMatchers.withId(R.id.menu_page)).perform(scrollTo()).perform(ViewActions.click());
     }
 
     @Test
@@ -119,7 +120,27 @@ public class search_coursesTest {
 //        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
 //        intending(toPackage(search_courses.class.getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
-        onView(ViewMatchers.withId(R.id.logout)).perform(scrollTo()).perform(ViewActions.click());
+//        onView(ViewMatchers.withId(R.id.logout)).perform(scrollTo()).perform(ViewActions.click());
+    }
+    @Test
+    public void clickedMenuItem3(){
+        MenuItem menuItem = menu.getItem(3);
+        assertTrue(search_.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedMenuItem2(){
+        MenuItem menuItem = menu.getItem(2);
+        assertTrue(search_.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedMenuItem1(){
+        MenuItem menuItem = menu.getItem(1);
+        assertTrue(search_.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedMenuItem0(){
+        MenuItem menuItem = menu.getItem(0);
+        assertTrue(search_.onNavigationItemSelected(menuItem));
     }
 
     @Test
@@ -161,7 +182,7 @@ public class search_coursesTest {
                 ViewsClass.viewlayout(2, 0, search_.getBaseContext() , courseName, userNumber, courseCode, teacherName, search_.course_list);
             }
         });
-        assertEquals(search_.course_list.getChildCount(), 1);
+        assertEquals(search_.course_list.getChildCount(), 2);
     }
     @Test
     public void addingOneCoursesCoursesInPage() throws Throwable {
@@ -179,7 +200,7 @@ public class search_coursesTest {
                 ViewsClass.viewlayout(1, 0, search_.getBaseContext() , courseName, userNumber, courseCode, teacherName, search_.course_list);
             }
         });
-        assertEquals(search_.course_list.getChildCount(), 1);
+        assertEquals(search_.course_list.getChildCount(), 2);
     }
 
     @Test

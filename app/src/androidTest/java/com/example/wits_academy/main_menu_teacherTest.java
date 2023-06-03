@@ -239,7 +239,7 @@ public class main_menu_teacherTest {
 //    }
 
     @Test
-    public void menuItemOneTest(){
+    public void menuItemOneTest() throws Throwable {
         MenuItem menuItem = menu.getItem(0);
         assertEquals(menuItem.getItemId(), R.id.profile);
         assertEquals(menuItem.getTitle(), "View/Edit Profile");
@@ -249,11 +249,13 @@ public class main_menu_teacherTest {
 //        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
 //        intending(toPackage(profile.class.getPackage().getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
-//        onView(ViewMatchers.withId(R.id.profile)).perform(scrollTo()).perform(ViewActions.click());
+
+//                onView(ViewMatchers.withId(R.id.profile)).perform(scrollTo()).perform(ViewActions.click());
+//
     }
 
     @Test
-    public void menuItemTwoTest(){
+    public void menuItemTwoTest() throws Throwable {
         MenuItem menuItem = menu.getItem(1);
         assertEquals(menuItem.getItemId(), R.id.create);
         assertEquals(menuItem.getTitle(), "Create a new Course");
@@ -262,11 +264,14 @@ public class main_menu_teacherTest {
 //        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
 //        intending(toPackage(search_courses.class.getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
-//        onView(ViewMatchers.withId(R.id.create)).perform(scrollTo()).perform(ViewActions.click());
+
+//                onView(ViewMatchers.withId(R.id.create)).perform(scrollTo()).perform(ViewActions.click());
+
+//
     }
 
     @Test
-    public void menuItemThreeTest(){
+    public void menuItemThreeTest() throws Throwable {
         MenuItem menuItem = menu.getItem(2);
         assertEquals(menuItem.getItemId(), R.id.menu_page);
         assertEquals(menuItem.getTitle(), "Back to Menu");
@@ -275,11 +280,14 @@ public class main_menu_teacherTest {
 //        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
 //        intending(toPackage(search_courses.class.getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
-//        onView(ViewMatchers.withId(R.id.menu_page)).perform(scrollTo()).perform(ViewActions.click());
+
+//                onView(ViewMatchers.withId(R.id.menu_page)).perform(scrollTo()).perform(ViewActions.click());
+
+//
     }
 
     @Test
-    public void menuItemFourTest(){
+    public void menuItemFourTest() throws Throwable {
         MenuItem menuItem = menu.getItem(3);
         assertEquals(menuItem.getItemId(), R.id.logout);
         assertEquals(menuItem.getTitle(), "Logout");
@@ -288,8 +296,33 @@ public class main_menu_teacherTest {
 //        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, new_intent);
 //        intending(toPackage(search_courses.class.getName())).respondWith(result);
         onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
-//        onView(ViewMatchers.withId(R.id.logout)).perform(scrollTo()).perform(ViewActions.click());
+
+//                onView(ViewMatchers.withId(R.id.logout)).perform(scrollTo()).perform(ViewActions.click());
+
+//
     }
+
+    @Test
+    public void clickedMenuItem3(){
+        MenuItem menuItem = menu.getItem(3);
+        assertTrue(teacher.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedMenuItem2(){
+        MenuItem menuItem = menu.getItem(2);
+        assertTrue(teacher.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedMenuItem1(){
+        MenuItem menuItem = menu.getItem(1);
+        assertTrue(teacher.onNavigationItemSelected(menuItem));
+    }
+    @Test
+    public void clickedMenuItem0(){
+        MenuItem menuItem = menu.getItem(0);
+        assertTrue(teacher.onNavigationItemSelected(menuItem));
+    }
+    
     @Test
     public void Test() throws Exception{
         assertNotNull(teacher.course_list);
@@ -298,6 +331,11 @@ public class main_menu_teacherTest {
         assertNotNull(teacher.userNumber);
     }
 
+    @Test
+    public void create(){
+        View view = new View(teacher.getApplicationContext());
+        teacher.create(view);
+    }
 
     @After
     public void tearDown() throws Exception {

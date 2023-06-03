@@ -11,6 +11,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.*;
@@ -74,7 +75,7 @@ public class create_courseTest {
         assertTrue(create.filled_in());
     }
     @Test
-    public void noCourseName(){
+    public void noCourseName() throws Throwable {
         onView(ViewMatchers.withId(R.id.course_name)).perform(ViewActions.typeText(""));
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.course_code)).perform(ViewActions.typeText("MATH1005"));
@@ -87,7 +88,7 @@ public class create_courseTest {
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.confirm_c_password)).perform(ViewActions.typeText("1234567"));
         closeSoftKeyboard();
-
+                onView(ViewMatchers.withId(R.id.create_button)).perform(scrollTo()).perform(click());
         assertFalse(create.filled_in());
     }
 
@@ -179,45 +180,84 @@ public class create_courseTest {
 
         assertFalse(create.filled_in());
     }
+    @Test
+    public void cpasswordShort(){
+        onView(ViewMatchers.withId(R.id.course_name)).perform(ViewActions.typeText("MATH"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.course_code)).perform(ViewActions.typeText("MATH1005"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.course_school)).perform(ViewActions.typeText("School of Mathematics"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.course_faculty)).perform(ViewActions.typeText("Faculty of Science"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.course_password)).perform(ViewActions.typeText("12348888"));
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.confirm_c_password)).perform(ViewActions.typeText("1234"));
+        closeSoftKeyboard();
 
-//     @Test
-//     public void spinnerDisplay(){
-//         onView(withId(R.id.year_of_study)).perform(click());
-//         onData(anything()).atPosition(0).perform(click());
-// //        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("1 - First Year"))));
-//         assertEquals(create.year.toString(), "1");
-//         closeSoftKeyboard();
-//         onView(withId(R.id.year_of_study)).perform(click());
-//         onData(anything()).atPosition(1).perform(click());
-// //        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("2 - Second Year"))));
-//         assertEquals(create.year.toString(), "2");
-//         closeSoftKeyboard();
-//         onView(withId(R.id.year_of_study)).perform(click());
-//         onData(anything()).atPosition(2).perform(click());
-// //        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("3 - Third Year"))));
-//         assertEquals(create.year.toString(), "3");
-//         closeSoftKeyboard();
-//         onView(withId(R.id.year_of_study)).perform(click());
-//         onData(anything()).atPosition(3).perform(click());
-// //        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("4 - Forth Year"))));
-//         assertEquals(create.year.toString(), "4");
-//         closeSoftKeyboard();
-//         onView(withId(R.id.year_of_study)).perform(click());
-//         onData(anything()).atPosition(4).perform(click());
-// //        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("5 - Fifth Year"))));
-//         assertEquals(create.year.toString(), "5");
-//         closeSoftKeyboard();
-//         onView(withId(R.id.year_of_study)).perform(click());
-//         onData(anything()).atPosition(5).perform(click());
-// //        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("6 - Sixth Year"))));
-//         assertEquals(create.year.toString(), "6");
-//         closeSoftKeyboard();
-//         onView(withId(R.id.year_of_study)).perform(click());
-//         onData(anything()).atPosition(6).perform(click());
-// //        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("7 - Seventh Year"))));
-//         assertEquals(create.year.toString(), "7");
-//         closeSoftKeyboard();
-//     }
+        assertFalse(create.filled_in());
+    }
+
+    @Test
+    public void spinnerDisplay(){
+        onView(withId(R.id.year_of_study)).perform(click());
+        onData(anything()).atPosition(0).perform(click());
+//        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("1 - First Year"))));
+        assertEquals(create.year.toString(), "1");
+        closeSoftKeyboard();
+        onView(withId(R.id.year_of_study)).perform(click());
+        onData(anything()).atPosition(1).perform(click());
+//        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("2 - Second Year"))));
+        assertEquals(create.year.toString(), "2");
+        closeSoftKeyboard();
+        onView(withId(R.id.year_of_study)).perform(click());
+        onData(anything()).atPosition(2).perform(click());
+//        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("3 - Third Year"))));
+        assertEquals(create.year.toString(), "3");
+        closeSoftKeyboard();
+        onView(withId(R.id.year_of_study)).perform(click());
+        onData(anything()).atPosition(3).perform(click());
+//        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("4 - Forth Year"))));
+        assertEquals(create.year.toString(), "4");
+        closeSoftKeyboard();
+        onView(withId(R.id.year_of_study)).perform(click());
+        onData(anything()).atPosition(4).perform(click());
+//        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("5 - Fifth Year"))));
+        assertEquals(create.year.toString(), "5");
+        closeSoftKeyboard();
+        onView(withId(R.id.year_of_study)).perform(click());
+        onData(anything()).atPosition(5).perform(click());
+//        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("6 - Sixth Year"))));
+        assertEquals(create.year.toString(), "6");
+        closeSoftKeyboard();
+        onView(withId(R.id.year_of_study)).perform(click());
+        onData(anything()).atPosition(6).perform(click());
+//        onView(withId(R.id.year_of_study)).perform(scrollTo()).check(matches(withSpinnerText(containsString("7 - Seventh Year"))));
+        assertEquals(create.year.toString(), "7");
+        closeSoftKeyboard();
+    }
+
+    @Test
+    public void backPressOpen() throws Throwable {
+        onView(withId(R.id.draw_layout)).perform(open(GravityCompat.START));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                create.onBackPressed();
+            }
+        });
+        assertFalse(navigationView.isActivated());
+    }
+    @Test
+    public void backPressClosed() throws Throwable {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                create.onBackPressed();
+            }
+        });
+        assertFalse(navigationView.isActivated());
+    }
 
     @Test
     public void testMenuItems(){
