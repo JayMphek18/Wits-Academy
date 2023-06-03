@@ -121,7 +121,7 @@ public class student_quiz_view extends AppCompatActivity implements NavigationVi
                 intent.putExtra("Role","Student");
                 startActivity(intent);
             case R.id.courseHomeActivity:
-                Intent intent5 = new Intent(this,courseHomeActivity.class);
+                Intent intent5 = new Intent(this,student_course_view.class);
                 intent5.putExtra("courseName",courseName);
                 intent5.putExtra("userNumber",userNumber);
                 startActivity(intent5);
